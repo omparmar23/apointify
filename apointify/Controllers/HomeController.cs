@@ -63,7 +63,6 @@ namespace apointify.Controllers
             restRequest.RequestFormat = DataFormat.Json;
 
             RestResponse response = client.Execute(restRequest);
-
             var content = response.Content;
             if (content != null)
             {
