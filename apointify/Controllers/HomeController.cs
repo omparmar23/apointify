@@ -1,12 +1,30 @@
 ﻿using apointify.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using RestSharp;
+using System.Data;
 using System.Diagnostics;
+using System.Net;
+using Method = RestSharp.Method;
 
 namespace apointify.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+
+        OmParmarContext _dbcontext = new OmParmarContext();
+
+        HttpClient hc = new HttpClient();
+        private static List<UsersTable> userdetail = new List<UsersTable>();
+        private static List<Employee> EmployeeDetailList = new List<Employee>();
+        RestClient client;
+
+        private string apiBaseUrl = "https://localhost:7248/api";
+
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -18,6 +36,43 @@ namespace apointify.Controllers
             return View();
         }
 
+        public IActionResult UserTable()
+        {
+            RestClient client = new RestClient(apiBaseUrl);
+            var restRequest = new RestRequest("/GetUserDetails", Method.Get);
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+
+            RestResponse response = client.Execute(restRequest);
+
+            var content = response.Content;
+            if (content != null)
+            {
+                var user = JsonConvert.DeserializeObject<ServiceResponse<List<UsersTable>>>(content);
+                userdetail = user.data;
+                
+            }
+            return View(userdetail);
+        }
+
+        public IActionResult EmployeeTable()
+        {
+            RestClient client = new RestClient(apiBaseUrl);
+            var restRequest = new RestRequest("/GetEmployeeData", Method.Get);
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+
+            RestResponse response = client.Execute(restRequest);
+
+            var content = response.Content;
+            if (content != null)
+            {
+                var user = JsonConvert.DeserializeObject<ServiceResponse<List<Employee>>>(content);
+                EmployeeDetailList = user.data;
+
+            }
+            return View(EmployeeDetailList);
+        }
         public IActionResult Privacy()
         {
             return View();
