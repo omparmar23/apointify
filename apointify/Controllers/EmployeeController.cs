@@ -1,15 +1,21 @@
 ﻿using apointify.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace apointify.Controllers
 {
-  
+
     public class EmployeeController : ControllerBase
     {
         OmParmarContext DBEntities = new OmParmarContext();
-        [HttpGet, Route("api/GetEmployeeData")]
 
+
+
+
+
+
+        [HttpGet, Route("api/EmployeeData")]
         public ServiceResponse<List<Employee>> GetEmployeeData()
         {
             ServiceResponse<List<Employee>> serviceReponse = new ServiceResponse<List<Employee>>();
@@ -32,5 +38,18 @@ namespace apointify.Controllers
             }
             return serviceReponse;
         }
+
+
+        [HttpPost, Route("api/UpateEmployeeData")]
+
+         <List<Employee>> AddDetails = new <List<Employee>>
+
+
+
+
+
+
+
+
     }
 }

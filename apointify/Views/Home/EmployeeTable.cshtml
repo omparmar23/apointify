@@ -53,8 +53,42 @@
                 <td class="d-flex justify-content-evenly flex-row">
                     <a class="btn btn-primary col-4" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     <a class="btn btn-danger col-4" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                </td>   
             </tr>
         }
     </tbody>
 </table>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="card col-md-3 m-5 p-0">
+                <div class="card-header">
+                   <h3> @Html.DisplayFor(modelItem => item.Name)</h3>
+                </div>
+                <div class="card-body d-flex flex-column align-items-center">
+                    <div class="col-12 d-flex flex-row">
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Age ) :-
+                    </h4>
+                    <h4>
+                        &nbsp;@Html.DisplayFor(modelItem => item.Age)
+                    </h4>
+                    </div>
+                    <div class="col-12 d-flex flex-row">
+                    <h4>
+                        @Html.DisplayNameFor(model => model.Salary ) :-
+                    </h4>
+                    <h4>
+                        &nbsp;@Html.DisplayFor(modelItem => item.Salary)
+                    </h4>
+                    </div>
+                </div>
+                <div class="card-footer text-end">
+                    <a class="btn btn-success">Book Now</a>    
+                </div>
+            </div>
+        }
+    </div>
+</div>
