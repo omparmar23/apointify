@@ -58,12 +58,11 @@ namespace apointify.Controllers
         public IActionResult EmployeeTable()
         {
             RestClient client = new RestClient(apiBaseUrl);
-            var restRequest = new RestRequest("/GetEmployeeData", Method.Get);
+            var restRequest = new RestRequest("/EmployeeData", Method.Get);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
 
             RestResponse response = client.Execute(restRequest);
-
             var content = response.Content;
             if (content != null)
             {
@@ -77,11 +76,21 @@ namespace apointify.Controllers
         {
             return View();
         }
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+        public IActionResult login()
+        {
+            return View();
         }
     }
 }
