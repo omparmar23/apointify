@@ -7,15 +7,12 @@
 
 <h1>EmployeeTable</h1>
 
-<p>
+@*<p>
     <a class="btn btn-success" asp-action="Create">Create New</a>
-</p>
-<table class="table table-bordered table-hover table-striped table-secondary">
+</p>*@
+<table class="col-form-label-sm table table-bordered table-hover table-responsive table-secondary table-striped">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -36,9 +33,6 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
@@ -50,10 +44,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Department)
                 </td>
-                <td class="d-flex justify-content-evenly flex-row">
-                    <a class="btn btn-primary col-4" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a class="btn btn-danger col-4" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>   
+             <td class="d-flex justify-content-evenly flex-row">
+                    <a class="btn btn-primary col-sm-4" asp-action="Edit" asp-route-id="@item.Id"><i class="fa-solid fa-pen"></i></a>
+                    <a class="btn btn-danger col-sm-4" asp-action="Delete" asp-route-id="@item.Id"><i class="fa-solid fa-trash"></i></a>
+                </td> 
             </tr>
         }
     </tbody>
@@ -63,7 +57,7 @@
     <div class="row">
         @foreach (var item in Model)
         {
-            <div class="card col-md-3 m-5 p-0">
+            <div class="card col-md-3 m-sm-5 mb-2 p-0">
                 <div class="card-header">
                    <h3> @Html.DisplayFor(modelItem => item.Name)</h3>
                 </div>
@@ -83,6 +77,14 @@
                     <h4>
                         &nbsp;@Html.DisplayFor(modelItem => item.Salary)
                     </h4>
+                    </div>
+                    <div class="col-12 d-flex flex-row">
+                        <h4>
+                            @Html.DisplayNameFor(model => model.Department ) :-
+                        </h4>
+                        <h4>
+                            &nbsp;@Html.DisplayFor(modelItem => item.Department)
+                        </h4>
                     </div>
                 </div>
                 <div class="card-footer text-end">

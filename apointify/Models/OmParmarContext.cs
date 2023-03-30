@@ -23,6 +23,8 @@ public partial class OmParmarContext : DbContext
 
     public virtual DbSet<Customer> Customers { get; set; }
 
+    public virtual DbSet<DatabaseImageTable> DatabaseImageTables { get; set; }
+
     public virtual DbSet<DateAndTime> DateAndTimes { get; set; }
 
     public virtual DbSet<Employee> Employees { get; set; }
@@ -145,6 +147,18 @@ public partial class OmParmarContext : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<DatabaseImageTable>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("DatabaseImageTable");
+
+            entity.Property(e => e.Image).HasColumnName("image");
+            entity.Property(e => e.ImageName)
+                .HasMaxLength(100)
+                .HasColumnName("image name");
+        });
+
         modelBuilder.Entity<DateAndTime>(entity =>
         {
             entity
@@ -168,9 +182,7 @@ public partial class OmParmarContext : DbContext
 
             entity.HasIndex(e => e.Id, "Test");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Age).HasColumnName("age");
             entity.Property(e => e.Department)
                 .HasMaxLength(15)
