@@ -37,6 +37,31 @@ namespace apointify.Controllers
         }
 
 
+        [HttpGet, Route("api/EmployeeData/{id:int}")]
+        public Employee GetIdWiseEmployeeData(int Id)
+        {
+            ServiceResponse<List<Employee>> serviceReponse = new ServiceResponse<List<Employee>>();
+            Employee dbObject = DBEntities.Employees.Where(m => m.Id == Id).FirstOrDefault();
+            //List<Employee> employeeList = new List<Employee>();
+            //employeeList.Add(dbObject);
+            //try
+            //{
+            //    serviceReponse.data = employeeList;
+            //    serviceReponse.status_code = "200";
+            //    //serviceReponse.message = "Exception: " + ex.Message.ToString();
+
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    //serviceReponse.data = false;
+            //    serviceReponse.status_code = "404";
+            //    serviceReponse.message = "Exception: " + ex.Message.ToString();
+
+            //}
+            return dbObject;
+        }
+
         [HttpPost, Route("api/AddEmployeeData")]
         public ServiceResponse<List<EmployeeVM>> CreateEmployee(EmployeeVM employee)
         {
@@ -70,7 +95,7 @@ namespace apointify.Controllers
         }
 
 
-        [HttpPut, Route("api/UpdateEmployeeData")]
+        [HttpPut, Route("api/UpdateEmployeeData/{id:int}")]
         public ServiceResponse<bool> UpdateEmployee(EmployeeVM employee)
         {
             ServiceResponse<bool> serviceReponse = new ServiceResponse<bool>();
