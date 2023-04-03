@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/apointify.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
     <header>
@@ -23,9 +24,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @*<li class="nav-item">
-                            <a class="nav-link  text-white" asp-area="" asp-controller="Home" asp-action="UserTable">UserDetail</a>
-                        </li>*@
+                        
                         <li class="nav-item">
                             <a class="nav-link  text-white" asp-area="" asp-controller="Home" asp-action="EmployeeTable">EmployeeTable</a>
                         </li>
@@ -43,7 +42,7 @@
                         </li>
                     </ul>
                    <div class="col-md-4 d-flex justify-content-end">
-                        <a class="w-50 nav-link  text-white btn btn-primary" asp-area="" asp-controller="Home" asp-action="">Login / sign up</a>
+                        <a class="w-50 nav-link  text-white btn btn-primary" asp-area="" asp-controller="Home">Login / sign up</a>
                     </div>
                 </div>
             </div>
@@ -63,6 +62,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @RenderSection("Script", required: false)
 </body>
 </html>

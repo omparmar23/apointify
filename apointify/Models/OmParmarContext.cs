@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using apointify.VirtualModels;
 
 namespace apointify.Models;
 
@@ -417,4 +418,6 @@ public partial class OmParmarContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    public DbSet<apointify.VirtualModels.EmployeeVM> EmployeeVM { get; set; } = default!;
 }

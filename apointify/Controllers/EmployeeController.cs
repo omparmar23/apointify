@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
+
+
+
 namespace apointify.Controllers
 {
 
@@ -42,26 +46,9 @@ namespace apointify.Controllers
         {
             ServiceResponse<List<Employee>> serviceReponse = new ServiceResponse<List<Employee>>();
             Employee dbObject = DBEntities.Employees.Where(m => m.Id == Id).FirstOrDefault();
-            //List<Employee> employeeList = new List<Employee>();
-            //employeeList.Add(dbObject);
-            //try
-            //{
-            //    serviceReponse.data = employeeList;
-            //    serviceReponse.status_code = "200";
-            //    //serviceReponse.message = "Exception: " + ex.Message.ToString();
-
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    //serviceReponse.data = false;
-            //    serviceReponse.status_code = "404";
-            //    serviceReponse.message = "Exception: " + ex.Message.ToString();
-
-            //}
+           
             return dbObject;
         }
-
         [HttpPost, Route("api/AddEmployeeData")]
         public ServiceResponse<List<EmployeeVM>> CreateEmployee(EmployeeVM employee)
         {
@@ -95,6 +82,7 @@ namespace apointify.Controllers
         }
 
 
+        //[HttpPost, Route("api/UpdateEmployeeData/{id:int}")]
         [HttpPut, Route("api/UpdateEmployeeData/{id:int}")]
         public ServiceResponse<bool> UpdateEmployee(EmployeeVM employee)
         {
@@ -113,7 +101,7 @@ namespace apointify.Controllers
                 {
                     dbObject.Salary = employee.Salary;
                     dbObject.Age = employee.Age;
-                    dbObject.Name= employee.Name;
+                    dbObject.Name = employee.Name;
                     dbObject.Department = employee.Department;
 
                     DBEntities.SaveChanges();

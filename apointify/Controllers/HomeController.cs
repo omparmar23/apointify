@@ -1,14 +1,17 @@
 ﻿using apointify.Models;
+using apointify.VirtualModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Data;
 using System.Diagnostics;
 using System.Net;
+using System.Net.Http.Json;
 using System.Reflection;
 using System.Text;
 using Method = RestSharp.Method;
@@ -40,37 +43,40 @@ namespace apointify.Controllers
         }
 
 
-        public IActionResult apiCall()
+        public IActionResult apiCall(int Id)
         {
-            return View();
-        }
-
-        public IActionResult UserTable()
-        {
-            RestClient client = new RestClient(apiBaseUrl);
-            var restRequest = new RestRequest("/GetUserDetails", Method.Get);
-            restRequest.AddHeader("Accept", "application/json");
-            restRequest.RequestFormat = DataFormat.Json;
-
-            RestResponse response = client.Execute(restRequest);
-
-            var content = response.Content;
-            if (content != null)
+            if (Id > 0)
             {
-                var user = JsonConvert.DeserializeObject<ServiceResponse<List<UsersTable>>>(content);
-                userdetail = user.data;
-                
-            }
-            return View(userdetail);
-        }
+                OmParmarContext DBEntities = new OmParmarContext();
+                Employee dbObject = DBEntities.Employees.Where(m => m.Id == Id).FirstOrDefault();
+                return View(dbObject);
 
+            }
+            else
+            {
+                RestClient client = new RestClient(apiBaseUrl);
+                var restRequest = new RestRequest("/AddEmployeeData", Method.Post);
+                restRequest.AddHeader("Accept", "application/json");
+                restRequest.RequestFormat = DataFormat.Json;
+                RestResponse response = client.Execute(restRequest);
+                var content = response.Content;
+                if (content != null)
+                {
+                    var user = JsonConvert.DeserializeObject<ServiceResponse<List<Employee>>>(content);
+                    EmployeeDetailList = user.data;
+
+                }
+                return View(EmployeeDetailList);
+            }
+
+
+        }
         public IActionResult EmployeeTable()
         {
             RestClient client = new RestClient(apiBaseUrl);
             var restRequest = new RestRequest("/EmployeeData", Method.Get);
             restRequest.AddHeader("Accept", "application/json");
             restRequest.RequestFormat = DataFormat.Json;
-
             RestResponse response = client.Execute(restRequest);
             var content = response.Content;
             if (content != null)
@@ -80,9 +86,6 @@ namespace apointify.Controllers
 
             }
             return View(EmployeeDetailList);
-
-
-
         }
 
         public IActionResult GetOneEmplyoee()
@@ -90,21 +93,15 @@ namespace apointify.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult GetIdWiseEmployeeData(int Id)
+        public IActionResult GetData(int Id)
         {
-            RestClient client = new RestClient(apiBaseUrl);
-            var restRequest = new RestRequest("/EmployeeData/" + Id, Method.Get);
-            restRequest.AddHeader("Accept", "application/json");
-            restRequest.RequestFormat = DataFormat.Json;
-
-            RestResponse response = client.Execute(restRequest);
-
-            var content = response.Content;
-            
-            return View(content);
+            OmParmarContext DBEntities = new OmParmarContext();
+            ServiceResponse<List<Employee>> serviceReponse = new ServiceResponse<List<Employee>>();
+            Employee dbObject = DBEntities.Employees.Where(m => m.Id == Id).FirstOrDefault();
+            return View(dbObject);
         }
-        
+
+
 
         public IActionResult Privacy()
         {
@@ -115,6 +112,17 @@ namespace apointify.Controllers
             return View();
         }
 
+
+
+        public IActionResult editData(int Id)
+        {
+
+
+
+
+            return View(Id);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -122,6 +130,19 @@ namespace apointify.Controllers
         }
 
 
-     
+
+        public IActionResult UpdateEmployee(EmployeeVM employee)
+        {
+            OmParmarContext DBEntities = new OmParmarContext();
+            Employee dbObject = DBEntities.Employees.Where(m => m.Id == employee.Id).FirstOrDefault();
+            dbObject.Salary = employee.Salary;
+            dbObject.Age = employee.Age;
+            dbObject.Name = employee.Name;
+            dbObject.Department = employee.Department;
+            DBEntities.SaveChanges();
+
+            return RedirectToAction("EmployeeTable");
+
+        }
     }
 }

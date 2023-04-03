@@ -1,5 +1,13 @@
-﻿<form>
-    <div class="card">
+﻿@model apointify.VirtualModels.EmployeeVM
+
+@{
+    ViewData["Title"] = "apiCall";
+    //Layout = "~/Views/Home/Login.cshtml";
+}
+
+
+<form>
+    <div class="card w-50 m-auto mt-5">
         <div class="card-header">
             <h1>sign in /sign up</h1>
         </div>
@@ -13,7 +21,7 @@
 
                 <div class="form-group">
                     <label for="exampleInputPassword1">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Full Name">
+                    <input asp-for="Name" type="text" class="form-control" id="name" placeholder="Full Name">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Age</label>
@@ -27,30 +35,27 @@
                     <label for="exampleInputPassword1">Department</label>
                     <input type="text" class="form-control" id="department" placeholder="Department">
                 </div>
-                <button type="button" id="submit" class="btn btn-primary">Submit</button>
+                <a type="button" id="submit" class="btn btn-primary">Submit</a>
             </form>
         </div>
     </div>
 </form>
 @section Script{
     <script>
-
         $("#submit").click(function () {
 
             var name = $("#name").val()
             var age = $("#age").val()
             var salary = $("#salary").val()
             var department = $("#department").val()
-
-
+            
+            
             var data = new FormData();
             data.append("name", name);
             data.append("age", age);
             data.append("salary", salary);
             data.append("department", department);
             console.log(data)
-
-
 
             $.ajax({
                 url: '@Url.Action("CreateEmployee", "Employee")',
