@@ -114,14 +114,7 @@ namespace apointify.Controllers
 
 
 
-        public IActionResult editData(int Id)
-        {
-
-
-
-
-            return View(Id);
-        }
+      
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

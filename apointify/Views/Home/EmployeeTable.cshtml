@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-white mb-5">EmployeeTable</h1>
+<h1 class="text-secondary mb-5">EmployeeTable</h1>
 
 @*<p>
     <a class="btn btn-success" asp-action="Create">Create New</a>
@@ -16,7 +16,7 @@
     <div class="row">
         @foreach (var item in Model)
         {
-            <div class="card col-md-3 m-sm-5 mb-2 p-0">
+            <div class="card col-md-3 m-sm-5 mb-2 p-0 bg-white">
                 <div class="card-header">
                     <h3> @Html.DisplayFor(modelItem => item.Name)</h3>
                 </div>
@@ -122,63 +122,5 @@
                     })
                 }
             }
-          //function updateData(id){
-          //      $.ajax({
-          //          url: "https://localhost:7248/Home/apiCall/" + id,
-          //          type: 'GET',
-          //          //data:id,
-          //          success: function () {
-          //              //window.location.href = '@Url.Action("EmployeeTable","Home")';
-          //          }
-
-          //      })
-          //}
-
-            //function update(id) {
-            //    $.ajax({
-            //        url: "https://localhost:7248/api/EmployeeData/" + id,
-            //        type: 'GET',
-            //        dataType: "json",
-            //        success: function (data) {
-            //            console.log(data)
-            //            $("#uid").val(data.id)
-            //            $("#uname").val(data.name)
-            //            $("#uage").val(data.age)
-            //            $("#usalary").val(data.salary)             
-            //            $("#udepartment").val(data.department)
-            //        }
-
-            //    });
-            //}
-
-
-            //$("#update").click(function () {
-
-            //    uname = $("#uname").val()
-            //    uage = $("#uage").val()
-            //    usalary = $("#usalary").val()
-            //    udepartment = $("#udepartment").val()
-            //    updateddata = {
-            //        "name": uname,
-            //        "salary": usalary,
-            //        "department": udepartment,
-            //        "age": uage,
-            //    }
-
-            //    $.ajax({
-            //        url: "https://localhost:7248/api/UpdateEmployeeData/" + id,
-            //        type: 'PUT',
-            //        data: updateddata,
-            //        dataType: "text",
-            //        success: function () {
-
-            //            window.location.href = '@Url.Action("EmployeeTable","Home")';
-            //        }
-            //    });
-
-
-
-            //})
-
         </script>
     }
