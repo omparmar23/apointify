@@ -17,18 +17,12 @@ namespace apointify.Controllers
            
             return View(Customer);
         }
-
-
         [HttpGet, Route("Customer/Edit")]
         public  IActionResult Edit(int Id) 
         {
-
             Customer dbObject = dbEntities.Customers.Where(m => m.CustomerId == Id).FirstOrDefault();
-
-
             return View(dbObject);
         }
-
         //[HttpPost, Route("Customer/EditData")]
         public IActionResult EditData(CustomerVM customer)
         {
@@ -63,8 +57,6 @@ namespace apointify.Controllers
             }
             return RedirectToAction("Index");
         }
-
-
         public IActionResult Delete(int Id)
         {
 
@@ -72,15 +64,11 @@ namespace apointify.Controllers
             dbEntities.Customers.Remove(dbObject);
             dbEntities.SaveChanges();
 
-
             return RedirectToAction("Index");
         }
-
-
         public IActionResult Details(int Id)
         {
             Customer dbObject = dbEntities.Customers.Where(m => m.CustomerId == Id).FirstOrDefault();
-
             return View(dbObject);
         }
     }
