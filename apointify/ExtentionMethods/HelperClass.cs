@@ -72,6 +72,26 @@ namespace apointify.ExtentionMethods
             };
         }
 
+        public static Customer ToContext(this CustomerVM obj)
+        {
+            return new Customer()
+            {
+                CustomerId = obj.CustomerId,
+                FirstName = obj.FirstName,
+                LastName = obj.LastName,
+                MobileNo = obj.MobileNo,
+                BirthDate = obj.BirthDate,
+                UserName = obj.UserName,
+                UserEmailAddress = obj.UserEmailAddress,
+                Password = obj.Password,
+                HomeAddress = obj.HomeAddress,
+                City = obj.City,
+                State = obj.State,
+                Zipcode = obj.Zipcode,
+                InsertedDate = obj.InsertedDate,
+            };
+        }
+
 
     }
 };
