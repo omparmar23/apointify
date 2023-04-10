@@ -73,7 +73,7 @@ namespace apointify.ExtentionMethods
             };
         }
 
-        public static Customer ToContext(this CustomerVM obj)
+       /* public static Customer ToContext(this CustomerVM obj)
         {
             return new Customer()
             {
@@ -91,7 +91,7 @@ namespace apointify.ExtentionMethods
                 Zipcode = obj.Zipcode,
                 InsertedDate = obj.InsertedDate,
             };
-        }
+        }*/
 
 
 
