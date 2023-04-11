@@ -7,10 +7,13 @@ using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 //using Microsoft.Extensions.DependencyInjection;
 //using ServiceProvider = Microsoft.Extensions.DependencyInjection.ServiceProvider;
 
-namespace apointify.Controllers
+namespace apointify.ExtentionMethods
 {
     public class ServiceProviderController : Controller
     {
+
+
+
         OmParmarContext DBEntities = new OmParmarContext();
         public IActionResult Index()
         {
@@ -24,7 +27,7 @@ namespace apointify.Controllers
         }
         public IActionResult Delete(int Id)
         {
-            
+
             var DbContext = DBEntities.ServiceProviders.Where(m => m.FirmId == Id).FirstOrDefault();
             DbContext.IsDeleted = true;
             DBEntities.SaveChanges();
@@ -34,13 +37,13 @@ namespace apointify.Controllers
         public IActionResult EditData(ServiceProviderVM serviceProviderVM)
         {
             var DbContext = DBEntities.ServiceProviders.Where(m => m.FirmId == serviceProviderVM.FirmId).FirstOrDefault();
-            if(serviceProviderVM.FirmId == 0)
+            if (serviceProviderVM.FirmId == 0)
             {
                 ServiceProviderVM serviceProvider = new ServiceProviderVM();
                 serviceProviderVM.FirmId = new int();
                 serviceProviderVM.FirmName = serviceProvider.FirmName;
                 serviceProviderVM.FirmOwnerName = serviceProvider.FirmOwnerName;
-                serviceProviderVM.Address = serviceProvider.Address;    
+                serviceProviderVM.Address = serviceProvider.Address;
                 serviceProviderVM.Email = serviceProvider.Email;
                 serviceProviderVM.City = serviceProvider.City;
                 serviceProviderVM.UpdatedDate = serviceProvider.UpdatedDate;
@@ -48,9 +51,9 @@ namespace apointify.Controllers
                 serviceProviderVM.Password = serviceProvider.Password;
                 serviceProviderVM.ServiceType = serviceProvider.ServiceType;
                 serviceProviderVM.Service = serviceProvider.Service;
-                serviceProviderVM.Username  = serviceProvider.Username;
+                serviceProviderVM.Username = serviceProvider.Username;
                 DBEntities.SaveChanges();
-                
+
             }
             else
             {
@@ -68,10 +71,10 @@ namespace apointify.Controllers
                 DbContext.Username = serviceProviderVM.Username;
                 DBEntities.SaveChanges();
             }
-            
-                
-                
-                return RedirectToAction("Index");
+
+
+
+            return RedirectToAction("Index");
         }
         public IActionResult Details(int Id)
         {
