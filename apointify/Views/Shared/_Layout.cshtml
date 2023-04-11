@@ -1,4 +1,7 @@
-﻿
+﻿@*@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager;*@
+@inject IHttpContextAccessor _contx;
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,13 +27,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link  text-white" asp-area="" asp-controller="Home" asp-action="EmployeeTable">EmployeeTable</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  text-white" asp-area="" asp-controller="Home" asp-action="apiCall">Add Employee</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link  text-white" asp-area="" asp-controller="Customer" asp-action="Index">Customers</a>
                         </li>
@@ -38,14 +34,17 @@
                             <a class="nav-link  text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link  text-white" asp-area="" asp-controller="ServiceProvider" asp-action="Index">About Us</a>
+                            <a class="nav-link  text-white" asp-area="" asp-controller="order" asp-action="Index">Apointment</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link  text-white" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  text-white" asp-area="" asp-controller="ServiceProvider" asp-action="Index">ServiceProvider</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  text-white" asp-area="" asp-controller="Login" asp-action="Index">ServiceProvider</a>
-                        </li>
+                        @*@if ()*@
+                       <li class="nav-item">
+                          <a class="nav-link  text-white" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                          <a class="nav-link  text-white" asp-area="">@_contx.HttpContext.Session.GetString("User")</a>
+                       </li>
+                    
                     </ul>
                    <div class="col-md-4 d-flex justify-content-end">
                         <a class="w-50 nav-link text-white btn btn-primary" asp-area="" asp-controller="Login" asp-action="Index">Login / sign up</a>

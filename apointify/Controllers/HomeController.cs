@@ -1,6 +1,7 @@
 ﻿using apointify.Models;
 using apointify.VirtualModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
@@ -21,7 +22,7 @@ namespace apointify.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+        private readonly SignInManager<User> _signInManager;
         OmParmarContext _dbcontext = new OmParmarContext();
 
         HttpClient hc = new HttpClient();
@@ -32,14 +33,38 @@ namespace apointify.Controllers
         private string apiBaseUrl = "https://localhost:7248/api";
 
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        private readonly IHttpContextAccessor _contx;
 
+
+        public HomeController(IHttpContextAccessor httpContextAccessor)
+        {
+            _contx = httpContextAccessor;
+        }
+        [HttpGet]
         public IActionResult Index()
         {
+
+            //if (user.Email == null && user.Password == null)
+            //{
+            //_contx.HttpContext.Session.SetString("User","none");
+            //_contx.HttpContext.Session.SetInt32("UserId",0);
+
+            //}
+            //else
+            //{
+            //    _contx.HttpContext.Session.SetString("User", user.Email);
+            //    _contx.HttpContext.Session.SetString("UserId", user.Password);
+            //}
+
             return View();
+        }
+
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Index");
         }
 
 

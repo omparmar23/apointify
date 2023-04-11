@@ -11,6 +11,13 @@ namespace apointify.Controllers
             return View();
         }
 
+
+
+        public IActionResult create()
+        {
+            return View();
+        }
+
         //string Constr = "Data Source=192.168.0.33;Initial Catalog=Om Parmar;User ID=trainee;Password=Admin@123;Trusted_Connection=false";
 
         //SqlConnection xyz = new SqlConnection(Constr);

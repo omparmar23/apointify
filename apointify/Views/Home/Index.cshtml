@@ -1,13 +1,21 @@
-﻿@{
+﻿@inject IHttpContextAccessor _contx;
+
+
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
+<h1>
+    @_contx.HttpContext.Session.GetString("User")
+</h1>
+<h1>
+    @_contx.HttpContext.Session.GetString("UserId")
 
+</h1>
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
 
-    @* <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    *@
+   
     <div class="carousel-inner ">
         <div class="carousel-item active">
             <div class="container-fluid">
@@ -73,7 +81,7 @@
         </div>
         
             <p class="btn text-dark fs-4 col-md-4 m-auto"></p>
-            <a class="btn text-dark fs-4 col-md-4 m-auto" asp-area="" asp-controller="Customer" asp-action="Index">Customers</a>
+          
        
     </div>
     <div class="border-0 col-md-4">
