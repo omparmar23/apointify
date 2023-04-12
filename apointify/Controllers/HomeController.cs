@@ -128,14 +128,8 @@ namespace apointify.Controllers
 
 
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-        public IActionResult AboutUs()
-        {
-            return View();
-        }
+       
+       
 
 
 
