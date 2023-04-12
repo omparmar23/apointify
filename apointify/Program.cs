@@ -4,8 +4,15 @@ using FluentAssertions.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Optivem.Framework.Core.Domain;
+using Microsoft.EntityFrameworkCore;
+using apointify.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("apointifyContextConnection") ?? throw new InvalidOperationException("Connection string 'apointifyContextConnection' not found.");
+
+builder.Services.AddDbContext<apointifyContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<apointifyContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
