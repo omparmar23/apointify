@@ -1,5 +1,9 @@
-﻿using apointify.Models;
+﻿using apointify.ExtentionMethods;
+using apointify.Models;
+using apointify.VirtualModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace apointify.Controllers
 {

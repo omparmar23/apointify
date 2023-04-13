@@ -1,108 +1,45 @@
 ﻿@model IEnumerable<apointify.Models.ServiceProvider>
 
 @{
-    ViewData["Title"] = "Index";
-    //Layout = "~/Views/Home/Login.cshtml";
+    ViewData["Title"] = "Index";    
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Edit">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirmName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirmOwnerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MobileNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InsertDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Service)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirmName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirmOwnerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MobileNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InsertDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDeleted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Service.ServiceId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.FirmId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FirmId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FirmId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<h1 class="text-center">All service providers
+</h1>
+<section class="wrapper">
+        <div class="content">
+            <div class="container">
+                <div class="row">@foreach (var item in Model)
+                            {
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="card">
+                            <a class="img-card">
+                                <img src="~/assets/img/portfolio/portfolio-3.jpg">
+                            </a>
+                            <div class="card-content">
+                                <h4 class="card-title">
+                                    <a>
+                                      @Html.DisplayFor(modelItem => item.FirmName)
+                                    </a>
+                                </h4>
+                                <p class="">
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </p>
+                                <p class="">
+                                    @Html.DisplayFor(modelItem => item.MobileNumber)
+                                </p>
+                            </div>
+                            
+                            <div class="card-read-more">
+                                <a asp-controller="Apointment" asp-action="Index" class="btn btn-link btn-block">
+                                    Read More
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

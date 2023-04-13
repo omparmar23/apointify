@@ -29,4 +29,8 @@
     <PackageReference Include="RestSharp" Version="109.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Upload\" />
+  </ItemGroup>
+
 </Project>

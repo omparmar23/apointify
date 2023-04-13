@@ -7,9 +7,9 @@ public partial class Appointment
 {
     public int ApointmentId { get; set; }
 
-    public int? FirmId { get; set; }
+    public int? Firm { get; set; }
 
-    public int? UserId { get; set; }
+    public int? User { get; set; }
 
     public DateTime AppointmentDate { get; set; }
 
@@ -19,7 +19,7 @@ public partial class Appointment
 
     public bool? IsDeleted { get; set; }
 
-    public virtual ServiceProvider? Firm { get; set; }
+    public virtual ServiceProvider? FirmNavigation { get; set; }
 
-    public virtual User? User { get; set; }
+    public virtual User? UserNavigation { get; set; }
 }
