@@ -1,6 +1,7 @@
 ﻿using apointify.ExtentionMethods;
 using apointify.Models;
 using apointify.VirtualModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace apointify.Controllers
@@ -14,7 +15,6 @@ namespace apointify.Controllers
         public IActionResult Index()
         {
             var Customer = dbEntities.Customers.ToList();
-           
             return View(Customer);
         }
         [HttpGet, Route("Customer/Edit")]

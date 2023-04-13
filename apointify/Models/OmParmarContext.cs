@@ -35,11 +35,21 @@ public partial class OmParmarContext : DbContext
 
     public virtual DbSet<Feedback> Feedbacks { get; set; }
 
+    public virtual DbSet<Image> Images { get; set; }
+
+    public virtual DbSet<Img> Imgs { get; set; }
+
+    public virtual DbSet<NewAppointment> NewAppointments { get; set; }
+
     public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<Orderdetail> Orderdetails { get; set; }
 
+    public virtual DbSet<Role> Roles { get; set; }
+
     public virtual DbSet<Service> Services { get; set; }
+
+    public virtual DbSet<ServiceP> ServicePs { get; set; }
 
     public virtual DbSet<ServiceProvider> ServiceProviders { get; set; }
 
@@ -52,6 +62,8 @@ public partial class OmParmarContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserInfo> UserInfos { get; set; }
+
+    public virtual DbSet<UserRole> UserRoles { get; set; }
 
     public virtual DbSet<UsersTable> UsersTables { get; set; }
 
@@ -80,12 +92,12 @@ public partial class OmParmarContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
 
-            entity.HasOne(d => d.Firm).WithMany(p => p.Appointments)
-                .HasForeignKey(d => d.FirmId)
+            entity.HasOne(d => d.FirmNavigation).WithMany(p => p.Appointments)
+                .HasForeignKey(d => d.Firm)
                 .HasConstraintName("FK__Appointme__FirmI__5E8A0973");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Appointments)
-                .HasForeignKey(d => d.UserId)
+            entity.HasOne(d => d.UserNavigation).WithMany(p => p.Appointments)
+                .HasForeignKey(d => d.User)
                 .HasConstraintName("FK__Appointme__UserI__5F7E2DAC");
         });
 
@@ -291,6 +303,100 @@ public partial class OmParmarContext : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<Image>(entity =>
+        {
+            entity.HasKey(e => e.ImageId).HasName("PK__image__7516F70C08C93E3B");
+
+            entity.ToTable("image");
+
+            entity.Property(e => e.Image1)
+                .IsUnicode(false)
+                .HasColumnName("image");
+            entity.Property(e => e.ImageName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<Img>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("img");
+
+            entity.Property(e => e.ImgId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("imgId");
+            entity.Property(e => e.Imgpath)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("imgpath");
+        });
+
+        modelBuilder.Entity<NewAppointment>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("newAppointment");
+
+            entity.Property(e => e.Address)
+                .HasMaxLength(30)
+                .IsUnicode(false);
+            entity.Property(e => e.AppointmentDate)
+                .HasColumnType("datetime")
+                .HasColumnName("Appointment Date");
+            entity.Property(e => e.City)
+                .HasMaxLength(30)
+                .IsUnicode(false);
+            entity.Property(e => e.Email)
+                .HasMaxLength(200)
+                .IsUnicode(false);
+            entity.Property(e => e.FirmName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("Firm Name");
+            entity.Property(e => e.FirmOwnerName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("Firm OwnerName");
+            entity.Property(e => e.InsertDate).HasColumnType("datetime");
+            entity.Property(e => e.MobileNumber)
+                .HasMaxLength(12)
+                .IsUnicode(false);
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Password)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.ServiceId).HasColumnName("serviceID");
+            entity.Property(e => e.ServiceName)
+                .HasMaxLength(30)
+                .IsUnicode(false);
+            entity.Property(e => e.ServiceProviderCity)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("ServiceProvider_City");
+            entity.Property(e => e.ServiceProviderEmail)
+                .HasMaxLength(200)
+                .IsUnicode(false);
+            entity.Property(e => e.ServiceProviderMobileNumber)
+                .HasMaxLength(12)
+                .IsUnicode(false)
+                .HasColumnName("ServiceProvider_MobileNumber");
+            entity.Property(e => e.ServiceProviderUsername)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("ServiceProvider_Username");
+            entity.Property(e => e.ServiceType)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("serviceType");
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Username)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<Order>(entity =>
         {
             entity.HasKey(e => e.OrderId).HasName("PK__Orders__C3905BCF12F39C54");
@@ -336,6 +442,18 @@ public partial class OmParmarContext : DbContext
                 .HasConstraintName("FK__Orderdeta__Order__787EE5A0");
         });
 
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.HasKey(e => e.RoleId).HasName("PK__Role__CD98462AB16E3F69");
+
+            entity.ToTable("Role");
+
+            entity.Property(e => e.RoleId).HasColumnName("roleId");
+            entity.Property(e => e.RoleName)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<Service>(entity =>
         {
             entity.HasKey(e => e.ServiceId).HasName("PK__Service__4550733F3FD13F5D");
@@ -345,6 +463,50 @@ public partial class OmParmarContext : DbContext
             entity.Property(e => e.ServiceId).HasColumnName("serviceID");
             entity.Property(e => e.ServiceName)
                 .HasMaxLength(30)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<ServiceP>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("ServiceP");
+
+            entity.Property(e => e.Address)
+                .HasMaxLength(30)
+                .IsUnicode(false);
+            entity.Property(e => e.City)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.Email)
+                .HasMaxLength(200)
+                .IsUnicode(false);
+            entity.Property(e => e.FirmName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("Firm Name");
+            entity.Property(e => e.FirmOwnerName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("Firm OwnerName");
+            entity.Property(e => e.InsertDate).HasColumnType("datetime");
+            entity.Property(e => e.MobileNumber)
+                .HasMaxLength(12)
+                .IsUnicode(false);
+            entity.Property(e => e.Password)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.ServiceId).HasColumnName("serviceID");
+            entity.Property(e => e.ServiceName)
+                .HasMaxLength(30)
+                .IsUnicode(false);
+            entity.Property(e => e.ServiceType)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("serviceType");
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Username)
+                .HasMaxLength(20)
                 .IsUnicode(false);
         });
 
@@ -395,6 +557,7 @@ public partial class OmParmarContext : DbContext
 
             entity.HasOne(d => d.Service).WithMany(p => p.ServiceProviders)
                 .HasForeignKey(d => d.ServiceId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__ServicePr__servi__58D1301D");
         });
 
@@ -478,6 +641,11 @@ public partial class OmParmarContext : DbContext
             entity.Property(e => e.Username)
                 .HasMaxLength(20)
                 .IsUnicode(false);
+
+            entity.HasOne(d => d.RoleNavigation).WithMany(p => p.Users)
+                .HasForeignKey(d => d.Role)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Users_Role");
         });
 
         modelBuilder.Entity<UserInfo>(entity =>
@@ -496,6 +664,37 @@ public partial class OmParmarContext : DbContext
             entity.Property(e => e.PassFail).HasColumnName("Pass/Fail");
             entity.Property(e => e.Percentage).HasColumnType("decimal(16, 2)");
             entity.Property(e => e.StudentId).HasColumnName("student_id");
+        });
+
+        modelBuilder.Entity<UserRole>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("UserRole");
+
+            entity.Property(e => e.City)
+                .HasMaxLength(30)
+                .IsUnicode(false);
+            entity.Property(e => e.Email)
+                .HasMaxLength(200)
+                .IsUnicode(false);
+            entity.Property(e => e.InsertData).HasColumnType("datetime");
+            entity.Property(e => e.MobileNumber)
+                .HasMaxLength(12)
+                .IsUnicode(false);
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Password)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.RoleName)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Username)
+                .HasMaxLength(20)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<UsersTable>(entity =>

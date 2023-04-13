@@ -1,4 +1,5 @@
-﻿l̥
+﻿@using Microsoft.AspNetCore.Authorization;
+@inject IAuthorizationService AuthorizationService;
 @inject IHttpContextAccessor _contx;
 
 <!DOCTYPE html>
@@ -12,84 +13,31 @@
     <link rel="stylesheet" href="~/apointify.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdl̥njs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    
-
-
     @*<link href="assets/img/favicon.png" rel="icon">*@
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="~/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
+    <link href="~/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="~/assets/css/style.css" rel="stylesheet">
 
 </head>
 <body>
-   @* <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light text-light box-shadow bg-secondary">
-            <div class="container-fluid">
-                <a class="navbar-brand text-white fs-4 col-md-4" asp-area="" asp-controller="Home" asp-action="Index">Apointify</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="col-md-4 navbar-collapse collapse">
-                    <ul class="navbar-nav flex-grow-1 text-light d-flex justify-content-start">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  text-white" asp-area="" asp-controller="Customer" asp-action="Index">Customers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  text-white" asp-area="" asp-controller="order" asp-action="Index">Apointment</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link  text-white" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
-                       </li>
-                        
-                        
-                       <li class="nav-item">
-                          <a class="nav-link  text-white" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
-                          <a class="nav-link  text-white" asp-area="">@_contx.HttpContext.Session.GetString("User")</a>
-                       </li>
-                    
-                    </ul>
-                   <div class="col-md-4 d-flex justify-content-end">
-                        <a class="w-50  text-white btn btn-primary" asp-area="" asp-controller="Login" asp-action="Index">Login / sign up</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>*@
-
-
-
-
-
    
 
     <header class="d-flex align-items-center bg-light py-2">
         <div class="container d-flex align-items-center justify-content-between">
             <h1 class="logo"><a asp-controller="Home" asp-action="Index">Apointify</a></h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
-
             <nav id="navbar" class="navbar">
                 <ul>
-                   
                     <li class="nav-item">
                         <a class="nav-link text-" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
@@ -100,18 +48,16 @@
                     <li class="nav-item">
                         <a class="nav-link  text-" asp-area="" asp-controller="order" asp-action="Index">Apointment</a>
                     </li>
-                   
-
-
                     <li class="nav-item">
                         <a class="nav-link  text-" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
                         <a class="nav-link  text-" asp-area="">@_contx.HttpContext.Session.GetString("User")</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link  text-" asp-area="" asp-controller="login" asp-action="Index">login</a>
-                        
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
+                    </li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -138,17 +84,17 @@
 
 
 
-    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="~/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="~/assets/vendor/aos/aos.js"></script>
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="~/assets/vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="~/assets/vendor/php-email-form/validate.js"></script>
 
     <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
+    <script src="~/assets/js/main.js"></script>
 
     @RenderSection("Script", required: false)
 </body>

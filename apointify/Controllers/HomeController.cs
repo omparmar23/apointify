@@ -8,6 +8,7 @@ using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Optivem.Framework.Core.Common.WebAutomation;
 using RestSharp;
 using System.Data;
 using System.Diagnostics;
@@ -31,7 +32,7 @@ namespace apointify.Controllers
             SuperAdmin = 8
         }
     }
-
+    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -140,13 +141,13 @@ namespace apointify.Controllers
         }
 
 
-
-       
-       
-
-
-
       
+
+
+
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

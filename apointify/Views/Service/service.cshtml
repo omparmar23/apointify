@@ -1,0 +1,47 @@
+﻿@model IEnumerable<apointify.Models.Service>;
+@using apointify.Models;
+
+@{
+    ViewData["Title"] = "Service";
+}
+
+
+<h1 class="text-center">
+    All service providers
+</h1>
+<section class="wrapper">
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="card">
+                            <a class="img-card">
+                                <img src="~/assets/img/hero-bg.jpg" />
+                            </a>
+                            <div class="card-content">
+                                <h4 class="card-title">
+                                    <a>
+                                        @Html.DisplayFor(modelItem => item.ServiceName)
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="card-read-more">
+                                <a type="submit" value="khsadkfh" asp-controller="ServiceProvider" asp-action="Index" class="btn btn-success float-end" >Show all Firms</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+@section Script
+{
+    <script>
+
+    </script>
+}

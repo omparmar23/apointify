@@ -7,7 +7,7 @@ public partial class ServiceProvider
 {
     public int FirmId { get; set; }
 
-    public int? ServiceId { get; set; }
+    public int ServiceId { get; set; }
 
     public string ServiceType { get; set; } = null!;
 
@@ -35,5 +35,5 @@ public partial class ServiceProvider
 
     public virtual ICollection<Appointment> Appointments { get; } = new List<Appointment>();
 
-    public virtual Service? Service { get; set; }
+    public virtual Service Service { get; set; } = null!;
 }
