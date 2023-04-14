@@ -1,53 +1,19 @@
 ﻿@model apointify.Models.User
-@{
-    ViewData["Title"] = "Index";
-}
-@*<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Index">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" placeholder="Enter Your Email" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" placeholder="Password" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Login" asp-controller="ValidateUserLogin" asp-action="ValidateCustomerLogin" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-<div>
-    <a class="btn" asp-action="create">Create Account</a>
-</div>*@
-
-
-
-
-
 
 @{
-    Layout = "";
+    Layout = ""; 
 }
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Login 10</title>
+    <title>Sign Up</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="~/css/style.css">
 </head>
-<body class="img js-fullheight vh-100" style="background-image: url(images/bg.jpg);">
+<body class="img js-fullheight vh-100" style="background-image: url(~/wwwroot/images/bg.jpg) no-repeat">
     <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center">
@@ -75,8 +41,7 @@
                                 <input type="submit" value="Login" asp-controller="ValidateUserLogin" asp-action="ValidateCustomerLogin" class="btn btn-primary" />
                             </div>
                         </form>
-
-                        <p class="w-100 text-center"><span>Don't have an account</span><a asp-controller="Login" asp-action="SignUp" > Sign up</a> </p>
+                        <p class="w-100 text-center"><span>Don't have an account</span><a asp-controller="Home" asp-action="Index"> Sign up</a> </p>
                         <div class="social d-flex text-center">
                             <a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
                             <a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
@@ -87,10 +52,10 @@
         </div>
     </section>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/popper.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/main.js"></script>
 
 </body>
 </html>

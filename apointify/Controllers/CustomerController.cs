@@ -4,16 +4,19 @@ using apointify.VirtualModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace apointify.Controllers
 {
     public class CustomerController : Controller
     {
+        private readonly IHttpContextAccessor _contx;
 
 
         OmParmarContext dbEntities = new OmParmarContext();
 
         public IActionResult Index()
         {
+            
             var Customer = dbEntities.Customers.ToList();
             return View(Customer);
         }

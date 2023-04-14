@@ -3,12 +3,13 @@
 @{
     ViewData["Title"] = "Index";
 }
-
 <h1>Index</h1>
-
 <h4>Appointment</h4>
+
 <hr />
 <div class="row">
+
+
     <div class="col-md-4">
         <form asp-action="Index">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -31,7 +32,6 @@
         </form>
     </div>
 </div>
-
 <div>
     <a asp-controller="ServiceProvider" class="btn btn-info" asp-action="Index">Back to List</a>
 </div>

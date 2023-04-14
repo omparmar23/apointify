@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="~/apointify.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdl̥njs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    @*<link href="assets/img/favicon.png" rel="icon">*@
+    <link href="~/images/logo-black.png" rel="icon">
     <link href="~/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -32,38 +32,64 @@
 </head>
 <body>
    
+   
 
     <header class="d-flex align-items-center bg-light py-2">
-        <div class="container d-flex align-items-center justify-content-between">
-            <h1 class="logo"><a asp-controller="Home" asp-action="Index">Apointify</a></h1>
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+            <a  class="logo float-start" asp-controller="Home" asp-action="Index"><img class="w-25"  src="~/images/logo-black-removebg-preview.png"></a>
             <nav id="navbar" class="navbar">
                 <ul>
                     <li class="nav-item">
                         <a class="nav-link text-" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  text-" asp-area="" asp-controller="Customer" asp-action="Index">Customers</a>
+                        <a class="nav-link text-" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                     </li>
+                    
+                        @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1)
+                        {
+
+                        <li class="nav-item">
+                            <a class="nav-link  text-" asp-area="" asp-controller="order" asp-action="Index">Apointment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
+                        </li>
+                        }
+                        @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2)
+                        {
+                      
+                        <li class="nav-item">
+                            <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
+                        </li>
+                        
+                        }
+                        @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
+                        </li>
+                       
+                        }
                    
+
+                    
                     <li class="nav-item">
-                        <a class="nav-link  text-" asp-area="" asp-controller="order" asp-action="Index">Apointment</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link  text-" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
-                        <a class="nav-link  text-" asp-area="">@_contx.HttpContext.Session.GetString("User")</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link  text-" asp-area="" asp-controller="login" asp-action="Index">login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
                     </li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
+            </nav>
+            @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 1 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 2 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) !=3)
+            {
+                <a class="fw-bold text-dark float-end"  text-" asp-area="" asp-controller="login" asp-action="Index">login</a>
+            }
+            @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
+            {
+            <a class="text-dark border float-end rounded-pill bg-secondary p-1 px-3" asp-area="" asp-controller="Home" asp-action="Logout"><i class="fa-solid fa-user"></i><span class="">@_contx.HttpContext.Session.GetString("Name")</span></a>
+            }
 
         </div>
-    </header><!-- End Header -->
+    </header>
 
     
     <div class="container-fluid">
@@ -72,11 +98,74 @@
         </main>
     </div>
 
-    <footer class="  footer text-muted bg-secondary">
-        <div class="container text-white">
-            &copy; 2023 - apointify - <a class="text-info" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6 footer-contact">
+                        <h3>BizLand<span>.</span></h3>
+                        <p>
+                            A108 Adam Street <br>
+                            New York, NY 535022<br>
+                            United States <br><br>
+                            <strong>Phone:</strong> +1 5589 55488 55<br>
+                            <strong>Email:</strong> info@example.com<br>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Useful Links</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Our Services</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Our Social Networks</h4>
+                        <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
+                        <div class="social-links mt-3">
+                            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-    </footer>
+
+        <div class="container py-4">
+            <div class="copyright">
+                &copy; Copyright <strong><span>BizLand</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bizland-bootstrap-business-template/ -->
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -95,7 +184,6 @@
 
     <!-- Template Main JS File -->
     <script src="~/assets/js/main.js"></script>
-
     @RenderSection("Script", required: false)
 </body>
 </html>

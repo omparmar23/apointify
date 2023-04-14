@@ -10,4 +10,9 @@ public partial class Image
     public string ImageName { get; set; } = null!;
 
     public string Image1 { get; set; } = null!;
+
+    internal void SaveAs(object value)
+    {
+        throw new NotImplementedException();
+    }
 }
