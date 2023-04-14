@@ -21,6 +21,8 @@ builder.Services.AddControllersWithViews();
 
 
 
+
+
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDistributedMemoryCache();
@@ -50,7 +52,6 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
 app.UseSession();
 
 

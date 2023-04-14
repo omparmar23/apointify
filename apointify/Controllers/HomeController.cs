@@ -127,10 +127,9 @@ namespace apointify.Controllers
             return View(EmployeeDetailList);
         }
 
-        public IActionResult GetOneEmplyoee()
-        {
-            return View();
-        }
+
+
+        
 
         public IActionResult GetData(int Id)
         {
@@ -169,6 +168,13 @@ namespace apointify.Controllers
 
             return RedirectToAction("EmployeeTable");
 
+        }
+
+
+
+        public IActionResult AboutUs()
+        {
+            return View();
         }
     }
 }

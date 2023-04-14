@@ -6,6 +6,9 @@ namespace apointify.Controllers
 {
     public class LoginController : Controller
     {
+        public string Constr { get; set; }
+        public IConfiguration _configuration;
+        public SqlConnection con;
         public IActionResult Index()
         {
             return View();
@@ -21,13 +24,16 @@ namespace apointify.Controllers
         //string Constr = "Data Source=192.168.0.33;Initial Catalog=Om Parmar;User ID=trainee;Password=Admin@123;Trusted_Connection=false";
 
         //SqlConnection xyz = new SqlConnection(Constr);
+        public IActionResult SignUp()
+        {
+
+            return View();
+        }
 
 
 
 
-        public string Constr { get; set; }
-        public IConfiguration _configuration;
-        public SqlConnection con;
+       
        /* public LoginValidationService(IConfiguration configuration)
         {
             _configuration = configuration;
