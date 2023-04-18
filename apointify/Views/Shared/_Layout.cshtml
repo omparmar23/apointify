@@ -28,6 +28,7 @@
     <link href="~/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="~/assets/css/style.css" rel="stylesheet">
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 <body>
@@ -69,18 +70,40 @@
                        
                         }
                     
-                    <li class="nav-item">
-                    </li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
             @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 1 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 2 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) !=3)
             {
-                <a class="fw-bold text-dark float-end"  text-" asp-area="" asp-controller="login" asp-action="Index">login</a>
+                <a class="fw-bold text-dark float-end me-4"  text-" asp-area="" asp-controller="login" asp-action="Index">Login</a>
             }
             @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
             {
-            <a class="text-dark border float-end rounded-pill bg-secondary p-1 px-3" asp-area="" asp-controller="Home" asp-action="Logout"><i class="fa-solid fa-user"></i><span class="">@_contx.HttpContext.Session.GetString("Name")</span></a>
+            @*<a class="text-dark border float-end rounded-pill bg-secondary p-1 px-3" asp-area="" asp-controller="Home" asp-action="Logout"><i class="fa-solid fa-user"></i><span class="">@_contx.HttpContext.Session.GetString("Name")</span></a>*@
+                <div class="dropdown ">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user"></i><span class="ps-2 text-uppercase">@_contx.HttpContext.Session.GetString("Name")</span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item fs-5 text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal"> Logout <i class="bi bi-box-arrow-right ps-2"></i></a></li>
+                    </ul>
+                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel"><span class="text-uppercase">@_contx.HttpContext.Session.GetString("Name")</span>, Are You Sure? You Want To Logout</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                <a class="btn btn-primary px-3" asp-area="" asp-controller="Home" asp-action="Logout"> Yes </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
 
         </div>

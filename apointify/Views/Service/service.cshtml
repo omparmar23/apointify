@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<apointify.Models.Service>;
-@using apointify.Models;
 
 @{
     ViewData["Title"] = "Service";
@@ -18,7 +17,7 @@
                     <div class="col-xs-12 col-sm-4">
                         <div class="card">
                             <a class="img-card">
-                                <img src="~/assets/img/hero-bg.jpg" />
+                                <img src="@Html.DisplayFor(modelItem => item.Img)" />
                             </a>
                             <div class="card-content">
                                 <h4 class="card-title">
