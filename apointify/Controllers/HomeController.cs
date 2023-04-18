@@ -48,8 +48,6 @@ namespace apointify.Controllers
 
 
         private readonly IHttpContextAccessor _contx;
-
-
         public HomeController(IHttpContextAccessor httpContextAccessor)
         {
             _contx = httpContextAccessor;
@@ -57,23 +55,8 @@ namespace apointify.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
-            //if (user.Email == null && user.Password == null)
-            //{
-            //_contx.HttpContext.Session.SetString("User","none");
-            //_contx.HttpContext.Session.SetInt32("UserId",0);
-
-            //}
-            //else
-            //{
-            //    _contx.HttpContext.Session.SetString("User", user.Email);
-            //    _contx.HttpContext.Session.SetString("UserId", user.Password);
-            //}
-
             return View();
         }
-
-
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -82,94 +65,12 @@ namespace apointify.Controllers
         }
 
 
-        public IActionResult apiCall(int Id)
-        {
-            if (Id > 0)
-            {
-                OmParmarContext DBEntities = new OmParmarContext();
-                Employee dbObject = DBEntities.Employees.Where(m => m.Id == Id).FirstOrDefault();
-                return View(dbObject);
-
-            }
-            else
-            {
-                RestClient client = new RestClient(apiBaseUrl);
-                var restRequest = new RestRequest("/AddEmployeeData", Method.Post);
-                restRequest.AddHeader("Accept", "application/json");
-                restRequest.RequestFormat = DataFormat.Json;
-                RestResponse response = client.Execute(restRequest);
-                var content = response.Content;
-                if (content != null)
-                {
-                    var user = JsonConvert.DeserializeObject<ServiceResponse<List<Employee>>>(content);
-                    EmployeeDetailList = user.data;
-
-                }
-                return View(EmployeeDetailList);
-            }
-
-
-        }
-        public IActionResult EmployeeTable()
-        {
-            RestClient client = new RestClient(apiBaseUrl);
-            var restRequest = new RestRequest("/EmployeeData", Method.Get);
-            restRequest.AddHeader("Accept", "application/json");
-            restRequest.RequestFormat = DataFormat.Json;
-            RestResponse response = client.Execute(restRequest);
-            var content = response.Content;
-            if (content != null)
-            {
-                var user = JsonConvert.DeserializeObject<ServiceResponse<List<Employee>>>(content);
-                EmployeeDetailList = user.data;
-
-            }
-            return View(EmployeeDetailList);
-        }
-
-
-
-        
-
-        public IActionResult GetData(int Id)
-        {
-            OmParmarContext DBEntities = new OmParmarContext();
-            ServiceResponse<List<Employee>> serviceReponse = new ServiceResponse<List<Employee>>();
-            Employee dbObject = DBEntities.Employees.Where(m => m.Id == Id).FirstOrDefault();
-            return View(dbObject);
-        }
-
-
-      
-
-
-
-
-
-
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-
-
-        public IActionResult UpdateEmployee(EmployeeVM employee)
-        {
-            OmParmarContext DBEntities = new OmParmarContext();
-            Employee dbObject = DBEntities.Employees.Where(m => m.Id == employee.Id).FirstOrDefault();
-            dbObject.Salary = employee.Salary;
-            dbObject.Age = employee.Age;
-            dbObject.Name = employee.Name;
-            dbObject.Department = employee.Department;
-            DBEntities.SaveChanges();
-
-            return RedirectToAction("EmployeeTable");
-
-        }
-
+        
 
 
         public IActionResult AboutUs()

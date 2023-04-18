@@ -13,7 +13,10 @@ namespace apointify.Controllers
         {
             return View();
         }
-
+        public IActionResult demo()
+        {
+            return View();
+        }
 
 
         public IActionResult create()
@@ -21,25 +24,13 @@ namespace apointify.Controllers
             return View();
         }
 
-        //string Constr = "Data Source=192.168.0.33;Initial Catalog=Om Parmar;User ID=trainee;Password=Admin@123;Trusted_Connection=false";
 
-        //SqlConnection xyz = new SqlConnection(Constr);
+
         public IActionResult SignUp()
         {
 
             return View();
         }
-
-
-
-
-       
-       /* public LoginValidationService(IConfiguration configuration)
-        {
-            _configuration = configuration;
-            Constr = _configuration.GetConnectionString("Default");
-            //Constr = "Server=192.168.0.33; Password=UlTCgZe6Zl; Encrypt=False; Database= DreadCoders; User Id=dread.coders;";
-        }*/
 
         public List<User> ValidateUserLogin(User users)
         {
@@ -64,6 +55,8 @@ namespace apointify.Controllers
                         user.Name = rdr["Prefix"].ToString();
                         user.Password = rdr["FirstName"].ToString();
                         user.Email = rdr["Email"].ToString();
+                        user.City = Convert.ToString(rdr["City"]);
+
 
                         customerList.Add(user);
                     }
