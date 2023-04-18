@@ -19,10 +19,6 @@ builder.Services.AddControllersWithViews();
 //builder.Services.AddIdentityCore<OmParmarContext>().AddEntityFrameworkStores<OmParmarContext>();
 
 
-
-
-
-
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDistributedMemoryCache();

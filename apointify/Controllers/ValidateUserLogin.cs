@@ -34,21 +34,15 @@ namespace apointify.Controllers
             try
             {
                 using (con = new SqlConnection(Constr))
-                
                 {
                     con.Open();
                     var cmd = new SqlCommand("Proc_Login_authentication", con);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
                     cmd.Parameters.AddWithValue("@Email", users.Email);
                     cmd.Parameters.AddWithValue("@Password", users.Password);
                     SqlParameter outputPara = new SqlParameter();
                     outputPara.ParameterName = "@Email";
                     SqlDataReader rdr = cmd.ExecuteReader();
-                   
-
-
-
                     //var  userse = rdr.Read().ResultView();
                     
                     while (rdr.Read())
@@ -71,7 +65,7 @@ namespace apointify.Controllers
                 if (UserList.Count == 0)
                 {
                     TempData["Message"] = "You are not authorized.";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Login");
                 }
                 else
                 {
@@ -79,7 +73,7 @@ namespace apointify.Controllers
                     _contx.HttpContext.Session.SetString("Name", u.Name);
                     _contx.HttpContext.Session.SetString("Role", Convert.ToString(u.Role));
                     _contx.HttpContext.Session.SetString("mobile", u.MobileNumber);
-                    return RedirectToAction("Index", "Home"); 
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch (Exception)
@@ -87,7 +81,6 @@ namespace apointify.Controllers
                 throw;
             }
         }
-       
 
         public interface ILoginValidation
         {
