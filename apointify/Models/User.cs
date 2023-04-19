@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace apointify.Models;
-
 public partial class User
 {
     public int UserId { get; set; }
-
-    public int Role { get; set; }
-
+    public int? Role { get; set; }
     public string Username { get; set; } = null!;
-
     public string Name { get; set; } = null!;
-
     public string Email { get; set; } = null!;
-
     public string Password { get; set; } = null!;
-
     public string? MobileNumber { get; set; }
 
     public string? City { get; set; }
