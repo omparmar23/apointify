@@ -7,12 +7,5 @@ public partial class Image
 {
     public int ImageId { get; set; }
 
-    public string ImageName { get; set; } = null!;
-
-    public string Image1 { get; set; } = null!;
-
-    internal void SaveAs(object value)
-    {
-        throw new NotImplementedException();
-    }
+    public string? ImageName { get; set; }
 }

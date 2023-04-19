@@ -305,15 +305,12 @@ public partial class OmParmarContext : DbContext
 
         modelBuilder.Entity<Image>(entity =>
         {
-            entity.HasKey(e => e.ImageId).HasName("PK__image__7516F70C08C93E3B");
+            entity.HasKey(e => e.ImageId).HasName("PK__Image__7516F70C1E26D0BC");
 
-            entity.ToTable("image");
+            entity.ToTable("Image");
 
-            entity.Property(e => e.Image1)
-                .IsUnicode(false)
-                .HasColumnName("image");
             entity.Property(e => e.ImageName)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .IsUnicode(false);
         });
 
@@ -461,6 +458,9 @@ public partial class OmParmarContext : DbContext
             entity.ToTable("Service");
 
             entity.Property(e => e.ServiceId).HasColumnName("serviceID");
+            entity.Property(e => e.Img)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.ServiceName)
                 .HasMaxLength(30)
                 .IsUnicode(false);

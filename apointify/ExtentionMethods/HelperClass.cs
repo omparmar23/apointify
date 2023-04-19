@@ -31,6 +31,20 @@ namespace apointify.ExtentionMethods
                 Department = obj.Department,
             };
         }
+        public static User ToContext(this UserVM obj)
+        {
+            return new User()
+            {
+                UserId = obj.UserId,
+                Name = obj.Name,
+                Username = obj.Username,
+                Email = obj.Email,
+                Password = obj.Password,
+                MobileNumber = obj.MobileNumber,
+                City = obj.City,
+                UpdatedDate = new DateTime(),
+            };
+        }
 
 
         public static CustomerVM ToModel(this Customer obj)

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 
 namespace apointify.Models;
-  
+
 public partial class User
 {
     public int UserId { get; set; }
 
-    public int? Role { get; set; }
+    public int Role { get; set; }
 
     public string Username { get; set; } = null!;
 
