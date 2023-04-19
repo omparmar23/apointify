@@ -1,7 +1,7 @@
 ﻿@model apointify.Models.User
 @{
+    //ViewData["Title"] = "demo";
     Layout = "";
-    //ViewData["title"] = "SignUp";
 }
 
 <!doctype html>
@@ -15,17 +15,9 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
     <link rel="stylesheet" href="~/css/style.css">
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-
 </head>
-<body class="img js-fullheight min-vh-100" style="background-image: url(https://img.freepik.com/free-photo/flat-lay-clean-office-desk_23-2148219267.jpg?w=1480&t=st=1681797799~exp=1681798399~hmac=88db34d536f31dd4cdae9c9e094e1fc0474e5246940a2046a9a536ea13332b48);">
+<body class="img js-fullheight vh-100" style="background-image: url(https://img.freepik.com/free-photo/flat-lay-clean-office-desk_23-2148219267.jpg?w=1480&t=st=1681797799~exp=1681798399~hmac=88db34d536f31dd4cdae9c9e094e1fc0474e5246940a2046a9a536ea13332b48);">
     <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-end">
@@ -36,24 +28,16 @@
             <div class="row justify-content-end">
                 <div class="col-md-6 col-lg-4">
                     <div class="login-wrap p-0">
-                        <form>
+                        <form asp-action="Index">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group">
-                                <label asp-for="Role" class="control-label"></label>
-                                <select asp-for="Role" class="form-control ">
-                                    <option value="0" selected disabled>Register As</option>
-                                    <option value="1">Service-Provider</option>
-                                    <option value="2">User</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
                                 <label asp-for="Name" class="control-label"></label>
-                                <input asp-for="Name" class="form-control" placeholder="Enter Your Name" />
+                                <input asp-for="Name" class="form-control" placeholder="Enter Your Email" />
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Username" class="control-label"></label>
-                                <input asp-for="Username" class="form-control" placeholder="Enter Your UserName" />
+                                <input asp-for="Username" class="form-control" placeholder="Enter Your Email" />
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                             <div class="form-group">
@@ -63,29 +47,20 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="MobileNumber" class="control-label"></label>
-                                <input asp-for="MobileNumber" class="form-control" placeholder="Enter Your Mobile Number" />
+                                <input asp-for="MobileNumber" class="form-control" placeholder="Enter Your Email" />
                                 <span asp-validation-for="MobileNumber" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Password" class="control-label"></label>
                                 <input asp-for="Password" class="form-control" placeholder="Password" />
-                               
-                                    <button id="show_password" class="btn btn-primary ml-2 mt-3" type="button">
-                                        <span class="fa fa-eye-slash icon"></span>
-                                        </button>
-                                      
-                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Confirm Password</label>
-                                <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
-                                <button id="show_Confirmpassword" class="btn btn-primary ml-2 mt-3" type="button">
-                                    <span class="fa fa-eye-slash iconc"></span>
-                                </button>
-                                <span asp-validation-for=" ConfirmPassword" class="text-danger"></span>
+                                <input class="form-control" placeholder="Confirm Password" />
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Sign up" class="btn btn-primary" />
+                                <input type="submit" value="Sign up" asp-controller="ValidateUserLogin" asp-action="ValidateCustomerLogin" class="btn btn-primary" />
                             </div>
                         </form>
                     </div>
@@ -94,45 +69,42 @@
         </div>
     </section>
 
-    <script>
-        $('#show_password').hover(function show() {
-            //Change the attribute to text
-            $('#Password').attr('type', 'text');
-            $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-        },
-            function () {
-                //Change the attribute back to password
-                $('#Password').attr('type', 'password');
-                $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-            });
-
-        $('#show_Confirmpassword').hover(function show() {
-            //Change the attribute to text
-            $('#ConfirmPassword').attr('type', 'text');
-            $('.iconc').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-        },
-            function () {
-                //Change the attribute back to password
-                $('#ConfirmPassword').attr('type', 'password');
-                $('.iconc').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-            });
-       
-    </script>
-
-
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
 
 </body>
 </html>
-   @{
-     
-        
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-  
-   
 
+@section Script{
+    <script>
+        (function ($) {
 
+            "use strict";
 
+            var fullHeight = function () {
 
-   
+                $('.js-fullheight').css('height', $(window).height());
+                $(window).resize(function () {
+                    $('.js-fullheight').css('height', $(window).height());
+                });
 
+            };
+            fullHeight();
+
+            $(".toggle-password").click(function () {
+
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                var input = $($(this).attr("toggle"));
+                if (input.attr("type") == "password") {
+                    input.attr("type", "text");
+                } else {
+                    input.attr("type", "password");
+                }
+            });
+
+        })(jQuery);
+
+    </script>
+}
