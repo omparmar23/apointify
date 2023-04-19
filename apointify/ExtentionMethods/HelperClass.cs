@@ -124,9 +124,7 @@ namespace apointify.ExtentionMethods
                 State = obj.State,
                 Zipcode = obj.Zipcode,
                 InsertedDate = obj.InsertedDate,
-            };
-
-        }*/
+            };*/
 
 
 
