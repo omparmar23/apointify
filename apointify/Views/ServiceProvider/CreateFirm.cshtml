@@ -1,1 +1,131 @@
-﻿
+﻿@model apointify.VirtualModels.ServiceProviderVM
+
+@{
+    Layout = "";
+    //ViewData["title"] = "SignUp";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Sign Up</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/style.css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+</head>
+<body class="img js-fullheight min-vh-100" style="background-image: url(https://img.freepik.com/free-photo/flat-lay-clean-office-desk_23-2148219267.jpg?w=1480&t=st=1681797799~exp=1681798399~hmac=88db34d536f31dd4cdae9c9e094e1fc0474e5246940a2046a9a536ea13332b48);">
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-md-4 text-center mb-2">
+                    <h2 class="text-white">Enter details</h2>
+                </div>
+            </div>
+            <div class="row justify-content-end">
+                <div class="col-md-6 col-lg-4">
+                    <div class="login-wrap p-0">
+                        <form>
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="ServiceId" class="control-label"></label>
+                                <select asp-for="" class="form-control ">
+                                    <option value="0" selected disabled>Register As</option>
+                                    <option value="1">Service-Provider</option>
+                                    <option value="2">User</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" class="form-control" placeholder="Enter Your Name" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Username" class="control-label"></label>
+                                <input asp-for="Username" class="form-control" placeholder="Enter Your UserName" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label"></label>
+                                <input asp-for="Email" class="form-control" placeholder="Enter Your Email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="MobileNumber" class="control-label"></label>
+                                <input asp-for="MobileNumber" class="form-control" placeholder="Enter Your Mobile Number" />
+                                <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password" class="control-label"></label>
+                                <input asp-for="Password" class="form-control" placeholder="Password" />
+
+                                <button id="show_password" class="btn btn-primary ml-2 mt-3" type="button">
+                                    <span class="fa fa-eye-slash icon"></span>
+                                </button>
+
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Confirm Password</label>
+                                <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
+                                <button id="show_Confirmpassword" class="btn btn-primary ml-2 mt-3" type="button">
+                                    <span class="fa fa-eye-slash iconc"></span>
+                                </button>
+                                <span asp-validation-for=" ConfirmPassword" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Sign up" asp-controller="Login" asp-action="createUser" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $('#show_password').hover(function show() {
+            //Change the attribute to text
+            $('#Password').attr('type', 'text');
+            $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        },
+            function () {
+                //Change the attribute back to password
+                $('#Password').attr('type', 'password');
+                $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+            });
+
+        $('#show_Confirmpassword').hover(function show() {
+            //Change the attribute to text
+            $('#ConfirmPassword').attr('type', 'text');
+            $('.iconc').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        },
+            function () {
+                //Change the attribute back to password
+                $('#ConfirmPassword').attr('type', 'password');
+                $('.iconc').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+            });
+
+    </script>
+
+
+
+</body>
+</html>
+@{
+
+
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}

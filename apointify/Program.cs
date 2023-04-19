@@ -1,11 +1,7 @@
-
-using apointify.Models;
-using FluentAssertions.Common;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using Optivem.Framework.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using apointify.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("apointifyContextConnection") ?? throw new InvalidOperationException("Connection string 'apointifyContextConnection' not found.");

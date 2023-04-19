@@ -29,7 +29,6 @@ namespace apointify.Controllers
                 //serviceReponse.data = false;
                 serviceReponse.status_code = "000";
                 serviceReponse.message = "Exception: " + ex.Message.ToString();
-
             }
             return serviceReponse;
         }
