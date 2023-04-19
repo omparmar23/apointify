@@ -107,7 +107,7 @@ namespace apointify.ExtentionMethods
 
 
 
-        public static ServiceProviderVM ToModel(this ServiceProvider obj)
+       /* public static ServiceProviderVM ToModel(this ServiceProvider obj)
         {
             return new ServiceProviderVM()
             {
@@ -126,7 +126,7 @@ namespace apointify.ExtentionMethods
                 InsertedDate = obj.InsertedDate,
             };
 
-        }
+        }*/
 
 
 
