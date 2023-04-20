@@ -42,6 +42,7 @@ namespace apointify.Controllers
                     if(firm.Image == null)
                     {
                         string path = "/Image/FirmImage/Default.jpg";
+
                         FirmDetail newfirm = new FirmDetail();
                         newfirm.FirmId =new int();
                         newfirm.Userid = firm.Userid;
