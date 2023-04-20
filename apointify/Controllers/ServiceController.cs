@@ -1,5 +1,6 @@
 ﻿using apointify.Models;
 using Microsoft.AspNetCore.Mvc;
+using ServiceProvider = apointify.Models.ServiceProvider;
 
 namespace apointify.Controllers
 {
@@ -8,8 +9,15 @@ namespace apointify.Controllers
         OmParmarContext DBEntities = new OmParmarContext();
         public IActionResult service()
         {
-           var service = DBEntities.Services.ToList();
-            return View(service);
+           return View(DBEntities.Services.ToList());
         }
+        
+        public IActionResult Index(int Id)
+        {
+
+            ServiceProvider service = DBEntities.ServiceProviders.Where(m => m.ServiceId == Id).FirstOrDefault();
+            return RedirectToAction("Index","ServiceProvider",new {service.ServiceId });
+        }
+
     }
 }

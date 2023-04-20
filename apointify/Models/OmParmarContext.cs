@@ -307,7 +307,7 @@ public partial class OmParmarContext : DbContext
 
         modelBuilder.Entity<FirmDetail>(entity =>
         {
-            entity.HasKey(e => e.FirmId).HasName("PK__FirmDeta__1F1F209CFB09EC89");
+            entity.HasKey(e => e.FirmId).HasName("PK__FirmDeta__1F1F209CA34492E9");
 
             entity.Property(e => e.Address)
                 .HasMaxLength(40)
@@ -332,9 +332,6 @@ public partial class OmParmarContext : DbContext
             entity.Property(e => e.MobileNumber)
                 .HasMaxLength(12)
                 .IsUnicode(false);
-            entity.Property(e => e.ServiceName)
-                .HasMaxLength(40)
-                .IsUnicode(false);
             entity.Property(e => e.ServiceType)
                 .HasMaxLength(40)
                 .IsUnicode(false)
@@ -343,9 +340,15 @@ public partial class OmParmarContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
 
+            entity.HasOne(d => d.Service).WithMany(p => p.FirmDetails)
+                .HasForeignKey(d => d.ServiceId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__FirmDetai__Servi__24285DB4");
+
             entity.HasOne(d => d.User).WithMany(p => p.FirmDetails)
                 .HasForeignKey(d => d.Userid)
-                .HasConstraintName("FK__FirmDetai__Useri__17C286CF");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__FirmDetai__Useri__2334397B");
         });
 
         modelBuilder.Entity<Image>(entity =>
@@ -502,7 +505,6 @@ public partial class OmParmarContext : DbContext
 
             entity.ToTable("Service");
 
-            entity.Property(e => e.ServiceId).HasColumnName("serviceID");
             entity.Property(e => e.Img)
                 .HasMaxLength(50)
                 .IsUnicode(false);
