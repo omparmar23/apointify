@@ -7,14 +7,14 @@
     <h1>All service providers</h1>
     <p>click on any image for show all related provider</p>
 </div>
-<div class="container">
+<div class="container m-auto">
     @foreach (var item in Model)
     {
         
    
     <div class="card">
         <div class="card-image">
-                <img src="@Html.DisplayFor(modelItem => item.Img)">
+                <img src="@Html.DisplayFor(modelItem => item.Img)" class="img-thumbnail">
         </div>
         <div class="card-text">
             <p class="card-meal-type">Breakfast/Eggs</p>
