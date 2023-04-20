@@ -32,7 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Upload\" />
-    <Folder Include="wwwroot\images\FirmImage\" />
     <Folder Include="wwwroot\images\service\" />
   </ItemGroup>
 

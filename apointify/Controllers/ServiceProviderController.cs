@@ -38,26 +38,16 @@ namespace apointify.Controllers
                 {
                     if(firm.Image == null)
                     {
-                        string path = "wwwroot/Image/FirmImage";
-
-                        //create folder if not exist
-                        if (!Directory.Exists(path))
-                            Directory.CreateDirectory(path);
-
-                        //get file extension
-                        FileInfo fileInfo = new FileInfo(firm.Image.FileName);
-                        string fileName = firm.Image.FileName;
-
-                        string fileNameWithPath = Path.Combine(path, fileName);
+                        string path = "/Image/FirmImage/Default.jpg";
+                        FirmDetail newfirm = firm.ToContext();
+                        firm.FirmId = new int();
+                        DBEntities.FirmDetails.Add(newfirm);
+                        DBEntities.SaveChanges();
                     }
                     else
                     {
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Image/FirmImage");
-
-                        //create folder if not exist
-                        if (!Directory.Exists(path))
-                            Directory.CreateDirectory(path);
-
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), "/Image/FirmImage/");
+                        
                         //get file extension
                         FileInfo fileInfo = new FileInfo(firm.Image.FileName);
                         string fileName = firm.Image.FileName;
@@ -68,21 +58,19 @@ namespace apointify.Controllers
                         {
                             firm.Image.CopyTo(stream);
                         }
+                        FirmDetail newfirm = firm.ToContext();
+                        firm.FirmId = new int();
+                        DBEntities.FirmDetails.Add(newfirm);
+                        DBEntities.SaveChanges();
                     }
                     
-
-
-                    FirmDetail newfirm = firm.ToContext();
-                    firm.FirmId = new int();
-                    DBEntities.FirmDetails.Add(newfirm);
-                    DBEntities.SaveChanges();
                     return RedirectToAction("Index", "Login");
                 }
                 else if (firm.FirmId != null)
                 {
                     FirmDetail updatefirm = DBEntities.FirmDetails.Where(m => m.FirmId == firm.FirmId).FirstOrDefault();
 
-                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Image/FirmImage");
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Image/FirmImage/");
 
                     //create folder if not exist
                     if (!Directory.Exists(path))
