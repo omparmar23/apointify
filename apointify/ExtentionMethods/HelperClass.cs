@@ -1,14 +1,11 @@
 ﻿using apointify.Models;
 using apointify.VirtualModels;
-//using ServiceProvider = Microsoft.Extensions.DependencyInjection.ServiceProvider;
+using ServiceProvider = Microsoft.Extensions.DependencyInjection.ServiceProvider;
 
 namespace apointify.ExtentionMethods
 {
     public static class HelperClass
     {
-
-        
-
         public static EmployeeVM ToModel(this Employee obj)
         {
             return new EmployeeVM()
@@ -31,18 +28,38 @@ namespace apointify.ExtentionMethods
                 Department = obj.Department,
             };
         }
+        
+        
         public static User ToContext(this UserVM obj)
         {
             return new User()
             {
                 UserId = obj.UserId,
                 Name = obj.Name,
+                Role = obj.Role,
                 Username = obj.Username,
                 Email = obj.Email,
                 Password = obj.Password,
                 MobileNumber = obj.MobileNumber,
                 City = obj.City,
-                UpdatedDate = new DateTime(),
+                InsertData = DateTime.Now,
+                UpdatedDate =DateTime.Now,
+            };
+        }
+        public static UserVM ToContext(this User obj)
+        {
+            return new UserVM()
+            {
+                
+                Name = obj.Name,
+                Role = obj.Role,
+                Username = obj.Username,
+                Email = obj.Email,
+                Password = obj.Password,
+                MobileNumber = obj.MobileNumber,
+                City = obj.City,
+                InsertData = DateTime.Now,
+                UpdatedDate = DateTime.Now,
             };
         }
 
@@ -87,14 +104,17 @@ namespace apointify.ExtentionMethods
             };
         }
 
-       /* public static Customer ToContext(this CustomerVM obj)
+
+
+
+       /* public static ServiceProviderVM ToModel(this ServiceProvider obj)
         {
-            return new Customer()
+            return new ServiceProviderVM()
             {
-                CustomerId = obj.CustomerId,
-                FirstName = obj.FirstName,
-                LastName = obj.LastName,
-                MobileNo = obj.MobileNo,
+                ServiceId = obj.ServiceId,
+                Service = obj.Service,
+                Username= obj.Username,
+                ServiceId = obj.ServiceId,
                 BirthDate = obj.BirthDate,
                 UserName = obj.UserName,
                 UserEmailAddress = obj.UserEmailAddress,
@@ -104,52 +124,9 @@ namespace apointify.ExtentionMethods
                 State = obj.State,
                 Zipcode = obj.Zipcode,
                 InsertedDate = obj.InsertedDate,
-            };
-        }*/
+            };*/
 
 
-
-
-        //public static ServiceProviderVM ToModel(this ServiceProvider obj)
-        //{
-        //    return new ServiceProviderVM()
-        //    {
-        //        FirmId = obj.FirmId,
-        //        ServiceId =  obj.ServiceId,
-        //        ServiceType = obj.ServiceType,
-        //        Username = obj.Username,
-        //        FirmName = obj.FirmName,
-        //        FirmOwnerName = obj.FirmOwnerName,
-        //        Email = obj.Email,
-        //        Password = obj.Password,
-        //        MobileNumber = obj.MobileNumber,
-        //        Address = obj.Address,
-        //        City = obj.City,
-        //        InsertDate = obj.InsertDate,
-        //        UpdatedDate = obj.UpdatedDate,
-        //        IsDeleted = obj.IsDeleted
-        //    };
-
-        //}
-     /*   public static ServiceProvider ToContext(this ServiceProviderVM obj)
-        {
-            return new ServiceProvider()
-            {
-                CustomerId = obj.CustomerId,
-                FirstName = obj.FirstName,
-                LastName = obj.LastName,
-                MobileNo = obj.MobileNo,
-                BirthDate = obj.BirthDate,
-                UserName = obj.UserName,
-                UserEmailAddress = obj.UserEmailAddress,
-                Password = obj.Password,
-                HomeAddress = obj.HomeAddress,
-                City = obj.City,
-                State = obj.State,
-                Zipcode = obj.Zipcode,
-                InsertedDate = obj.InsertedDate,
-            };
-        }*/
 
 
     }
