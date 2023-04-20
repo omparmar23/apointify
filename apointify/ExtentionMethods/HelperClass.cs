@@ -46,6 +46,13 @@ namespace apointify.ExtentionMethods
                 UpdatedDate =DateTime.Now,
             };
         }
+
+       
+
+
+
+
+
         public static UserVM ToContext(this User obj)
         {
             return new UserVM()
@@ -106,26 +113,47 @@ namespace apointify.ExtentionMethods
 
 
 
-
-       /* public static ServiceProviderVM ToModel(this ServiceProvider obj)
+        public static FirmDetail ToContext(this FirmDetailVM obj)
         {
-            return new ServiceProviderVM()
+            return new FirmDetail()
             {
-                ServiceId = obj.ServiceId,
-                Service = obj.Service,
-                Username= obj.Username,
-                ServiceId = obj.ServiceId,
-                BirthDate = obj.BirthDate,
-                UserName = obj.UserName,
-                UserEmailAddress = obj.UserEmailAddress,
-                Password = obj.Password,
-                HomeAddress = obj.HomeAddress,
+                FirmId = obj.FirmId,
+                Userid = obj.Userid,
+                ServiceName = obj.ServiceName,
+                ServiceType = obj.ServiceType,
+                FirmName = obj.FirmName,
+                FirmImage = obj.FirmImage,
+                Email = obj.Email,
+                MobileNumber = obj.MobileNumber,
+                Address = obj.Address,
                 City = obj.City,
-                State = obj.State,
-                Zipcode = obj.Zipcode,
-                InsertedDate = obj.InsertedDate,
-            };*/
+                IsDeleted = obj.IsDeleted,
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+            };
+        }
+        public static FirmDetailVM ToContext(this FirmDetail obj)
+        {
+            return new FirmDetailVM()
+            {
+                FirmId = obj.FirmId,
+                Userid = obj.Userid,
+                ServiceName = obj.ServiceName,
+                ServiceType = obj.ServiceType,
+                FirmName = obj.FirmName,
+                FirmImage = obj.FirmImage,
+                Email = obj.Email,
+                MobileNumber = obj.MobileNumber,
+                Address = obj.Address,
+                City = obj.City,
+                IsDeleted = Convert.ToBoolean(0),
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+            };
+        }
 
+
+        
 
 
 
