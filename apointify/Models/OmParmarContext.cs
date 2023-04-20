@@ -322,7 +322,7 @@ public partial class OmParmarContext : DbContext
                 .HasMaxLength(40)
                 .IsUnicode(false);
             entity.Property(e => e.FirmImage)
-                .HasMaxLength(40)
+                .HasMaxLength(200)
                 .IsUnicode(false);
             entity.Property(e => e.FirmName)
                 .HasMaxLength(40)

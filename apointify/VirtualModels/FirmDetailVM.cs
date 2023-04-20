@@ -1,4 +1,7 @@
-﻿namespace apointify.VirtualModels
+﻿using Microsoft.AspNetCore.Http;
+
+
+namespace apointify.VirtualModels
 {
     public class FirmDetailVM
     {

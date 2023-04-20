@@ -2,8 +2,11 @@
 using apointify.Models;
 using apointify.VirtualModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Web.Helpers;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
+
 
 
 namespace apointify.Controllers
@@ -15,7 +18,7 @@ namespace apointify.Controllers
         public IActionResult Index(int serviceId)
         {
             //var sp = DBEntities.ServiceProviders.Where(m => m.ServiceId == serviceId).ToList();
-            var sp = DBEntities.ServiceProviders.ToList();
+            var sp = DBEntities.FirmDetails.ToList();
             return View(sp);
         }
         
@@ -27,16 +30,14 @@ namespace apointify.Controllers
 
 
 
-        
 
 
+        [HttpPost]
         public IActionResult Create(FirmDetailVM firm) 
         {
-            try
-            {
                 HttpContext.Session.Clear();
                 OmParmarContext DBEntities = new OmParmarContext();
-                if (firm.FirmId == null)
+                if (firm.FirmId == 0)
                 {
                     if(firm.Image == null)
                     {
@@ -61,13 +62,15 @@ namespace apointify.Controllers
                     }
                     else
                     {
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), "/Image/FirmImage/");
+                    var path = "/wwwroot/Image/FirmImage";
+                    var path2 = "/Image/FirmImage";
                         
                         //get file extension
                         FileInfo fileInfo = new FileInfo(firm.Image.FileName);
                         string fileName = firm.Image.FileName;
 
                         string fileNameWithPath = Path.Combine(path, fileName);
+                        string fileNameWithPath2 = Path.Combine(path2, fileName);
 
                         using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
                         {
@@ -79,7 +82,7 @@ namespace apointify.Controllers
                         newfirm.ServiceName = firm.ServiceName;
                         newfirm.ServiceType = firm.ServiceType;
                         newfirm.FirmName = firm.FirmName;
-                        newfirm.FirmImage = fileNameWithPath;
+                        newfirm.FirmImage = fileNameWithPath2;
                         newfirm.Email = firm.Email;
                         newfirm.MobileNumber = firm.MobileNumber;
                         newfirm.Address = firm.Address;
@@ -91,31 +94,23 @@ namespace apointify.Controllers
                         DBEntities.FirmDetails.Add(newfirm);
                         DBEntities.SaveChanges();
                     }
-                    
                     return RedirectToAction("Index", "Login");
                 }
                 else if (firm.FirmId != null)
                 {
                     FirmDetail updatefirm = DBEntities.FirmDetails.Where(m => m.FirmId == firm.FirmId).FirstOrDefault();
-
                     string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Image/FirmImage/");
-
                     //create folder if not exist
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
-
                     //get file extension
                     FileInfo fileInfo = new FileInfo(firm.Image.FileName);
                     string fileName = firm.Image.FileName;
-
                     string fileNameWithPath = Path.Combine(path, fileName);
-
-
                     using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
                     {
                         firm.Image.CopyTo(stream);
                     }
-
                     updatefirm.FirmImage = fileNameWithPath;
                     updatefirm.FirmName = firm.FirmName;
                     updatefirm.MobileNumber = firm.FirmName;
@@ -124,21 +119,10 @@ namespace apointify.Controllers
                     return RedirectToAction("Index", "Login");
                 }
 
-
                 return RedirectToAction("Index", "Login");
-
-
-
-            }
-            catch(Exception ex)
-            {
-                throw;
-            }
+        
             
-
         }
-
-
 
     }
 }
