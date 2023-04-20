@@ -1583,7 +1583,7 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-    background: #fff;
+    background-color:#fff ;
     padding: 0 0 30px 0;
     color: #444444;
     font-size: 14px;
