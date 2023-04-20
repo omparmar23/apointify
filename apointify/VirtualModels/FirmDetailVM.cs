@@ -7,9 +7,9 @@ namespace apointify.VirtualModels
     {
         public int FirmId { get; set; }
 
-        public int? Userid { get; set; }
+        public int Userid { get; set; }
 
-        public string ServiceName { get; set; } = null!;
+        public int ServiceId { get; set; } 
 
         public string ServiceType { get; set; } = null!;
 

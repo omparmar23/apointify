@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
-
-
+using ServiceProvider = apointify.Models.ServiceProvider;
 
 namespace apointify.Controllers
 {
@@ -15,10 +14,14 @@ namespace apointify.Controllers
     {
         private readonly IHttpContextAccessor _contx;
         OmParmarContext DBEntities = new OmParmarContext();
-        public IActionResult Index(int serviceId)
+
+
+
+
+      
+        public IActionResult Index(int  serviceId)
         {
-            //var sp = DBEntities.ServiceProviders.Where(m => m.ServiceId == serviceId).ToList();
-            var sp = DBEntities.FirmDetails.ToList();
+            List<FirmDetail> sp = DBEntities.FirmDetails.Where(m => m.ServiceId == serviceId).ToList();
             return View(sp);
         }
         
@@ -27,8 +30,6 @@ namespace apointify.Controllers
             
             return View();
         }
-
-
 
 
 
@@ -46,7 +47,7 @@ namespace apointify.Controllers
                         FirmDetail newfirm = new FirmDetail();
                         newfirm.FirmId =new int();
                         newfirm.Userid = firm.Userid;
-                        newfirm.ServiceName = firm.ServiceName;
+                        newfirm.ServiceId = firm.ServiceId  ;
                         newfirm.ServiceType = firm.ServiceType;
                         newfirm.FirmName = firm.FirmName;
                         newfirm.FirmImage = path;
@@ -80,7 +81,7 @@ namespace apointify.Controllers
                         FirmDetail newfirm = firm.ToContext();
                         newfirm.FirmId = new int();
                         newfirm.Userid = firm.Userid;
-                        newfirm.ServiceName = firm.ServiceName;
+                        newfirm.ServiceId = firm.ServiceId;
                         newfirm.ServiceType = firm.ServiceType;
                         newfirm.FirmName = firm.FirmName;
                         newfirm.FirmImage = fileNameWithPath2;

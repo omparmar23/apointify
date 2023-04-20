@@ -7,9 +7,9 @@ public partial class FirmDetail
 {
     public int FirmId { get; set; }
 
-    public int? Userid { get; set; }
+    public int Userid { get; set; }
 
-    public string ServiceName { get; set; } = null!;
+    public int ServiceId { get; set; }
 
     public string ServiceType { get; set; } = null!;
 
@@ -31,5 +31,7 @@ public partial class FirmDetail
 
     public bool? IsDeleted { get; set; }
 
-    public virtual User? User { get; set; }
+    public virtual Service Service { get; set; } = null!;
+
+    public virtual User User { get; set; } = null!;
 }

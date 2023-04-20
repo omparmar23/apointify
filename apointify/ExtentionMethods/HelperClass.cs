@@ -119,7 +119,7 @@ namespace apointify.ExtentionMethods
             {
                 FirmId = obj.FirmId,
                 Userid = obj.Userid,
-                ServiceName = obj.ServiceName,
+                ServiceId = obj.ServiceId,
                 ServiceType = obj.ServiceType,
                 FirmName = obj.FirmName,
                 FirmImage = obj.FirmImage,
@@ -138,7 +138,7 @@ namespace apointify.ExtentionMethods
             {
                 FirmId = obj.FirmId,
                 Userid = obj.Userid,
-                ServiceName = obj.ServiceName,
+                ServiceId = obj.ServiceId,
                 ServiceType = obj.ServiceType,
                 FirmName = obj.FirmName,
                 FirmImage = obj.FirmImage,
