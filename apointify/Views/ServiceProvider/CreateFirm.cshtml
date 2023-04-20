@@ -1,8 +1,7 @@
-﻿@*@model apointify.VirtualModels.ServiceProviderVM
-
+﻿@model apointify.Models.FirmDetail
 @{
     Layout = "";
-    //ViewData["title"] = "SignUp";
+    ViewData["Title"] = "Create";
 }
 
 <!doctype html>
@@ -22,6 +21,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+
+
     <link rel="stylesheet" href="~/css/style.css">
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
@@ -34,99 +35,103 @@
                     <h2 class="text-white">Enter details</h2>
                 </div>
             </div>
-            <div class="row justify-content-end">
-                <div class="col-md-6 col-lg-4">
-                    <div class="login-wrap p-0">
-                        <form>
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="form-group">
-                                <label asp-for="ServiceId" class="control-label"></label>
-                                <select asp-for="" class="form-control ">
-                                    <option value="0" selected disabled>Register As</option>
-                                    <option value="1">Service-Provider</option>
-                                    <option value="2">User</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Name" class="control-label"></label>
-                                <input asp-for="Name" class="form-control" placeholder="Enter Your Name" />
-                                <span asp-validation-for="Name" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Username" class="control-label"></label>
-                                <input asp-for="Username" class="form-control" placeholder="Enter Your UserName" />
-                                <span asp-validation-for="Name" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Email" class="control-label"></label>
-                                <input asp-for="Email" class="form-control" placeholder="Enter Your Email" />
-                                <span asp-validation-for="Email" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="MobileNumber" class="control-label"></label>
-                                <input asp-for="MobileNumber" class="form-control" placeholder="Enter Your Mobile Number" />
-                                <span asp-validation-for="MobileNumber" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Password" class="control-label"></label>
-                                <input asp-for="Password" class="form-control" placeholder="Password" />
+            <div class="row justify-content-end text-white">
+                <div class="col-md-4">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Userid" class="control-label"></label>
+                            <input asp-for="Userid" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ServiceName" class="control-label"></label>
+                            <select asp-for="ServiceName" onclick="test()" class="form-control bg-dark">
+                                <option value="0" selected disabled>Selected</option>
+                                <option value="1">Health And Care </option>
+                                <option value="2">Medical</option>
+                                <option value="3">Hair</option>
+                            </select>
+                            <span asp-validation-for="ServiceName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ServiceType" class="control-label"></label>
+                            <select asp-for="ServiceType" class="form-control bg-dark">
+                                <option value="0" selected disabled>Select</option>
+                            </select>
+                            <span asp-validation-for="ServiceType" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FirmName" class="control-label"></label>
+                            <input asp-for="FirmName" class="form-control  bg-dark" />
+                            <span asp-validation-for="FirmName" class="text-danger"></span>
+                        </div>
 
-                                <button id="show_password" class="btn btn-primary ml-2 mt-3" type="button">
-                                    <span class="fa fa-eye-slash icon"></span>
-                                </button>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control  bg-dark" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MobileNumber" class="control-label"></label>
+                            <input asp-for="MobileNumber" class="form-control  bg-dark" />
+                            <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Address" class="control-label"></label>
+                            <input asp-for="Address" class="form-control  bg-dark" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="City" class="control-label"></label>
+                            <input asp-for="City" class="form-control  bg-dark" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FirmImage" class="control-label"></label>
+                            <input type="file" asp-for="FirmImage" class="" />
+                            <span asp-validation-for="FirmImage" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Create" asp-controller="ServiceProvider" asp-action="Create" class="btn btn-primary" />
+                        </div>
 
-                                <span asp-validation-for="Password" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Confirm Password</label>
-                                <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
-                                <button id="show_Confirmpassword" class="btn btn-primary ml-2 mt-3" type="button">
-                                    <span class="fa fa-eye-slash iconc"></span>
-                                </button>
-                                <span asp-validation-for=" ConfirmPassword" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="Sign up" asp-controller="Login" asp-action="createUser" class="btn btn-primary" />
-                            </div>
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
-
-    <script>
-        $('#show_password').hover(function show() {
-            //Change the attribute to text
-            $('#Password').attr('type', 'text');
-            $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-        },
-            function () {
-                //Change the attribute back to password
-                $('#Password').attr('type', 'password');
-                $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-            });
-
-        $('#show_Confirmpassword').hover(function show() {
-            //Change the attribute to text
-            $('#ConfirmPassword').attr('type', 'text');
-            $('.iconc').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-        },
-            function () {
-                //Change the attribute back to password
-                $('#ConfirmPassword').attr('type', 'password');
-                $('.iconc').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-            });
-
-    </script>
-
-
-
 </body>
 </html>
-@{
+
+<script type="text/javascript">
 
 
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    function test() {
+
+        var x = ($('#ServiceName :selected').val());
+        console.log(x);
+        if (x == "1") {
+
+            ($('#ServiceType')).html(` <option value = '' Selected disabled > Select </option> <option value ='yoga'> Yoga </option><option value =  'Masaj'> Masaj </option>`);
+        }
+        else if (x == "2") {
+            ($('#ServiceType')).html(` <option value = '' Selected disabled> Select </option> <option value ='doctor'> Doctor </option><option value =  'chemist'> chemist </option>`);
+
+        }
+        else if (x == "3") {
+
+            ($('#ServiceType')).html(`<option value = '' Selected disabled> Select </option> <option value =  'Hair'> Hair </option><option value =  'Beauty Salon'>beauty salon </option>`);
+
+        }
+    }
+</script>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
-*@

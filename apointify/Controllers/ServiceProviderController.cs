@@ -1,11 +1,12 @@
 ﻿using apointify.Models;
 using Microsoft.AspNetCore.Mvc;
-using ServiceProvider = Microsoft.Extensions.DependencyInjection.ServiceProvider;
+
 
 namespace apointify.Controllers
 {
     public class ServiceProviderController : Controller
     {
+        private readonly IHttpContextAccessor _contx;
         OmParmarContext DBEntities = new OmParmarContext();
         public IActionResult Index(int serviceId)
         {
@@ -13,11 +14,20 @@ namespace apointify.Controllers
             var sp = DBEntities.ServiceProviders.ToList();
             return View(sp);
         }
-
-        [HttpGet]
-        public IActionResult CreateFirm(int Id)
+        
+        public IActionResult CreateFirm()
         {
-            return View(Id);
+            
+            return View();
+        }
+
+
+        public IActionResult Create(FirmDetail firm) 
+        {
+
+
+
+            return RedirectToAction("Index","Login");
         }
 
         

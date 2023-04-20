@@ -91,16 +91,18 @@
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel"><span class="text-uppercase">@_contx.HttpContext.Session.GetString("Name")</span>, Are You Sure? You Want To Logout</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div class="modal-body">
+                                <img class="w-75 ms-5" src="https://th.bing.com/th/id/OIP.cqiyYfkD_XUjUz3IhlMG6AHaE7?pid=ImgDet&rs=1"></img>
+                                <h5 class="modal-title text-center fs-2 text-dark" id="exampleModalLabel">Comeback Soon!</h5>
+                                <p class="text-center">
+                                    <span class="text-uppercase">@_contx.HttpContext.Session.GetString("Name")</span>, Are You Sure You Want To Logout?
+                                </p>
+                                <div class="text-center ">
+                                    <button type="button" class="btn btn-outline-danger border-0" data-bs-dismiss="modal">Cancel</button>
+                                    <a class="btn btn-danger ms-3" asp-area="" asp-controller="Home" asp-action="Logout"> Yes, Logout </a>
+                                </div>
                             </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                <a class="btn btn-primary px-3" asp-area="" asp-controller="Home" asp-action="Logout"> Yes </a>
-
-                            </div>
                         </div>
                     </div>
                 </div>

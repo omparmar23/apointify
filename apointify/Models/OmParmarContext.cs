@@ -35,6 +35,8 @@ public partial class OmParmarContext : DbContext
 
     public virtual DbSet<Feedback> Feedbacks { get; set; }
 
+    public virtual DbSet<FirmDetail> FirmDetails { get; set; }
+
     public virtual DbSet<Image> Images { get; set; }
 
     public virtual DbSet<Img> Imgs { get; set; }
@@ -301,6 +303,49 @@ public partial class OmParmarContext : DbContext
             entity.Property(e => e.Lastname)
                 .HasMaxLength(20)
                 .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<FirmDetail>(entity =>
+        {
+            entity.HasKey(e => e.FirmId).HasName("PK__FirmDeta__1F1F209CFB09EC89");
+
+            entity.Property(e => e.Address)
+                .HasMaxLength(40)
+                .IsUnicode(false);
+            entity.Property(e => e.City)
+                .HasMaxLength(40)
+                .IsUnicode(false);
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Email)
+                .HasMaxLength(40)
+                .IsUnicode(false);
+            entity.Property(e => e.FirmImage)
+                .HasMaxLength(40)
+                .IsUnicode(false);
+            entity.Property(e => e.FirmName)
+                .HasMaxLength(40)
+                .IsUnicode(false)
+                .HasColumnName("Firm Name");
+            entity.Property(e => e.IsDeleted).HasDefaultValueSql("((0))");
+            entity.Property(e => e.MobileNumber)
+                .HasMaxLength(12)
+                .IsUnicode(false);
+            entity.Property(e => e.ServiceName)
+                .HasMaxLength(40)
+                .IsUnicode(false);
+            entity.Property(e => e.ServiceType)
+                .HasMaxLength(40)
+                .IsUnicode(false)
+                .HasColumnName("serviceType");
+            entity.Property(e => e.UpdatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.User).WithMany(p => p.FirmDetails)
+                .HasForeignKey(d => d.Userid)
+                .HasConstraintName("FK__FirmDetai__Useri__17C286CF");
         });
 
         modelBuilder.Entity<Image>(entity =>

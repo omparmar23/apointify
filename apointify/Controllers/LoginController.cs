@@ -34,16 +34,17 @@ namespace apointify.Controllers
             return View();
         }
 
-        
 
 
 
 
 
+        [HttpPost]
         public IActionResult ValidateCustomerLogin(User users)
         {
             OmParmarContext DBEntities = new OmParmarContext();
-            List<User> UserList = new List<User>();
+            //List<User> UserList = new List<User>();
+            User user = new User();
             try
             {
                 using (con = new SqlConnection(Constr))
@@ -60,32 +61,30 @@ namespace apointify.Controllers
 
                     while (rdr.Read())
                     {
-                        User user = new User();
+                        
                         //user.UserId = Convert.ToInt32(rdr["userId"]);
                         user.Email = rdr["Email"].ToString();
                         user.Password = rdr["Password"].ToString();
+                        user.Role = Convert.ToInt32(rdr["Role"]);
+                        user.MobileNumber = rdr["MobileNumber"].ToString();
+                        user.Name = rdr["Name"].ToString();
 
-
-                        //user.Name = rdr["Name"].ToString();
-
-                        UserList.Add(user);
+                        
                     }
-
                 }
-                _contx.HttpContext.Session.SetString("Email", users.Email);
-                _contx.HttpContext.Session.SetString("Password", users.Password);
+                _contx.HttpContext.Session.SetString("Email", user.Email);
+                _contx.HttpContext.Session.SetString("Password", user.Password);
+                _contx.HttpContext.Session.SetString("Name", user.Name);
+                _contx.HttpContext.Session.SetString("Role", Convert.ToString(user.Role));
+                _contx.HttpContext.Session.SetString("mobile", user.MobileNumber);
                 //_contx.HttpContext.Session.;
-                if (UserList.Count == 0)
+                if (user == null)
                 {
                     TempData["Message"] = "You are not authorized.";
-                    return RedirectToAction("Index", "Login");
+                    return RedirectToAction("newa", "Login");
                 }
                 else
                 {
-                    User u = DBEntities.Users.Where(x => x.Email == users.Email).FirstOrDefault();
-                    _contx.HttpContext.Session.SetString("Name", u.Name);
-                    _contx.HttpContext.Session.SetString("Role", Convert.ToString(u.Role));
-                    _contx.HttpContext.Session.SetString("mobile", u.MobileNumber);
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -95,11 +94,13 @@ namespace apointify.Controllers
             }
         }
 
+        public IActionResult newa()
+        {
+            return RedirectToAction("Index", "Login");
+        }
 
 
 
-
-        [HttpPost]
         public IActionResult createUser(UserVM user)
         {
             OmParmarContext DBEntities = new OmParmarContext();
@@ -115,7 +116,8 @@ namespace apointify.Controllers
                     DBEntities.Users.Add(obj);
                     DBEntities.SaveChanges();
                     var id = obj.UserId;
-                    return RedirectToAction("CreateFirm", "ServiceProvider",id);
+                    _contx.HttpContext.Session.SetString("UserId", Convert.ToString(obj.UserId));
+                    return RedirectToAction("CreateFirm", "ServiceProvider");
                 }
                 else
                 {

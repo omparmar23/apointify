@@ -50,7 +50,7 @@ namespace apointify.ExtentionMethods
         {
             return new UserVM()
             {
-                UserId = obj.UserId,
+                
                 Name = obj.Name,
                 Role = obj.Role,
                 Username = obj.Username,

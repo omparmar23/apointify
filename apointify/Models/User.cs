@@ -1,16 +1,22 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-
+using System.Collections.Generic;
 
 namespace apointify.Models;
+
 public partial class User
 {
     public int UserId { get; set; }
+
     public int? Role { get; set; }
+
     public string Username { get; set; } = null!;
+
     public string Name { get; set; } = null!;
+
     public string Email { get; set; } = null!;
+
     public string Password { get; set; } = null!;
+
     public string? MobileNumber { get; set; }
 
     public string? City { get; set; }
@@ -22,6 +28,8 @@ public partial class User
     public bool? IsDeleted { get; set; }
 
     public virtual ICollection<Appointment> Appointments { get; } = new List<Appointment>();
+
+    public virtual ICollection<FirmDetail> FirmDetails { get; } = new List<FirmDetail>();
 
     public virtual Role RoleNavigation { get; set; } = null!;
 }
