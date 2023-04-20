@@ -22,7 +22,7 @@
             <p class="card-body">Eggs Benedict with hollandaise sauce, crispy bacon and an assortment of garden herbs.</p>
         </div>
         <div class="card-price">
-                <a asp-controller="Service" asp-action="Index" asp-route-id="@item.ServiceId">Show</a> |
+                <a asp-controller="Service" class="text-dark" asp-action="Index" asp-route-id="@item.ServiceId">Show</a> 
             </div>
     </div>
     }
@@ -40,8 +40,9 @@
   box-sizing:border-box;
   font-family:'Playfair Display', serif;
 }
-body{ background:url(https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1776&q=80);
-  background-size:cover;
+body{
+            background: url(https://images.unsplash.com/22/brick-wall.JPG?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODZ8fGJhY2tncm91bmR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60) 100% 100% !important;
+  background-size:initial !important;
   background-position:right;
   background-attachment:fixed;
 }

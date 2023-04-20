@@ -64,7 +64,7 @@ namespace apointify.Controllers
                     }
                     else
                     {
-                    var path = "/wwwroot/Image/FirmImage";
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Image/FirmImage");
                     var path2 = "/Image/FirmImage";
                         
                         //get file extension
@@ -78,7 +78,7 @@ namespace apointify.Controllers
                         {
                             firm.Image.CopyTo(stream);
                         }
-                        FirmDetail newfirm = firm.ToContext();
+                        FirmDetail newfirm = new FirmDetail();
                         newfirm.FirmId = new int();
                         newfirm.Userid = firm.Userid;
                         newfirm.ServiceId = firm.ServiceId;
