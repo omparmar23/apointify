@@ -15,6 +15,7 @@ namespace apointify.Controllers
     {
         private readonly IHttpContextAccessor _contx;
         OmParmarContext DBEntities = new OmParmarContext();
+        [HttpGet]
         public IActionResult Index(int serviceId)
         {
             //var sp = DBEntities.ServiceProviders.Where(m => m.ServiceId == serviceId).ToList();

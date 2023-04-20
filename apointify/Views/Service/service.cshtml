@@ -12,8 +12,10 @@
     <div class="content">
         <div class="container">
             <div class="row">
+                <form>
                 @foreach (var item in Model)
                 {
+                    
                     <div class="col-xs-12 col-sm-4">
                         <div class="card">
                             <a class="img-card">
@@ -27,11 +29,14 @@
                                 </h4>
                             </div>
                             <div class="card-read-more">
-                                <a type="submit" value="khsadkfh"  asp-controller="ServiceProvider" asp-action="Index" class="btn btn-success float-end" >Show all Firms</a>
+
+                                @*<input type="hidden" value="1" asp-for="@Html.DisplayNameFor(modelItem => item.ServiceId)" class="btn btn-success float-end">*@
+                                <input type="submit" value="Show all" asp-controller="ServiceProvider" asp-action="Index" class="btn btn-success float-end">
                             </div>
                         </div>
                     </div>
                 }
+                </form>
             </div>
         </div>
     </div>
