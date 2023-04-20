@@ -36,10 +36,6 @@ namespace apointify.Controllers
                 OmParmarContext DBEntities = new OmParmarContext();
                 if (firm.FirmId == null)
                 {
-
-
-                    
-
                     if(firm.Image == null)
                     {
                         string path = "wwwroot/Image/FirmImage";
