@@ -1,4 +1,4 @@
-﻿@model apointify.Models.FirmDetail
+﻿@model apointify.VirtualModels.FirmDetailVM
 @{
     Layout = "";
     ViewData["Title"] = "Create";
@@ -39,6 +39,10 @@
                 <div class="col-md-4">
                     <form asp-action="Create">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="FirmId" class="control-label"></label>
+                            <input type="hidden" asp-for="FirmId" class="form-control" />
+                        </div>
                         <div class="form-group">
                             <label asp-for="Userid" class="control-label"></label>
                             <input asp-for="Userid" class="form-control" />
@@ -94,7 +98,6 @@
                         <div class="form-group">
                             <input type="submit" value="Create" asp-controller="ServiceProvider" asp-action="Create" class="btn btn-primary" />
                         </div>
-
                     </form>
                 </div>
             </div>
