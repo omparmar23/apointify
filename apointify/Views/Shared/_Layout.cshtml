@@ -36,90 +36,7 @@
     <link href="/css/headercss.css" rel="stylesheet">
 </head>
 <body>
-@*    <header class="d-flex align-items-center bg-light py-2">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
-            <a  class="logo float-start" asp-controller="Home" asp-action="Index"><img class="w-25"  src="~/images/logo-black-removebg-preview.png"></a>
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li class="nav-item">
-                        <a class="nav-link text-" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
-                    </li>
-                    
-                        @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1)
-                        {
-
-                        <li class="nav-item">
-                            <a class="nav-link  text-" asp-area="" asp-controller="order" asp-action="Index">Apointment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
-                        </li>
-                        }
-                        @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2)
-                        {
-                      
-                        <li class="nav-item">
-                            <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
-                        </li>
-                        
-                        }
-                        @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
-                        {
-                        <li class="nav-item">
-                            <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
-                        </li>
-                       
-                        }
-                    
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav>
-            @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 1 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 2 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) !=3)
-            {
-                <a class="fw-bold text-dark float-end me-4"  text-" asp-area="" asp-controller="login" asp-action="Index">Login</a>
-            }
-            @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
-            {
-                <div class="dropdown ">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user"></i><span class="ps-2 text-uppercase">@_contx.HttpContext.Session.GetString("Name")</span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item fs-5 text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal"> Logout <i class="bi bi-box-arrow-right ps-2"></i></a></li>
-                    </ul>
-                </div>
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <img class="w-75 ms-5" src="https://th.bing.com/th/id/OIP.cqiyYfkD_XUjUz3IhlMG6AHaE7?pid=ImgDet&rs=1"></img>
-                                <h5 class="modal-title text-center fs-2 text-dark" id="exampleModalLabel">Comeback Soon!</h5>
-                                <p class="text-center">
-                                    <span class="text-uppercase">@_contx.HttpContext.Session.GetString("Name")</span>, Are You Sure You Want To Logout?
-                                </p>
-                                <div class="text-center ">
-                                    <button type="button" class="btn btn-outline-danger border-0" data-bs-dismiss="modal">Cancel</button>
-                                    <a class="btn btn-danger ms-3" asp-area="" asp-controller="Home" asp-action="Logout"> Yes, Logout </a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            }
-
-        </div>
-    </header>*@
-
-
-
-
-
-
-    <header class="d-flex align-items-center">
+    <header class="d-flex align-items-center bg-secondary" style="background-image:url();">
         @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 1 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 2 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 3)
         {
             <a class="fw-bold text-dark float-end me-4" text-" asp-area="" asp-controller="login" asp-action="Index">Login</a>
@@ -166,7 +83,6 @@
                     
                     @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1)
                     {
-
                         <li class="nav-item">
                             <a class="nav-link  text-" asp-area="" asp-controller="order" asp-action="Index">Apointment</a>
                         </li>
@@ -176,11 +92,9 @@
                     }
                     @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2)
                     {
-
                         <li class="nav-item">
                             <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
                         </li>
-
                     }
                     @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
                     {
@@ -189,21 +103,17 @@
                         </li>
 
                     }
-                   
-                    
                     <li> <a class="nav-link text-" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a></li>
-                   
-                    
                 </ul>
             </nav>
             
         </div>
         <div class="head">
             <div class="tile burger">
-                <div class="meat">
-                    <div class="line one"></div>
-                    <div class="line two"></div>
-                    <div class="line three"></div>
+                <div class="meat text-white">
+                    <div class="line one text-white"></div>
+                    <div class="line two text-white"></div>
+                    <div class="line three text-white"></div>
                 </div>
             </div>
         </div>
@@ -217,19 +127,15 @@
         </main>
     </div>
     <!-- ======= Footer ======= -->
-    <footer id="footer">
-        <div class="footer-top">
-            <div class="container">
-                <div class="row">
-
-
+    <footer class="bg-secondary py-3" style="background-image:url();">
+            <div class="container p-0 text-start">
+                <div class=" text-start">
+                <a class="text-dark fw-bold fs-4"> Devloped by <strong>| Om Parmar | Tarwin Kela | Gauri Khodke</strong></a>
                 </div>
             </div>
-        </div>
-
-        <div class="container py-4">
+    </footer><!-- End Footer -->
+        @*<footer class="container py-4">
             <div class="copyright">
-                &copy; Copyright <strong><span>BizLand</span></strong>. All Rights Reserved
             </div>
             <div class="credits">
                 <!-- All the links in the footer should remain intact. -->
@@ -238,8 +144,7 @@
                 <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bizland-bootstrap-business-template/ -->
                 Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
             </div>
-        </div>
-    </footer><!-- End Footer -->
+        </footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
