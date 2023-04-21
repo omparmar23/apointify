@@ -8227,7 +8227,6 @@ h1, h2, h3, h4, h5,
   background: transparent;
   border: none;
   height: 50px;
-  color: white !important;
   border: 1px solid transparent;
   background: rgba(255, 255, 255, 0.08);
   border-radius: 40px;
@@ -8347,3 +8346,13 @@ textarea.form-control {
         border: 1px solid transparent;
         background: #fbceb5;
         color: #fff; }
+
+@media (max-width: 900px) {
+  .create {
+       margin:0 !important;
+    }
+}
+
+
+
+
