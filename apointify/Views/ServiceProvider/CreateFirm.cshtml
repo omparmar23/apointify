@@ -41,20 +41,22 @@
                     <form asp-action="Create" asp-controller="ServiceProvider" method="post" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
-                            <label asp-for="FirmId" class="control-label"></label>
-                            <input  type="hidden" asp-for="FirmId" class="form-control" />
+                            
+                            <input type="hidden" asp-for="FirmId" class="form-control"/>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Userid" class="control-label"></label>
+                            
                             <input type="hidden" value="@_contx.HttpContext.Session.GetString("UserId")" asp-for="Userid" class="form-control" />
                         </div>
                         <div class="form-group">
                             <label asp-for="ServiceId" class="control-label"></label>
                             <select asp-for="ServiceId" onclick="test()" class="form-control bg-dark">
                                 <option value="0" selected disabled>Selected</option>
-                                <option value="1">Health And Care </option>
-                                <option value="2">Medical</option>
-                                <option value="3">Hair</option>
+                                <option value="1">Health And Care</option>
+                                <option value="2">Hair Salon</option>
+                                <option value="3">Restaurants</option>
+                                <option value="4">Fitness</option>
+                                <option value="5">Pet Services</option>
                             </select>
                             <span asp-validation-for="ServiceId" class="text-danger"></span>
                         </div>
@@ -115,26 +117,29 @@
         var x = ($('#ServiceId :selected').val());
         console.log(x);
         if (x == "1") {
+            ($('#ServiceType')).html(`<option value = '' Selected disabled> Select </option><option value ='Doctor'>Doctor</option><option value ='Chemist'>Chemist</option>`);
 
-            ($('#ServiceType')).html(` <option value = '' Selected disabled > Select </option> <option value ='yoga'> Yoga </option><option value =  'Masaj'> Masaj </option>`);
         }
         else if (x == "2") {
-            ($('#ServiceType')).html(` <option value = '' Selected disabled> Select </option> <option value ='doctor'> Doctor </option><option value =  'chemist'> chemist </option>`);
 
+            ($('#ServiceType')).html(`<option value = '' Selected disabled> Select </option> <option value =  'Hair'>Hair </option><option value ='Beauty Salon'>beauty salon </option>`);
         }
         else if (x == "3") {
+            ($('#ServiceType')).html(`<option value = 'Restaurants' Selected disabled>Restaurants</option>`);
 
-            ($('#ServiceType')).html(`<option value = '' Selected disabled> Select </option> <option value =  'Hair'> Hair </option><option value =  'Beauty Salon'>beauty salon </option>`);
+        }
+        else if (x == "4") {
 
+            ($('#ServiceType')).html(`<option value = '' Selected disabled > Select </option> <option value ='yoga'> Yoga </option><option value =  'Masaj'> Masaj </option>`);
+        }
+
+        else if (x = "5") {
+            ($('#ServiceType')).html(`<option value = '' Selected disabled > Select </option> <option value ='Care Taker'> Care Taker </option><option value =  'Pet Doctor'>Pet Doctor</option>`);
         }
     }
 </script>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
-
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
