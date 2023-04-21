@@ -1,44 +1,259 @@
 ﻿@model IEnumerable<apointify.Models.FirmDetail>
 
 @{
-    ViewData["Title"] = "Index";    
+    ViewData["Title"] = "Index";
 }
 
-<h1 class="text-center">All service providers
+@section Css{
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        .cards_service_service {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .cards_service_item {
+            display: flex;
+            padding: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card_image {
+            max-height: 250px;
+            margin-top: -24px;
+        }
+
+            .card_image img {
+                width: 100%;
+                max-width: 800px;
+                height: 130%;
+                object-fit: cover;
+            }
+
+            .card_image:after {
+                content: "";
+                display: block;
+                width: 100%;
+                height: 100px;
+                position: relative;
+                top: -100px;
+                background: linear-gradient(0deg, #091014 10%, rgba(0, 0, 0, 0) 100%);
+            }
+
+
+
+        .card_service {
+            background-color: #091014;
+            border-radius: 0.25rem;
+            box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .card_content {
+            padding: 1rem;
+            z-index: 1;
+            display: block;
+        }
+
+        .card_title {
+            font-family: 'Lobster', cursive;
+            font-size: 72px;
+            line-height: 72px;
+            margin-top: -50px;
+            margin-bottom: 24px;
+            text-shadow: black 1px 0 15px;
+            color: white;
+        }
+
+        .card_text {
+            color: #DDDACB;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+        }
+
+            .card_text p {
+                max-width: 700px;
+            }
+
+        .card_price {
+            position: relative;
+            top: 10px;
+            right: 16px;
+            text-align: right;
+            color: white;
+            font-family: "Raleway", sans-serif;
+            height: 24px;
+            font-size: 36px;
+            font-weight: 400;
+            text-shadow: black 3px 0px 6px;
+        }
+
+       /* #item_fig .card:after {
+            content: "Seasonal";
+            font-family: "Raleway", sans-serif;
+            color: rgba(234, 225, 175, 0.8);
+            font-weight: 600;
+            // font-style: italic;
+            text-transform: uppercase;
+            display: block;
+            width: 10ch;
+            height: 1.5em;
+            padding: 0.2em 0.4em;
+            position: relative;
+            bottom: calc(100% - 2.5em);
+            left: 1em;
+        }*/
+
+        .control {
+            position: absolute;
+            bottom: 20%;
+            left: 22.8%;
+        }
+
+        .btn {
+            transform: translateY(0px);
+            transition: 0.3s linear;
+            background: #809fff;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            outline: none;
+            border: none;
+            color: #eee;
+            padding: 0;
+            margin: 0;
+        }
+
+            .btn:hover {
+                transform: translateY(-6px);
+                background: #1a66ff;
+            }
+
+            .btn span {
+                font-family: 'Farsan', cursive;
+                transition: transform 0.3s;
+                display: inline-block;
+                padding: 10px 20px;
+                font-size: 1.2em;
+                margin: 0;
+            }
+
+            .btn .price, .shopping-cart {
+                background: #333;
+                border: 0;
+                margin: 0;
+            }
+
+            .btn .price {
+                transform: translateX(-10%);
+                padding-right: 15px;
+            }
+
+            .btn .shopping-cart {
+                transform: translateX(-100%);
+                position: absolute;
+                background: #333;
+                z-index: 1;
+                left: 0;
+                top: 0;
+            }
+
+            .btn .buy {
+                z-index: 3;
+                font-weight: bolder;
+            }
+
+            .btn:hover .price {
+                transform: translateX(-110%);
+            }
+
+            .btn:hover .shopping-cart {
+                transform: translateX(0%);
+            }
+/*
+        .samecard {
+            width: 460px;
+        }*/
+    </style>
+
+}
+<h1 class="text-center">
+    All service providers
 </h1>
 <section class="wrapper">
-        <div class="content">
-            <div class="container">
-                <div class="row">@foreach (var item in Model)
-                            {
-                    <div class="col-xs-12 col-sm-4">
-                        <div class="card">
-                            <a class="img-card">
-                                <img src="@Html.DisplayFor(modelItem => item.FirmImage)">
-                            </a>
-                            <div class="card-content">
-                                <h4 class="card-title">
-                                    <a>
-                                      @Html.DisplayFor(modelItem => item.FirmName)
-                                    </a>
-                                </h4>
-                                <p class="">
-                                    @Html.DisplayFor(modelItem => item.Address)
-                                </p>
-                                <p class="">
-                                    @Html.DisplayFor(modelItem => item.MobileNumber)
-                                </p>
-                            </div>
-                            
-                            <div class="card-read-more">
-                                <a asp-controller="Apointment" asp-action="Index" class="btn btn-link btn-block">
-                                    Read More
-                                </a>
-                            </div>
-                        </div>
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-around">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-12 col-lg-6">
+                        <ul class="cards_service">
+                            <li class="cards_service_item" id="item_salad">
+                                <div class="card_service">
+                                    <div class="card_image"><img src="@Html.DisplayFor(modelItem => item.FirmImage)"></div>
+                                    <div class="card_content">
+                                        <h2 class="card_title">@Html.DisplayFor(modelItem => item.FirmName)</h2>
+                                        <div class="row">
+                                            <div class="card_text col-sm-5 col-md-4 col-5">
+                                            <p>@Html.DisplayFor(modelItem => item.Address)</p>
+                                            <p class="p-0">@Html.DisplayFor(modelItem => item.MobileNumber)</p>
+                                        </div>
+                                        <div class="card_price col-sm-7 col-md-8 col-7">
+                                            <button class="btn">
+                                                <span class="price">Rs.50</span>
+                                                <span class="shopping-cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+                                                <span class="buy">Book Now</span>
+                                            </button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                    }
+                }
+
+
+
+                @*<div class="col-xs-12 col-sm-6 col-md-6 samecard">
+                <div class="card p-3 bg-dark text-white">
+                <a class="img-card">
+                <img src="@Html.DisplayFor(modelItem => item.FirmImage)">
+                </a>
+                <div class="card-content">
+                <h4 class="card-title">
+                <a>
+                @Html.DisplayFor(modelItem => item.FirmName)
+                </a>
+                </h4>
+                <p class="">
+                @Html.DisplayFor(modelItem => item.Address)
+                </p>
+                <p class="">
+                @Html.DisplayFor(modelItem => item.MobileNumber)
+                </p>
                 </div>
+
+                <div class="card-read-more">
+                <a asp-controller="Apointment" asp-action="Index" class="btn btn-link btn-block">
+                Read More
+                </a>
+                </div>
+                </div>
+                </div>*@
             </div>
         </div>
     </div>
