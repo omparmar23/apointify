@@ -8,5 +8,9 @@ namespace apointify.Controllers
         {
             return View();
         }
+        public IActionResult bookings()
+        {
+            return View();
+        }
     }
 }

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using apointify.ExtentionMethods;
 using apointify.VirtualModels;
+using System.Collections.Generic;
+
 
 namespace apointify.Controllers
 {
@@ -42,11 +44,10 @@ namespace apointify.Controllers
         [HttpPost]
         public IActionResult ValidateCustomerLogin(User users)
         {
-            OmParmarContext DBEntities = new OmParmarContext();
-            //List<User> UserList = new List<User>();
             User user = new User();
             try
             {
+
                 using (con = new SqlConnection(Constr))
                 {
                     con.Open();
@@ -72,20 +73,20 @@ namespace apointify.Controllers
                         
                     }
                 }
-                _contx.HttpContext.Session.SetString("Email", user.Email);
-                _contx.HttpContext.Session.SetString("Password", user.Password);
-                _contx.HttpContext.Session.SetString("Name", user.Name);
-                _contx.HttpContext.Session.SetString("Role", Convert.ToString(user.Role));
-                _contx.HttpContext.Session.SetString("mobile", user.MobileNumber);
                 //_contx.HttpContext.Session.;
-                if (user == null)
+                if (user.UserId == 0)
                 {
                     TempData["Message"] = "You are not authorized.";
                     return RedirectToAction("newa", "Login");
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home");
+					_contx.HttpContext.Session.SetString("Email", user.Email);
+					_contx.HttpContext.Session.SetString("Password", user.Password);
+					_contx.HttpContext.Session.SetString("Name", user.Name);
+					_contx.HttpContext.Session.SetString("Role", Convert.ToString(user.Role));
+					_contx.HttpContext.Session.SetString("mobile", user.MobileNumber);
+					return RedirectToAction("Index", "Home");
                 }
             }
             catch (Exception)
