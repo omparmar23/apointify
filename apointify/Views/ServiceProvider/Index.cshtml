@@ -100,7 +100,7 @@
             text-shadow: black 3px 0px 6px;
         }
 
-       /* #item_fig .card:after {
+        #item_fig .card:after {
             content: "Seasonal";
             font-family: "Raleway", sans-serif;
             color: rgba(234, 225, 175, 0.8);
@@ -114,7 +114,7 @@
             position: relative;
             bottom: calc(100% - 2.5em);
             left: 1em;
-        }*/
+        }
 
         .control {
             position: absolute;
@@ -172,8 +172,10 @@
             }
 
             .btn .buy {
+                
                 z-index: 3;
                 font-weight: bolder;
+                 transform: translateX(0%);
             }
 
             .btn:hover .price {
@@ -183,10 +185,6 @@
             .btn:hover .shopping-cart {
                 transform: translateX(0%);
             }
-/*
-        .samecard {
-            width: 460px;
-        }*/
     </style>
 
 }
@@ -214,8 +212,8 @@
                                         <div class="card_price col-sm-7 col-md-8 col-7">
                                             <button class="btn">
                                                 <span class="price">Rs.50</span>
-                                                <span class="shopping-cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
-                                                <span class="buy">Book Now</span>
+                                                    <span class="shopping-cart"><i class="fa fa-shopping-cart"  aria-hidden="true"></i></span>
+                                                    <a asp-controller="Apointment" asp-action="Index" class="buy pe-4 text-white">Book Now</a>
                                             </button>
                                         </div>
                                         </div>
