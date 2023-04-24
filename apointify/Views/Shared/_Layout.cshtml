@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
     <link href="~/images/logo-black.png" rel="icon">
     <link href="~/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -37,6 +40,7 @@
   @*  <link href="/css/headercss.css" rel="stylesheet">*@
 </head>
 <body>
+
     <header class="d-flex align-items-center bg-light" >
         <div class="container-fluid d-flex align-items-center justify-content-between">
             <a  class="logo float-start" asp-controller="Home" asp-action="Index"><img class="w-25"  src="~/images/logo-black-removebg-preview.png"></a>
@@ -121,6 +125,9 @@
 
 
    @* <header class="d-flex align-items-center">
+
+    @*<header class="d-flex align-items-center bg-secondary" style="background-image:url();">
+
         @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 1 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 2 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 3)
         {
             <a class="fw-bold text-dark float-end me-4" text-" asp-area="" asp-controller="login" asp-action="Index">Login</a>
@@ -167,7 +174,6 @@
                     
                     @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1)
                     {
-
                         <li class="nav-item">
                             <a class="nav-link  text-" asp-area="" asp-controller="order" asp-action="Index">Apointment</a>
                         </li>
@@ -177,11 +183,9 @@
                     }
                     @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2)
                     {
-
                         <li class="nav-item">
                             <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
                         </li>
-
                     }
                     @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
                     {
@@ -190,21 +194,17 @@
                         </li>
 
                     }
-                   
-                    
                     <li> <a class="nav-link text-" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a></li>
-                   
-                    
                 </ul>
             </nav>
             
         </div>
         <div class="head">
             <div class="tile burger">
-                <div class="meat">
-                    <div class="line one"></div>
-                    <div class="line two"></div>
-                    <div class="line three"></div>
+                <div class="meat text-white">
+                    <div class="line one text-white"></div>
+                    <div class="line two text-white"></div>
+                    <div class="line three text-white"></div>
                 </div>
             </div>
         </div>
@@ -218,6 +218,7 @@
         </main>
     </div>
     <!-- ======= Footer ======= -->
+
     <footer id="footer">
       
             <!-- Grid container -->
@@ -255,6 +256,17 @@
                     </a>
                 </section>
                 <!-- Section: Social media -->
+
+    <footer class="bg-secondary py-3" style="background-image:url();">
+            <div class="container p-0 text-start">
+                <div class=" text-start">
+                <a class="text-dark fw-bold fs-4"> Devloped by <strong>| Om Parmar | Tarwin Kela | Gauri Khodke</strong></a>
+                </div>
+            </div>
+    </footer><!-- End Footer -->
+        @*<footer class="container py-4">
+            <div class="copyright">
+
             </div>
             <!-- Grid container -->
             <!-- Copyright -->
@@ -262,10 +274,14 @@
                 © 2020 Copyright:
                 <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
             </div>
+
             <!-- Copyright -->
        
 
     </footer><!-- End Footer -->
+
+        </footer>*@
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
