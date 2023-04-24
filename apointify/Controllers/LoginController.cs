@@ -67,6 +67,7 @@ namespace apointify.Controllers
                         user.Email = rdr["Email"].ToString();
                         user.Password = rdr["Password"].ToString();
                         user.Role = Convert.ToInt32(rdr["Role"]);
+                        user.UserId = Convert.ToInt32(rdr["UserId"]);
                         user.MobileNumber = rdr["MobileNumber"].ToString();
                         user.Name = rdr["Name"].ToString();
 
