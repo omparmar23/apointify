@@ -418,10 +418,23 @@ h6 {
     background-size: cover;
     position: relative;
 }
+/*#hero:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background:black;
+    opacity:0.4;
+}
+*/
+
 
     #hero:before {
         content: "";
-        background: rgba(255, 255, 255, 0.6);
+        background: rgba(0,0,0,0.4);
         position: absolute;
         bottom: 0;
         top: 0;
@@ -429,28 +442,32 @@ h6 {
         right: 0;
     }
 
-    #hero .container {
-        position: relative;
-    }
+#hero .container {
+    position: relative;
+   
+}
 
     #hero h1 {
         margin: 0;
         font-size: 48px;
         font-weight: 700;
         line-height: 56px;
-        color: #222222;
+        color: navajowhite;
         font-family: "Poppins", sans-serif;
+       
     }
 
         #hero h1 span {
             color: #106eea;
+            
         }
 
     #hero h2 {
-        color: #555555;
+        color: ghostwhite;
         margin: 5px 0 30px 0;
         font-size: 24px;
         font-weight: 400;
+       
     }
 
     #hero .btn-get-started {
@@ -465,6 +482,7 @@ h6 {
         transition: 0.5s;
         color: #fff;
         background: #106eea;
+       
     }
 
         #hero .btn-get-started:hover {
@@ -475,10 +493,11 @@ h6 {
         font-size: 16px;
         transition: 0.5s;
         margin-left: 25px;
-        color: #222222;
+        color: white;
         font-weight: 600;
         display: flex;
         align-items: center;
+     
     }
 
         #hero .btn-watch-video i {
@@ -487,14 +506,17 @@ h6 {
             transition: 0.3s;
             line-height: 0;
             margin-right: 8px;
+           
         }
 
         #hero .btn-watch-video:hover {
             color: #106eea;
+           
         }
 
             #hero .btn-watch-video:hover i {
                 color: #3b8af2;
+               
             }
 
 @media (min-width: 1024px) {
@@ -787,7 +809,23 @@ section {
     transition: 0.9s;
     background-color: #106eea;
 }
-
+.line-text {
+    height: 40px;
+    width: 40px;
+    background-color: #000000bd;
+    border-radius: 20px;
+    margin: 0 auto;
+    color: white;
+    padding: 8px 4px;
+}
+.line {
+    height: 3px;
+    background: #106eea;
+   
+    width:73%;
+    display:block;
+    margin:0 auto
+}
 /*--------------------------------------------------------------
 # Counts
 --------------------------------------------------------------*/
@@ -1584,7 +1622,7 @@ section {
 --------------------------------------------------------------*/
 #footer {
     background-color:#fff ;
-    padding: 0 0 30px 0;
+   
     color: #444444;
     font-size: 14px;
     background: #f1f6fe;
@@ -1749,6 +1787,7 @@ section {
         font-size: 13px;
         color: #444444;
     }
+
 
 @media (max-width: 768px) {
 
