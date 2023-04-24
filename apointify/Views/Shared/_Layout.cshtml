@@ -12,7 +12,11 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/apointify.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdl̥njs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
     <link href="~/images/logo-black.png" rel="icon">
     <link href="~/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -33,10 +37,97 @@
     @RenderSection("Css", required: false)
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 
-    <link href="/css/headercss.css" rel="stylesheet">
+  @*  <link href="/css/headercss.css" rel="stylesheet">*@
 </head>
 <body>
-    <header class="d-flex align-items-center bg-secondary" style="background-image:url();">
+
+    <header class="d-flex align-items-center bg-light" >
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+            <a  class="logo float-start" asp-controller="Home" asp-action="Index"><img class="w-25"  src="~/images/logo-black-removebg-preview.png"></a>
+            <nav id="navbar" class="navbar" >
+                <ul>
+                    <li class="nav-item">
+                        <a class="nav-link text-" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                    </li>
+                    
+                        @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1)
+                        {
+
+                        <li class="nav-item">
+                            <a class="nav-link  text-" asp-area="" asp-controller="order" asp-action="Index">Apointment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
+                        </li>
+                        }
+                        @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2)
+                        {
+                      
+                        <li class="nav-item">
+                            <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
+                        </li>
+                        
+                        }
+                        @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
+                        </li>
+                       
+                        }
+                    
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+            @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 1 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 2 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) !=3)
+            {
+                <a class="fw-bold text-dark float-end me-4"  text-" asp-area="" asp-controller="login" asp-action="Index">Login</a>
+            }
+            @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
+            {
+                <div class="dropdown ">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user"></i><span class="ps-2 text-uppercase">@_contx.HttpContext.Session.GetString("Name")</span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item fs-5 text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal"> Logout <i class="bi bi-box-arrow-right ps-2"></i></a></li>
+                    </ul>
+                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <img class="w-75 ms-5" src="https://th.bing.com/th/id/OIP.cqiyYfkD_XUjUz3IhlMG6AHaE7?pid=ImgDet&rs=1"></img>
+                                <h5 class="modal-title text-center fs-2 text-dark" id="exampleModalLabel">Comeback Soon!</h5>
+                                <p class="text-center">
+                                    <span class="text-uppercase">@_contx.HttpContext.Session.GetString("Name")</span>, Are You Sure You Want To Logout?
+                                </p>
+                                <div class="text-center ">
+                                    <button type="button" class="btn btn-outline-danger border-0" data-bs-dismiss="modal">Cancel</button>
+                                    <a class="btn btn-danger ms-3" asp-area="" asp-controller="Home" asp-action="Logout"> Yes, Logout </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </header>
+
+
+
+
+
+
+   @* <header class="d-flex align-items-center">
+
+    @*<header class="d-flex align-items-center bg-secondary" style="background-image:url();">
+
         @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 1 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 2 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 3)
         {
             <a class="fw-bold text-dark float-end me-4" text-" asp-area="" asp-controller="login" asp-action="Index">Login</a>
@@ -48,7 +139,7 @@
                     <i class="fa-solid fa-user"></i><span class="ps-2 text-uppercase">@_contx.HttpContext.Session.GetString("Name")</span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li>@*<a class="dropdown-item fs-5 text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">*@ <a class="btn btn-danger ms-3" asp-area="" asp-controller="Home" asp-action="Logout">Logout <i class="bi bi-box-arrow-right ps-2"></i></a></li>
+                    <li> <a class="btn btn-danger ms-3" asp-area="" asp-controller="Home" asp-action="Logout">Logout <i class="bi bi-box-arrow-right ps-2"></i></a></li>
                 </ul>
             </div>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -117,7 +208,7 @@
                 </div>
             </div>
         </div>
-    </header>
+    </header>*@
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
     
@@ -127,6 +218,45 @@
         </main>
     </div>
     <!-- ======= Footer ======= -->
+
+    <footer id="footer">
+      
+            <!-- Grid container -->
+            <div class="container p-4 pb-0 text-center">
+                <!-- Section: Social media -->
+                <section class="mb-4">
+                    <!-- Facebook -->
+                <a class="btn btn-outline-primary  btn-floating fs-4 border-0 m-1" href="#!" role="button">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+
+                    <!-- Twitter -->
+                <a class=" btn btn-outline-primary btn-floating  fs-4 border-0 m-1" href="#!" role="button">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+
+                    <!-- Google -->
+                <a class=" btn btn-outline-primary btn-floating m-1  fs-4 border-0" href="#!" role="button">
+                        <i class="fab fa-google"></i>
+                    </a>
+
+                    <!-- Instagram -->
+                <a class="btn-1 btn btn-outline-primary btn-floating m-1  fs-4 border-0" href="#!" role="button">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+
+                    <!-- Linkedin -->
+                <a class=" btn btn-outline-primary btn-floating m-1  fs-4 border-0" href="#!" role="button">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+
+                    <!-- Github -->
+                <a class=" btn btn-outline-primary btn-floating m-1  fs-4 border-0" href="#!" role="button">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </section>
+                <!-- Section: Social media -->
+
     <footer class="bg-secondary py-3" style="background-image:url();">
             <div class="container p-0 text-start">
                 <div class=" text-start">
@@ -136,15 +266,22 @@
     </footer><!-- End Footer -->
         @*<footer class="container py-4">
             <div class="copyright">
+
             </div>
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bizland-bootstrap-business-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            <!-- Grid container -->
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2020 Copyright:
+                <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
             </div>
+
+            <!-- Copyright -->
+       
+
+    </footer><!-- End Footer -->
+
         </footer>*@
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
