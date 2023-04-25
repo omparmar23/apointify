@@ -14,7 +14,6 @@ namespace apointify.Controllers
         
         public IActionResult Index(int Id)
         {
-
             FirmDetail service = DBEntities.FirmDetails.Where(m => m.ServiceId == Id).FirstOrDefault();
             return RedirectToAction("Index","ServiceProvider",new {service.ServiceId });
         }

@@ -4,12 +4,15 @@ namespace apointify.Controllers
 {
     public class ApointmentController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(int Id)
         {
+            
             return View();
         }
         public IActionResult bookings()
         {
+
+
             return View();
         }
     }

@@ -3,10 +3,14 @@
 @{
     ViewData["Title"] = "Service";
 }
-<div id="innerheader">
-    <h1>All service providers</h1>
-    <p>click on any image for show all related provider</p>
+
+
+
+
+<div class="card bg-dark text-danger m-auto w-50">
+        <h1 class="text-danger text-center">Our Services</h1>
 </div>
+
 <div class="container m-auto">
     @foreach (var item in Model)
     {
@@ -33,19 +37,75 @@
 @section Css{
 
     <style>
+
+
         @@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,900;1,400;1,900&display=swap');
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Playfair Display', serif;
-}
-body{
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', serif;
+        }
+
+        body {
             background: url(https://images.unsplash.com/22/brick-wall.JPG?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODZ8fGJhY2tncm91bmR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60) 100% 100% !important;
-  background-size:initial !important;
-  background-position:right;
-  background-attachment:fixed;
-}
+            background-size: initial !important;
+            background-position: right;
+            background-attachment: fixed;
+        }
+        
+
+
+        .header {
+            background: radial-gradient(circle, rgba(255,255,255,1) 10%, rgba(0,0,0,1) 100%);
+            text-align: center;
+            width: 75%;
+            height: auto;
+            margin :0 auto;
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 85% 85% / 30%;
+        }
+
+            .header .overlay {
+                width: 75%;
+                margin :0 auto;
+                height: 100%;
+                padding: 50px;
+                color: #FFF;
+                text-shadow: 1px 1px 1px #333;
+            }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 80px;
+            margin-bottom: 30px;
+        }
+
+        h3, p {
+            font-family: 'Open Sans', sans-serif;
+            margin-bottom: 30px;
+        }
+
+        button {
+            border: none;
+            outline: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: #333;
+            background: #fff;
+            margin-bottom: 50px;
+            box-shadow: 0 3px 20px 0 #0000003b;
+        }
+
+            button:hover {
+                cursor: pointer;
+            }
+
+
 #innerheader{
   margin:20px;
 }

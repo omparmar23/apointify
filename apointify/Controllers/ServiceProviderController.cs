@@ -30,10 +30,11 @@ namespace apointify.Controllers
             
             return View();
         }
+		
 
 
 
-        [HttpPost]
+		[HttpPost]
         public IActionResult Create(FirmDetailVM firm) 
         {
                 HttpContext.Session.Clear();
