@@ -122,7 +122,7 @@
             left: 22.8%;
         }
 
-        .btn {
+        .btn_book {
             transform: translateY(0px);
             transition: 0.3s linear;
             background: #809fff;
@@ -135,14 +135,15 @@
             color: #eee;
             padding: 0;
             margin: 0;
+            font-size:20px;
         }
 
-            .btn:hover {
+            .btn_book:hover {
                 transform: translateY(-6px);
                 background: #1a66ff;
             }
 
-            .btn span {
+            .btn_book span {
                 font-family: 'Farsan', cursive;
                 transition: transform 0.3s;
                 display: inline-block;
@@ -151,18 +152,18 @@
                 margin: 0;
             }
 
-            .btn .price, .shopping-cart {
+            .btn_book .price, .shopping-cart {
                 background: #333;
                 border: 0;
                 margin: 0;
             }
 
-            .btn .price {
+            .btn_book .price {
                 transform: translateX(-10%);
                 padding-right: 15px;
             }
 
-            .btn .shopping-cart {
+            .btn_book .shopping-cart {
                 transform: translateX(-100%);
                 position: absolute;
                 background: #333;
@@ -171,18 +172,18 @@
                 top: 0;
             }
 
-            .btn .buy {
+            .btn_book .buy {
                 
                 z-index: 3;
                 font-weight: bolder;
                  transform: translateX(0%);
             }
 
-            .btn:hover .price {
+            .btn_book:hover .price {
                 transform: translateX(-110%);
             }
 
-            .btn:hover .shopping-cart {
+            .btn_book:hover .shopping-cart {
                 transform: translateX(0%);
             }
     </style>
@@ -210,7 +211,7 @@
                                             <p class="p-0">@Html.DisplayFor(modelItem => item.MobileNumber)</p>
                                         </div>
                                         <div class="card_price col-sm-7 col-md-8 col-7">
-                                            <button class="btn">
+                                            <button class="btn_book">
                                                 <span class="price">Rs.50</span>
                                                     <span class="shopping-cart"><i class="fa fa-shopping-cart"  aria-hidden="true"></i></span>
                                                     <a asp-controller="Apointment" asp-action="Index" class="buy pe-4 text-white">Book Now</a>
@@ -246,7 +247,7 @@
                 </div>
 
                 <div class="card-read-more">
-                <a asp-controller="Apointment" asp-action="Index" class="btn btn-link btn-block">
+                <a asp-controller="Apointment" asp-action="Index" class=btn_bookbtn_book-linkbtn_book-block">
                 Read More
                 </a>
                 </div>
