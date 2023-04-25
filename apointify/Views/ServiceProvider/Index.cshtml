@@ -122,7 +122,7 @@
             left: 22.8%;
         }
 
-        .btn_book {
+        .btn_book{
             transform: translateY(0px);
             transition: 0.3s linear;
             background: #809fff;
@@ -148,7 +148,7 @@
                 transition: transform 0.3s;
                 display: inline-block;
                 padding: 10px 20px;
-                font-size: 1.2em;
+                /*font-size: 1.2em;*/
                 margin: 0;
             }
 
@@ -206,15 +206,15 @@
                                     <div class="card_content">
                                         <h2 class="card_title">@Html.DisplayFor(modelItem => item.FirmName)</h2>
                                         <div class="row">
-                                            <div class="card_text col-sm-5 col-md-4 col-5">
+                                            <div class="card_text col-4 col-md-4">
                                             <p>@Html.DisplayFor(modelItem => item.Address)</p>
                                             <p class="p-0">@Html.DisplayFor(modelItem => item.MobileNumber)</p>
                                         </div>
-                                        <div class="card_price col-sm-7 col-md-8 col-7">
+                                        <div class="card_price col-8 col-md-8 ">
                                             <button class="btn_book">
                                                 <span class="price">Rs.50</span>
                                                     <span class="shopping-cart"><i class="fa fa-shopping-cart"  aria-hidden="true"></i></span>
-                                                    <a asp-controller="Apointment" asp-action="Index" asp-route-id="@item.FirmId" class="buy pe-4 text-white">Book Now</a>
+                                                    <a asp-controller="Apointment" asp-action="Create" asp-route-id="@item.FirmId" class="buy pe-4 text-white">Book Now</a>
                                             </button>
                                         </div>
                                         </div>

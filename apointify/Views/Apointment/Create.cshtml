@@ -1,25 +1,26 @@
-﻿@model apointify.Models.Appointment
+﻿@model apointify.VirtualModels.AppointmentVM
+@inject IHttpContextAccessor _contx;
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Create";
 }
 
-<h1>Index</h1>
+<h1>Cretae</h1>
 
 <h4>Appointment</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Index">
+        <form asp-action="Cretae">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*<div class="form-group">
+            <div class="form-group">
                 <label asp-for="FirmId" class="control-label"></label>
-                <select asp-for="FirmId" class ="form-control" asp-items="ViewBag.FirmId"></select>
+                <input asp-for="FirmId" class="form-control" value="@ViewBag.Id">
             </div>
             <div class="form-group">
                 <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>*@
+                <input  value="@_contx.HttpContext.Session.GetString("UserId")" asp-for="UserId" class="form-control"/>
+            </div>
             <div class="form-group">
                 <label asp-for="AppointmentDate" class="control-label"></label>
                 <input asp-for="AppointmentDate" class="form-control" />
@@ -31,21 +32,22 @@
                 <span asp-validation-for="TimeSlot" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" asp-action="Book" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-controller="ServiceProvider" class="btn btn-info" asp-action="Index" >Back to List</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+    <script>
+        $("#AppointmentDate").change(function(){
 
-
-
-
-
+            $
+        });
+    </script>

@@ -79,28 +79,29 @@ public partial class OmParmarContext : DbContext
     {
         modelBuilder.Entity<Appointment>(entity =>
         {
-            entity.HasKey(e => e.ApointmentId).HasName("PK__Appointm__773D928C92AE6B42");
+            entity.HasKey(e => e.AppointmentId).HasName("PK__Appointm__8ECDFCC2542E25A3");
 
             entity.ToTable("Appointment");
 
             entity.Property(e => e.AppointmentDate)
-                .HasColumnType("datetime")
+                .HasColumnType("date")
                 .HasColumnName("Appointment Date");
             entity.Property(e => e.InsertDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.IsDeleted).HasDefaultValueSql("((0))");
+            entity.Property(e => e.TimeSlot).HasPrecision(2);
             entity.Property(e => e.UpdatedDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
 
-            entity.HasOne(d => d.FirmNavigation).WithMany(p => p.Appointments)
-                .HasForeignKey(d => d.Firm)
-                .HasConstraintName("FK__Appointme__FirmI__5E8A0973");
+            entity.HasOne(d => d.Firm).WithMany(p => p.Appointments)
+                .HasForeignKey(d => d.FirmId)
+                .HasConstraintName("FK__Appointme__FirmI__2AD55B43");
 
-            entity.HasOne(d => d.UserNavigation).WithMany(p => p.Appointments)
-                .HasForeignKey(d => d.User)
-                .HasConstraintName("FK__Appointme__UserI__5F7E2DAC");
+            entity.HasOne(d => d.User).WithMany(p => p.Appointments)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__Appointme__UserI__2BC97F7C");
         });
 
         modelBuilder.Entity<ApproxNumber>(entity =>
