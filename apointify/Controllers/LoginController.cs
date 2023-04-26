@@ -28,6 +28,7 @@ namespace apointify.Controllers
         }
         public IActionResult Index()
         {
+           
             return View();
         }
         public IActionResult SignUp()
@@ -75,10 +76,10 @@ namespace apointify.Controllers
                     }
                 }
                 //_contx.HttpContext.Session.;
-                if (user.UserId == 0)
+              if (user.UserId == 0)
                 {
-                    TempData["Message"] = "You are not authorized.";
-                    return RedirectToAction("newa", "Login");
+                    ViewBag.message = "Please Enter Valid Email and Password.";
+                    return View("Index");
                 }
                 else
                 {
@@ -86,6 +87,7 @@ namespace apointify.Controllers
 					_contx.HttpContext.Session.SetString("Password", user.Password);
 					_contx.HttpContext.Session.SetString("Name", user.Name);
 					_contx.HttpContext.Session.SetString("Role", Convert.ToString(user.Role));
+					_contx.HttpContext.Session.SetString("UserId", Convert.ToString(user.UserId));
 					_contx.HttpContext.Session.SetString("mobile", user.MobileNumber);
 					return RedirectToAction("Index", "Home");
                 }
