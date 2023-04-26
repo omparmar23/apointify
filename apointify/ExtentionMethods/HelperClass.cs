@@ -152,9 +152,35 @@ namespace apointify.ExtentionMethods
             };
         }
 
+        public static AppointmentVM ToContext(this Appointment obj)
+        {
+            return new AppointmentVM()
+            {
+                AppointmentId = obj.AppointmentId,
+                UserId = obj.UserId,
+                FirmId = obj.FirmId,
+                AppointmentDate = obj.AppointmentDate,
+                TimeSlot = obj.TimeSlot,
+                IsDeleted = Convert.ToBoolean(0),
+                InsertDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+            };
+        }
 
-        
-
+        public static Appointment ToContext(this AppointmentVM obj)
+        {
+            return new Appointment()
+            {
+                AppointmentId = obj.AppointmentId,
+                FirmId = obj.FirmId,
+                UserId = obj.UserId,
+                AppointmentDate =obj.AppointmentDate,
+                TimeSlot = obj.TimeSlot,
+                IsDeleted = obj.IsDeleted,
+                InsertDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+            };
+        }
 
 
     }
