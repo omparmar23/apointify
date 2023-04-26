@@ -1,4 +1,4 @@
-﻿@model apointify.Models.User
+﻿@model apointify.VirtualModels.UserVM
 @{
     ViewData["Title"] = "Index";
 }
@@ -55,7 +55,7 @@
                     <div class="card px-5 rounded-3" style="background-color:#ffffff26">
                         <div class="login-wrap p-0">
                             <h3 class=" mt-5 mb-4 text-center">Welcome To Apointify</h3>
-                            <form asp-action="Index">
+                            <form asp-controller="Login" asp-action="ValidateCustomerLogin">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="form-group">
                                     <label asp-for="Email" class="control-label"></label>
@@ -69,7 +69,7 @@
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" value="Login" asp-controller="Login" asp-action="ValidateCustomerLogin" class="btn btn-primary" />
+                                    <input type="submit" value="Login"  class="btn btn-primary" />
                                 </div>
                             </form>
 

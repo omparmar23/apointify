@@ -1,6 +1,5 @@
 ﻿using apointify.Models;
 using apointify.VirtualModels;
-using ServiceProvider = Microsoft.Extensions.DependencyInjection.ServiceProvider;
 
 namespace apointify.ExtentionMethods
 {
@@ -47,17 +46,10 @@ namespace apointify.ExtentionMethods
             };
         }
 
-       
-
-
-
-
-
-        public static UserVM ToContext(this User obj)
+        public static UserVM ToModel(this User obj)
         {
             return new UserVM()
             {
-                
                 Name = obj.Name,
                 Role = obj.Role,
                 Username = obj.Username,
@@ -112,7 +104,6 @@ namespace apointify.ExtentionMethods
         }
 
 
-
         public static FirmDetail ToContext(this FirmDetailVM obj)
         {
             return new FirmDetail()
@@ -132,7 +123,7 @@ namespace apointify.ExtentionMethods
                 UpdatedDate = DateTime.Now,
             };
         }
-        public static FirmDetailVM ToContext(this FirmDetail obj)
+        public static FirmDetailVM ToModel(this FirmDetail obj)
         {
             return new FirmDetailVM()
             {

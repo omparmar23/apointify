@@ -189,17 +189,17 @@
     </style>
 
 }
-<section class="wrapper vh-100" style="background-image:url(https://images.unsplash.com/photo-1531685250784-7569952593d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YmFja2dyb3VuZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60);height: 100%;background-size: cover;">
+<section class="wrapper vh-100" style="background-image:url(https://images.unsplash.com/photo-1512386233331-f023884a92e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1195&q=80);background-size:cover;">
 <h1 class="text-center">
     All service providers
 </h1>
     <div class="content">
-        <div class="container">
-            <div class="row justify-content-around">
+        <div class="container-fluid me-5">
+            <div class="row justify-content-around me-5">
                 @foreach (var item in Model)
                 {
-                    <div class="col-md-12 col-lg-6">
-                        <ul class="cards_service">
+                    <div class="col-md-12 col-lg-12 me-5">
+                        <ul class="cards_service float-end">
                             <li class="cards_service_item" id="item_salad">
                                 <div class="card_service">
                                     <div class="card_image"><img src="@Html.DisplayFor(modelItem => item.FirmImage)"></div>
