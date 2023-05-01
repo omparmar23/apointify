@@ -6,6 +6,7 @@ namespace apointify.Controllers
 {
     public class ApointmentController : Controller
     {
+        OmParmarContext DBEntities = new OmParmarContext();
         public IActionResult Index(int Id)
         {
             
@@ -27,7 +28,7 @@ namespace apointify.Controllers
         public IActionResult Book(AppointmentVM appointment)
         {
 
-            OmParmarContext DBEntities = new OmParmarContext();
+            
            
             if(appointment.AppointmentId == 0) 
             {
@@ -47,19 +48,40 @@ namespace apointify.Controllers
                 DBEntities.SaveChanges();
             }
 
-           /* 
-            ViewBag.UserId = appointment.UserId;
+            ViewBag.Timeslot =appointment.TimeSlot;
+            ViewBag.FrimId = appointment.FirmId; 
+           /* ViewBag.UserId = appointment.UserId;*/
             ViewBag.FirmId = appointment.FirmId;
-           */ 
-            ViewBag.AppointmentDate = appointment.AppointmentDate;
+
+            ViewBag.AppointmentDate = appointment.AppointmentDate.ToString("dd-MMM-yyyy"); ;
 
             return View();
         }
 
-        /*public IActionResult viewDetails()
+        [HttpGet, Route("api/Appointment")]
+        public ServiceResponse<List<Appointment>> List()
         {
+            ServiceResponse<List<Appointment>> serviceReponse = new ServiceResponse<List<Appointment>>();
 
-            return View();
-        }*/
+            try
+            {
+                using (DBEntities = new OmParmarContext())
+                {
+                    var data = DBEntities.Appointments.ToList();
+                    serviceReponse.data = data ;
+                    serviceReponse.status_code = "200";
+                    serviceReponse.message = "Data Fetched successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                //serviceReponse.data = false;
+                serviceReponse.status_code = "000";
+                serviceReponse.message = "Exception: " + ex.Message.ToString();
+            }
+
+
+            return serviceReponse;
+        }
     }
 }

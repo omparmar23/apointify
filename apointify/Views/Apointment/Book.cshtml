@@ -1,4 +1,5 @@
 ﻿@model apointify.Models.Appointment
+@inject IHttpContextAccessor _contx;
 
 @{
     ViewData["Title"] = "Book";
@@ -20,9 +21,9 @@
             @Html.DisplayNameFor(model => model.TimeSlot)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TimeSlot)
+            @ViewBag.Timeslot
         </dd>
-        <dt class = "col-sm-2">
+        @*<dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.InsertDate)
         </dt>
         <dd class = "col-sm-10">
@@ -39,20 +40,23 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.IsDeleted)
-        </dd>
-        <dt class = "col-sm-2">
+        </dd>*@
+        @*<dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Firm)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Firm.FirmId)
-        </dd>
+            @ViewBag.FrimId
+        </dd>*@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.User)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.UserId)
+            @_contx.HttpContext.Session.GetString("Name")
         </dd>
     </dl>
+
+
+    <span class="bg-success d-block text-center text-light font-monospace w-25 fs-5"> Your Appointment Is Successfully Booked!!</span>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.AppointmentId">Edit</a> |

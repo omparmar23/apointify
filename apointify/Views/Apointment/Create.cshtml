@@ -5,49 +5,110 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Cretae</h1>
+<section style="background-color: #0b54cd45;">
+    <div class="row justify-content-center mt-3">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-5 col-xl-3 mt-3">
+            <div class=" my-5 card px-5 py-5 rounded-3" style="background-color:#ffffff;">
+                <h2 class=" mt-3 text-center">Book Appointment</h2>
+                <form asp-action="Cretae">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group mb-2">
+                        @*<label asp-for="FirmId" class="control-label"></label>*@
+                        <input type="hidden" asp-for="FirmId" class="form-control" value="@ViewBag.Id">
+                    </div>
+                    <div class="form-group mb-2">
+                        @*<label asp-for="UserId" class="control-label"></label>*@
+                        <input type="hidden" value="@_contx.HttpContext.Session.GetString("UserId")" asp-for="UserId" class="form-control" />
+                    </div>
+                    <div class="form-group mt-4 mb-2">
+                        <label asp-for="AppointmentDate" class="control-label mb-2"></label>
+                        <input asp-for="AppointmentDate" class="form-control" />
+                        <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-4 mb-3">
+                        <label asp-for="TimeSlot" class="control-label mb-2"></label>
+                        <p class="select"></p>
+                        <select asp-for="TimeSlot" class="form-control">
+                            <option value="" disabled selected class="hide">Please Select timeslot</option>
+                            <option value="10:30:00">10:30 AM</option>
+                            <option value="11:30:00">11:30 AM</option>
+                            <option value="12:30:00">12:30 PM</option>
+                            <option value="01:30:00">1:30 PM</option>
+                            <option value="03:30:00">3:30 PM</option>
+                            <option value="04:30:00">4:30 PM</option>
+                            <option value="05:30:00">5:30 PM</option>
+                            <option value="06:30:00">6:30 PM</option>
+                            <option value="07:30:00">7:30 PM</option>
+                        </select>
+                        <span asp-validation-for="TimeSlot" class="text-danger"></span>
+                        <p id="details"></p>
+                    </div>
+                    <div class="row">
+                        <input type="submit" value="Book" asp-action="Book" class="btn btn-primary mb-5 mt-4 py-2" />
+                    </div>
+                </form>
+            </div>
+        </div>
 
-<h4>Appointment</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Cretae">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FirmId" class="control-label"></label>
-                <input asp-for="FirmId" class="form-control" value="@ViewBag.Id">
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input  value="@_contx.HttpContext.Session.GetString("UserId")" asp-for="UserId" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <label asp-for="AppointmentDate" class="control-label"></label>
-                <input asp-for="AppointmentDate" class="form-control" />
-                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TimeSlot" class="control-label"></label>
-                <input asp-for="TimeSlot" class="form-control" />
-                <span asp-validation-for="TimeSlot" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" asp-action="Book" class="btn btn-primary" />
-            </div>
-        </form>
     </div>
-</div>
-
+</section>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
 
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@section Script {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 
-    <script>
-        $("#AppointmentDate").change(function(){
+    <script type="text/javascript">
 
-            $
+
+        $('#AppointmentDate').on("change", function () {
+
+            //function table(data) {
+               
+            //}
+            var appointmentdate = $("#AppointmentDate").val() + "T00:00:00";
+            var TimeSlot = $("#TimeSlot").val();
+            var FirmId = @ViewBag.Id;
+
+            $.ajax({
+                url: '@Url.Action("List","Apointment")',
+                type: 'GET',
+                dataType: "json",
+                success: function (data) {
+                    //console.log(data);
+
+                    for (i of object.values(data)) {
+                        for (j of i) {
+                            $("#timeslot option[value = '" + j.timeslot + "']").attr('disabled', false);
+                            $("#timeslot option[value ='" + j.timeslot + "']").removeclass("bg-success text-white");
+                        }
+                    }
+
+
+                    for (i of Object.values(data)) {
+                        for (j of i) {
+
+                            if (j.appointmentDate == appointmentdate && j.firmId == @ViewBag.Id) {
+
+
+                                $("select option[value = '" + j.timeSlot + "']").attr("disabled", true);
+                                $("#TimeSlot option[value ='" + j.timeSlot + "']").addClass("bg-success text-white");
+
+                            }
+                            //else {
+                            //    $("#timeslot option[value = '" + j.timeslot + "']").attr('disabled', false);
+                            //    $("#timeslot option[value ='" + j.timeslot + "']").removeClass("bg-success text-white");
+                            //}
+                        }
+                    }
+
+                }
+            });
+            $("#details").html(`<ul class=" text-success mt-2 m-0"><li>Green Slots are already Booked.</li></ul>`);
         });
     </script>
+        }
