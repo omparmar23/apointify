@@ -24,7 +24,6 @@ namespace apointify.Controllers
             _contx = httpContextAccessor;
             _configuration = configuration;
             Constr = _configuration.GetConnectionString("Default");
-            //Constr = "Server=192.168.0.33; Password=UlTCgZe6Zl; Encrypt=False; Database= DreadCoders; User Id=dread.coders;";
         }
         public IActionResult Index()
         {
@@ -43,7 +42,7 @@ namespace apointify.Controllers
 
 
         [HttpPost]
-        public IActionResult ValidateCustomerLogin(UserVM users)
+        public IActionResult ValidateCustomerLogin(User users)
         {
             User user = new User();
             try
