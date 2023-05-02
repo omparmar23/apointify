@@ -10,26 +10,25 @@ namespace apointify.Controllers
     {
 
         OmParmarContext DBEntities = new OmParmarContext();
-        [HttpGet, Route("api/GetUserDetails")]
-        public ServiceResponse<List<UsersTable>> Get()
+        [HttpGet, Route("api/User")]
+        public List<User> Get()
         {
-            ServiceResponse<List<UsersTable>> serviceReponse = new ServiceResponse<List<UsersTable>>();
-            try
-            {
+            List<User> serviceReponse = new List<User>();
+            
                 using (DBEntities = new OmParmarContext())
                 {
-                    var user = DBEntities.UsersTables.ToList();
-                    serviceReponse.data = user;
-                    serviceReponse.status_code = "200";
-                    serviceReponse.message = "Data Fetched successfully";
+                    var data = DBEntities.Users.ToList();
+                    serviceReponse = data ;
+                    /*serviceReponse.status_code = "200";
+                    serviceReponse.message = "Data Fetched successfully";*/
                 }
-            }
-            catch (Exception ex)
+            
+           /* catch (Exception ex)
             {
                 //serviceReponse.data = false;
                 serviceReponse.status_code = "000";
                 serviceReponse.message = "Exception: " + ex.Message.ToString();
-            }
+            }*/
             return serviceReponse;
         }
 
