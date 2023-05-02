@@ -1,6 +1,7 @@
 ﻿using apointify.Models;
 using apointify.VirtualModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace apointify.Controllers
 {
@@ -38,22 +39,15 @@ namespace apointify.Controllers
                 newappointment.UserId = appointment.UserId;
                 newappointment.AppointmentDate = appointment.AppointmentDate;
                 newappointment.TimeSlot = appointment.TimeSlot;
-/*              
-                newappointment.IsDeleted = appointment.IsDeleted;
-                newappointment.InsertDate = DateTime.Now;
-                newappointment.UpdatedDate = DateTime.Now;
-*/
                 appointment.FirmId = new int();
                 DBEntities.Appointments.Add(newappointment);
                 DBEntities.SaveChanges();
             }
 
-            ViewBag.Timeslot =appointment.TimeSlot;
-            ViewBag.FrimId = appointment.FirmId; 
-           /* ViewBag.UserId = appointment.UserId;*/
+            ViewBag.Timeslot =appointment.TimeSlot; 
             ViewBag.FirmId = appointment.FirmId;
 
-            ViewBag.AppointmentDate = appointment.AppointmentDate.ToString("dd-MMM-yyyy"); ;
+            ViewBag.AppointmentDate = appointment.AppointmentDate.ToString("dd-MMM-yyyy"); 
 
             return View();
         }
