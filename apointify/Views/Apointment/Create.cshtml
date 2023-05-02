@@ -90,13 +90,12 @@
                     remove(data);
                     add(data);
 
-                    
+
 
                 }
             });
 
-            function add(data)
-            {
+            function add(data) {
                 for (i of Object.values(data)) {
                     for (j of i) {
 
@@ -107,8 +106,7 @@
                             $("#TimeSlot option[value ='" + j.timeSlot + "']").addClass("bg-success text-white");
 
                         }
-                  
-                }
+                    }
                 }
             }
             $("#details").html(`<ul class=" text-success mt-2 m-0"><li>Green Slots are already Booked.</li></ul>`);
