@@ -29,7 +29,7 @@ namespace apointify.VirtualModels
 
 
 
-        [Display(Name = "Password")]
+        [Display(Name = "Password*")]
         [RegularExpression("(?=.)(?=.[a-z])(?=.*[A-Z]).{8,}", ErrorMessage = "Passwords must be at least 8 characters and contain at 3 of 4 of the following: upper case (A-Z), lower case (a-z), number (0-9) and special character (e.g. !@#$%^&*)")]
         [Required(ErrorMessage = "Password Is Required.")]
         //[DataType(DataType.Password)]
@@ -46,6 +46,8 @@ namespace apointify.VirtualModels
         [RegularExpression(@"\d{10}", ErrorMessage = "Please enter 10 digit Mobile No.")]
         public string? MobileNumber { get; set; }
 
+        [Display(Name = "City*")]
+        [Required(ErrorMessage = "City is required.")]
         public string? City { get; set; }
 
         public DateTime? InsertData { get; set; }

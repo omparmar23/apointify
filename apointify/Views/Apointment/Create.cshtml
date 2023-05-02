@@ -67,9 +67,14 @@
 
         $('#AppointmentDate').on("change", function () {
 
-            //function table(data) {
-               
-            //}
+            function remove(data) {
+                for (i of Object.values(data)) {
+                    for (j of i) {
+                        $("#TimeSlot option[value = '" + j.timeSlot + "']").attr('disabled', false);
+                        $("#TimeSlot option[value ='" + j.timeSlot + "']").removeClass("bg-success text-white");
+                    }
+                }
+            }
             var appointmentdate = $("#AppointmentDate").val() + "T00:00:00";
             var TimeSlot = $("#TimeSlot").val();
             var FirmId = @ViewBag.Id;
@@ -81,33 +86,31 @@
                 success: function (data) {
                     //console.log(data);
 
-                    for (i of object.values(data)) {
-                        for (j of i) {
-                            $("#timeslot option[value = '" + j.timeslot + "']").attr('disabled', false);
-                            $("#timeslot option[value ='" + j.timeslot + "']").removeclass("bg-success text-white");
-                        }
-                    }
 
+                    remove(data);
+                    add(data);
 
-                    for (i of Object.values(data)) {
-                        for (j of i) {
-
-                            if (j.appointmentDate == appointmentdate && j.firmId == @ViewBag.Id) {
-
-
-                                $("select option[value = '" + j.timeSlot + "']").attr("disabled", true);
-                                $("#TimeSlot option[value ='" + j.timeSlot + "']").addClass("bg-success text-white");
-
-                            }
-                            //else {
-                            //    $("#timeslot option[value = '" + j.timeslot + "']").attr('disabled', false);
-                            //    $("#timeslot option[value ='" + j.timeslot + "']").removeClass("bg-success text-white");
-                            //}
-                        }
-                    }
+                    
 
                 }
             });
+
+            function add(data)
+            {
+                for (i of Object.values(data)) {
+                    for (j of i) {
+
+                        if (j.appointmentDate == appointmentdate && j.firmId == @ViewBag.Id) {
+
+
+                            $("select option[value = '" + j.timeSlot + "']").attr("disabled", true);
+                            $("#TimeSlot option[value ='" + j.timeSlot + "']").addClass("bg-success text-white");
+
+                        }
+                  
+                }
+                }
+            }
             $("#details").html(`<ul class=" text-success mt-2 m-0"><li>Green Slots are already Booked.</li></ul>`);
         });
     </script>

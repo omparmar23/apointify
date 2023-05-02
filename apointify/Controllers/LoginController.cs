@@ -10,6 +10,8 @@ namespace apointify.Controllers
 {
     public class LoginController : Controller
     {
+        OmParmarContext DBEntities = new OmParmarContext();
+
         private readonly IHttpContextAccessor _contx;
         public interface ILoginValidation
         {
@@ -28,7 +30,7 @@ namespace apointify.Controllers
         }
         public IActionResult Index()
         {
-           
+
             return View();
         }
         public IActionResult SignUp()
@@ -63,7 +65,7 @@ namespace apointify.Controllers
 
                     while (rdr.Read())
                     {
-                        
+
                         //user.UserId = Convert.ToInt32(rdr["userId"]);
                         user.Email = rdr["Email"].ToString();
                         user.Password = rdr["Password"].ToString();
@@ -72,24 +74,24 @@ namespace apointify.Controllers
                         user.MobileNumber = rdr["MobileNumber"].ToString();
                         user.Name = rdr["Name"].ToString();
 
-                        
+
                     }
                 }
                 //_contx.HttpContext.Session.;
-              if (user.UserId == 0)
+                if (user.UserId == 0)
                 {
                     ViewBag.message = "Please Enter Valid Email and Password.";
                     return View("Index");
                 }
                 else
                 {
-					_contx.HttpContext.Session.SetString("Email", user.Email);
-					_contx.HttpContext.Session.SetString("Password", user.Password);
-					_contx.HttpContext.Session.SetString("Name", user.Name);
-					_contx.HttpContext.Session.SetString("Role", Convert.ToString(user.Role));
-					_contx.HttpContext.Session.SetString("UserId", Convert.ToString(user.UserId));
-					_contx.HttpContext.Session.SetString("mobile", user.MobileNumber);
-					return RedirectToAction("Index", "Home");
+                    _contx.HttpContext.Session.SetString("Email", user.Email);
+                    _contx.HttpContext.Session.SetString("Password", user.Password);
+                    _contx.HttpContext.Session.SetString("Name", user.Name);
+                    _contx.HttpContext.Session.SetString("Role", Convert.ToString(user.Role));
+                    _contx.HttpContext.Session.SetString("UserId", Convert.ToString(user.UserId));
+                    _contx.HttpContext.Session.SetString("mobile", user.MobileNumber);
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch (Exception)
@@ -125,18 +127,19 @@ namespace apointify.Controllers
                 }
                 else
                 {
-                    User dbObject = new User();
-                    //dbObject.Role = user.Role;
+                    var dbObject = DBEntities.Users.Where(m => m.UserId == user.UserId).FirstOrDefault();
+                    dbObject.Role = user.Role;
                     dbObject.Username = user.Username;
                     dbObject.Name = user.Name;
                     dbObject.Email = user.Email;
                     dbObject.Password = user.Password;
                     dbObject.MobileNumber = user.MobileNumber;
                     dbObject.City = user.City;
+                    dbObject.UpdatedDate = DateTime.Now;
                     DBEntities.SaveChanges();
-                    return RedirectToAction("CreateFirm", "ServiceProvider");
+                    return RedirectToAction("UserProfile", new { Id = user.UserId });
                 }
-                
+
             }
             else
             {
@@ -154,7 +157,7 @@ namespace apointify.Controllers
                 }
                 else
                 {
-                    User dbObject = new User();
+                    var dbObject = DBEntities.Users.Where(m => m.UserId == user.UserId).FirstOrDefault();
                     dbObject.Role = user.Role;
                     dbObject.Username = user.Username;
                     dbObject.Name = user.Name;
@@ -162,10 +165,11 @@ namespace apointify.Controllers
                     dbObject.Password = user.Password;
                     dbObject.MobileNumber = user.MobileNumber;
                     dbObject.City = user.City;
+                    dbObject.UpdatedDate = DateTime.Now;
                     DBEntities.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("UserProfile", "Apointment");
                 }
-                
+
             }
 
 
@@ -173,7 +177,14 @@ namespace apointify.Controllers
 
         }
 
+        public IActionResult UserProfile(int Id)
+        {
 
+            var dbObject = DBEntities.Users.Where(m => m.UserId == Id).FirstOrDefault();
+
+            return View(dbObject);
+
+        }
 
     }
 }

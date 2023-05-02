@@ -37,14 +37,14 @@
     @RenderSection("Css", required: false)
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 
-  @*  <link href="/css/headercss.css" rel="stylesheet">*@
+    @*  <link href="/css/headercss.css" rel="stylesheet">*@
 </head>
 <body>
 
-    <header class="d-flex align-items-center bg-light" >
+    <header class="d-flex align-items-center bg-light">
         <div class="container-fluid d-flex align-items-center justify-content-between">
-            <a  class="logo float-start" asp-controller="Home" asp-action="Index"><img class="w-25"  src="~/images/logo-black-removebg-preview.png"></a>
-            <nav id="navbar" class="navbar" >
+            <a class="logo float-start" asp-controller="Home" asp-action="Index"><img class="w-25" src="~/images/logo-black-removebg-preview.png"></a>
+            <nav id="navbar" class="navbar">
                 <ul>
                     <li class="nav-item">
                         <a class="nav-link text-" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -52,9 +52,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                     </li>
-                    
-                        @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1)
-                        {
+
+                    @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1)
+                    {
 
                         <li class="nav-item">
                             <a class="nav-link  text-" asp-area="" asp-controller="Apointment" asp-action="bookings">Apointment</a>
@@ -62,29 +62,29 @@
                         <li class="nav-item">
                             <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
                         </li>
-                        }
-                        @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2)
-                        {
-                      
+                    }
+                    @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2)
+                    {
+
                         <li class="nav-item">
                             <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
                         </li>
-                        
-                        }
-                        @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
-                        {
+
+                    }
+                    @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
+                    {
                         <li class="nav-item">
                             <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
                         </li>
-                       
-                        }
-                    
+
+                    }
+
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
-            @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 1 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 2 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) !=3)
+            @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 1 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 2 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 3)
             {
-                <a class="fw-bold text-dark float-end me-4"  text-" asp-area="" asp-controller="login" asp-action="Index">Login</a>
+                <a class="fw-bold text-dark float-end me-4" text-" asp-area="" asp-controller="login" asp-action="Index">Login</a>
             }
             @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
             {
@@ -93,7 +93,10 @@
                         <i class="fa-solid fa-user"></i><span class="ps-2 text-uppercase">@_contx.HttpContext.Session.GetString("Name")</span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item fs-5 text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal"> Logout <i class="bi bi-box-arrow-right ps-2"></i></a></li>
+                        <li><a class="dropdown-item fs-5 text-dark" asp-route-id="@_contx.HttpContext.Session.GetString("UserId")" asp-controller="Login" asp-action="UserProfile"> User Profile</a></li>
+                        <li>
+                            <a class="dropdown-item fs-5 text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal"> Logout <i class="bi bi-box-arrow-right ps-2"></i></a>
+                        </li>
                     </ul>
                 </div>
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -119,94 +122,94 @@
         </div>
     </header>
 
-   @* <header class="d-flex align-items-center">
+    @* <header class="d-flex align-items-center">
 
     @*<header class="d-flex align-items-center bg-secondary" style="background-image:url();">
 
-        @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 1 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 2 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 3)
-        {
-            <a class="fw-bold text-dark float-end me-4" text-" asp-area="" asp-controller="login" asp-action="Index">Login</a>
-        }
-        @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
-        {
-            <div class="dropdown ">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-user"></i><span class="ps-2 text-uppercase">@_contx.HttpContext.Session.GetString("Name")</span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li> <a class="btn btn-danger ms-3" asp-area="" asp-controller="Home" asp-action="Logout">Logout <i class="bi bi-box-arrow-right ps-2"></i></a></li>
-                </ul>
-            </div>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <img class="w-75 ms-5" src="https://th.bing.com/th/id/OIP.cqiyYfkD_XUjUz3IhlMG6AHaE7?pid=ImgDet&rs=1"></img>
-                            <h5 class="modal-title text-center fs-2 text-dark" id="exampleModalLabel">Comeback Soon!</h5>
-                            <p class="text-center">
-                                <span class="text-uppercase">@_contx.HttpContext.Session.GetString("Name")</span>, Are You Sure You Want To Logout?
-                            </p>
-                            <div class="text-center ">
-                                <button type="button" class="btn btn-outline-danger border-0" data-bs-dismiss="modal">Cancel</button>
-                                <a class="btn btn-danger ms-3" asp-area="" asp-controller="Home" asp-action="Logout"> Yes, Logout </a>
-                            </div>
-                        </div>
+    @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 1 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 2 && Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) != 3)
+    {
+    <a class="fw-bold text-dark float-end me-4" text-" asp-area="" asp-controller="login" asp-action="Index">Login</a>
+    }
+    @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
+    {
+    <div class="dropdown ">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa-solid fa-user"></i><span class="ps-2 text-uppercase">@_contx.HttpContext.Session.GetString("Name")</span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li> <a class="btn btn-danger ms-3" asp-area="" asp-controller="Home" asp-action="Logout">Logout <i class="bi bi-box-arrow-right ps-2"></i></a></li>
+    </ul>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+    <div class="modal-body">
+    <img class="w-75 ms-5" src="https://th.bing.com/th/id/OIP.cqiyYfkD_XUjUz3IhlMG6AHaE7?pid=ImgDet&rs=1"></img>
+    <h5 class="modal-title text-center fs-2 text-dark" id="exampleModalLabel">Comeback Soon!</h5>
+    <p class="text-center">
+    <span class="text-uppercase">@_contx.HttpContext.Session.GetString("Name")</span>, Are You Sure You Want To Logout?
+    </p>
+    <div class="text-center ">
+    <button type="button" class="btn btn-outline-danger border-0" data-bs-dismiss="modal">Cancel</button>
+    <a class="btn btn-danger ms-3" asp-area="" asp-controller="Home" asp-action="Logout"> Yes, Logout </a>
+    </div>
+    </div>
 
-                    </div>
-                </div>
-            </div>
-        }
-        <a class="timlogo" asp-controller="Home" asp-action="Index"><img class="w-25" src="~/images/logo-black-removebg-preview.png"></a> 
-        <div class="nav-modal">
-            <div class="blob"></div>
-            
-            <nav>
-                <ul>
-                    <li>
-                        <i class="fa-solid fa-house fs-3 me-2"></i><a class="" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    
-                    
-                    @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link  text-" asp-area="" asp-controller="Apointment" asp-action="bookings">Apointment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
-                        </li>
-                    }
-                    @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
-                        </li>
-                    }
-                    @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
-                        </li>
+    </div>
+    </div>
+    </div>
+    }
+    <a class="timlogo" asp-controller="Home" asp-action="Index"><img class="w-25" src="~/images/logo-black-removebg-preview.png"></a>
+    <div class="nav-modal">
+    <div class="blob"></div>
 
-                    }
-                    <li> <a class="nav-link text-" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a></li>
-                </ul>
-            </nav>
-            
-        </div>
-        <div class="head">
-            <div class="tile burger">
-                <div class="meat text-white">
-                    <div class="line one text-white"></div>
-                    <div class="line two text-white"></div>
-                    <div class="line three text-white"></div>
-                </div>
-            </div>
-        </div>
+    <nav>
+    <ul>
+    <li>
+    <i class="fa-solid fa-house fs-3 me-2"></i><a class="" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
+
+
+    @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1)
+    {
+    <li class="nav-item">
+    <a class="nav-link  text-" asp-area="" asp-controller="Apointment" asp-action="bookings">Apointment</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
+    </li>
+    }
+    @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2)
+    {
+    <li class="nav-item">
+    <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
+    </li>
+    }
+    @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
+    {
+    <li class="nav-item">
+    <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
+    </li>
+
+    }
+    <li> <a class="nav-link text-" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a></li>
+    </ul>
+    </nav>
+
+    </div>
+    <div class="head">
+    <div class="tile burger">
+    <div class="meat text-white">
+    <div class="line one text-white"></div>
+    <div class="line two text-white"></div>
+    <div class="line three text-white"></div>
+    </div>
+    </div>
+    </div>
     </header>*@
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-    
+
     <div class="container-fluid p-0">
         <main role="main" class="">
             @RenderBody()
@@ -215,44 +218,44 @@
     <!-- ======= Footer ======= -->
 
     <footer id="footer">
-      
-            <!-- Grid container -->
-            <div class="container text-center">
-                <!-- Section: Social media -->
-                <section class="">
-                    <!-- Facebook -->
+
+        <!-- Grid container -->
+        <div class="container text-center">
+            <!-- Section: Social media -->
+            <section class="">
+                <!-- Facebook -->
                 <a class="btn btn-outline-primary  btn-floating fs-4 border-0 m-1" href="#!" role="button">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
+                    <i class="fab fa-facebook-f"></i>
+                </a>
 
-                    <!-- Twitter -->
+                <!-- Twitter -->
                 <a class=" btn btn-outline-primary btn-floating  fs-4 border-0 m-1" href="#!" role="button">
-                        <i class="fab fa-twitter"></i>
-                    </a>
+                    <i class="fab fa-twitter"></i>
+                </a>
 
-                    <!-- Google -->
+                <!-- Google -->
                 <a class=" btn btn-outline-primary btn-floating m-1  fs-4 border-0" href="#!" role="button">
-                        <i class="fab fa-google"></i>
-                    </a>
+                    <i class="fab fa-google"></i>
+                </a>
 
-                    <!-- Instagram -->
+                <!-- Instagram -->
                 <a class="btn-1 btn btn-outline-primary btn-floating m-1  fs-4 border-0" href="#!" role="button">
-                        <i class="fab fa-instagram"></i>
-                    </a>
+                    <i class="fab fa-instagram"></i>
+                </a>
 
-                    <!-- Linkedin -->
+                <!-- Linkedin -->
                 <a class=" btn btn-outline-primary btn-floating m-1  fs-4 border-0" href="#!" role="button">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
 
-                    <!-- Github -->
+                <!-- Github -->
                 <a class=" btn btn-outline-primary btn-floating m-1  fs-4 border-0" href="#!" role="button">
-                        <i class="fab fa-github"></i>
-                    </a>
-                </section>
-                <!-- Section: Social media -->
+                    <i class="fab fa-github"></i>
+                </a>
+            </section>
+            <!-- Section: Social media -->
 
-        </footer>
+    </footer>
 
 
 
@@ -276,7 +279,7 @@
     <!-- Template Main JS File -->
     <script src="~/assets/js/main.js"></script>
 
-   
+
 
     <script>
 
@@ -305,7 +308,7 @@
 </html>
 
 
-    
+
 
 
 
