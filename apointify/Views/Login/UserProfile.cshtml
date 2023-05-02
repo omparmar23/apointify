@@ -102,10 +102,9 @@
                         </div>
                     </div>
                     <div class="panel-footer">
-                        <span class="pull-right">
-                            <a data-bs-toggle="modal" data-bs-target="#exampleModal" asp-route-id="@Model?.UserId">Edit</a> |
-                            <a class="btn btn-danger ms-3 fs-4" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
-                        </span>
+                            <a data-bs-toggle="modal" class="btn btn-info mx-3 fs-4 col-3" data-bs-target="#exampleModal" asp-route-id="@Model?.UserId">Edit</a> |
+                            <a class="btn btn-danger mx-3 fs-4 col-3" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a> |
+                            <a class="btn btn-success mx-3 fs-4 col-3" asp-area="" asp-controller="Home" asp-action="Index">Back To Home</a>
                     </div>
 
 
