@@ -1,0 +1,29 @@
+﻿@model IEnumerable<apointify.Models.Allappointment>;
+@{
+    ViewData["Title"] = "appointment";
+}
+
+
+<div class="card bg-dark text-danger m-auto mt-5 mb-4 w-25">
+    <h1 class="text-danger text-center">Your Appointments</h1>
+</div>
+
+<div class="container m-auto">
+    @foreach (var item in Model)
+    {
+
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"> FirmName : @Html.DisplayFor(modelItem =>item.FirmName) </h5>
+                <h5 class="card-title"> AppointmentDate : @Html.DisplayFor(modelItem =>item.AppointmentDate)</h5>
+                <h5 class="card-title"> TimeSlot :@Html.DisplayFor(modelItem => item.TimeSlot) </h5>
+                <h5 class="card-title"> Firm Address : @Html.DisplayFor(modelItem =>item.Address,item.City) </h5>
+                <h5 class="card-title"> Firm Contect Number: @Html.DisplayFor(modelItem =>item.MobileNumber) </h5>
+                <a asp-action="Cancle" asp-route-id="@item.AppointmentId" class="btn btn-danger">Canlce Appointment</a>
+            </div>
+        </div>
+
+    }
+</div>
+

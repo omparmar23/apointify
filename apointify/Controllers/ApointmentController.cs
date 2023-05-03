@@ -3,6 +3,8 @@ using apointify.VirtualModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
+
 namespace apointify.Controllers
 {
     public class ApointmentController : Controller
@@ -21,8 +23,8 @@ namespace apointify.Controllers
         }
         public IActionResult bookings()
         {
-
-
+          
+           
             return View();
         }
 
@@ -76,6 +78,22 @@ namespace apointify.Controllers
 
 
             return serviceReponse;
+        }
+
+        public IActionResult appointment()
+        {
+
+            var appointments = DBEntities.Allappointments.Where( m => m.UserId == Convert.ToInt32(HttpContext.Session.GetString("UserId")) && m.IsDeleted == false);
+
+            return View(appointments);
+        }
+
+        public IActionResult Cancle(int id)
+        {
+            var dbObject = DBEntities.Appointments.Where(m => m.AppointmentId == id).FirstOrDefault();
+            dbObject.IsDeleted = true;
+            DBEntities.SaveChanges();
+            return RedirectToAction("appointment");
         }
     }
 }

@@ -59,7 +59,7 @@
                                 <label asp-for="Email" class="control-label"></label>
                                 <input asp-for="Email" class="form-control" onfocusout="CheckEmail()" placeholder="Enter Your Email" />
                                 <span asp-validation-for="Email" class="text-danger"></span>
-                                <span class="text-danger" id ="sameEmail"></span>
+                                <span class="text-danger" id="sameEmail"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="MobileNumber" class="control-label"></label>
@@ -129,31 +129,31 @@
 
         function CheckEmail() {
 
+            var conunt = 0;
             var email = $("#Email").val();
-
             $.ajax({
                 url: '@Url.Action("Get","User")',
                 type: 'GET',
                 dataType: "json",
                 success: function (data) {
-
-
                     console.log(data);
 
-                    for(i of data)
-                    {
-                        if (i.email == email )
-                        {
+                    for (i of data) {
+                        if (i.email == email) {
                             $("#sameEmail").html("This Email is Already Registered.");
                             $("#submit").attr("disabled", true);
+                            conunt = conunt + 1;
                         }
-
+                    }
+                    if (conunt == 0) {
+                        $("#sameEmail").html(" ");
+                        $("#submit").attr("disabled", false);
                     }
                 }
             });
         }
 
-        
+
     </script>
 
 
