@@ -15,6 +15,8 @@ public partial class OmParmarContext : DbContext
     {
     }
 
+    public virtual DbSet<Allappointment> Allappointments { get; set; }
+
     public virtual DbSet<Appointment> Appointments { get; set; }
 
     public virtual DbSet<ApproxNumber> ApproxNumbers { get; set; }
@@ -40,8 +42,6 @@ public partial class OmParmarContext : DbContext
     public virtual DbSet<Image> Images { get; set; }
 
     public virtual DbSet<Img> Imgs { get; set; }
-
-    public virtual DbSet<NewAppointment> NewAppointments { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
 
@@ -77,6 +77,31 @@ public partial class OmParmarContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Allappointment>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("allappointment");
+
+            entity.Property(e => e.Address)
+                .HasMaxLength(40)
+                .IsUnicode(false);
+            entity.Property(e => e.AppointmentDate)
+                .HasColumnType("date")
+                .HasColumnName("Appointment Date");
+            entity.Property(e => e.City)
+                .HasMaxLength(40)
+                .IsUnicode(false);
+            entity.Property(e => e.FirmName)
+                .HasMaxLength(40)
+                .IsUnicode(false)
+                .HasColumnName("Firm Name");
+            entity.Property(e => e.MobileNumber)
+                .HasMaxLength(12)
+                .IsUnicode(false);
+            entity.Property(e => e.TimeSlot).HasPrecision(2);
+        });
+
         modelBuilder.Entity<Appointment>(entity =>
         {
             entity.HasKey(e => e.AppointmentId).HasName("PK__Appointm__8ECDFCC2542E25A3");
@@ -376,71 +401,6 @@ public partial class OmParmarContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("imgpath");
-        });
-
-        modelBuilder.Entity<NewAppointment>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("newAppointment");
-
-            entity.Property(e => e.Address)
-                .HasMaxLength(30)
-                .IsUnicode(false);
-            entity.Property(e => e.AppointmentDate)
-                .HasColumnType("datetime")
-                .HasColumnName("Appointment Date");
-            entity.Property(e => e.City)
-                .HasMaxLength(30)
-                .IsUnicode(false);
-            entity.Property(e => e.Email)
-                .HasMaxLength(200)
-                .IsUnicode(false);
-            entity.Property(e => e.FirmName)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("Firm Name");
-            entity.Property(e => e.FirmOwnerName)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("Firm OwnerName");
-            entity.Property(e => e.InsertDate).HasColumnType("datetime");
-            entity.Property(e => e.MobileNumber)
-                .HasMaxLength(12)
-                .IsUnicode(false);
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.Password)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.ServiceId).HasColumnName("serviceID");
-            entity.Property(e => e.ServiceName)
-                .HasMaxLength(30)
-                .IsUnicode(false);
-            entity.Property(e => e.ServiceProviderCity)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("ServiceProvider_City");
-            entity.Property(e => e.ServiceProviderEmail)
-                .HasMaxLength(200)
-                .IsUnicode(false);
-            entity.Property(e => e.ServiceProviderMobileNumber)
-                .HasMaxLength(12)
-                .IsUnicode(false)
-                .HasColumnName("ServiceProvider_MobileNumber");
-            entity.Property(e => e.ServiceProviderUsername)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("ServiceProvider_Username");
-            entity.Property(e => e.ServiceType)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("serviceType");
-            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
-            entity.Property(e => e.Username)
-                .HasMaxLength(20)
-                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Order>(entity =>
