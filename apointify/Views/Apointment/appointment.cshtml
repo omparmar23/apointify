@@ -9,21 +9,30 @@
 </div>
 
 <div class="container m-auto">
-    @foreach (var item in Model)
-    {
-
-
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title"> FirmName : @Html.DisplayFor(modelItem =>item.FirmName) </h5>
-                <h5 class="card-title"> AppointmentDate : @Html.DisplayFor(modelItem =>item.AppointmentDate)</h5>
-                <h5 class="card-title"> TimeSlot :@Html.DisplayFor(modelItem => item.TimeSlot) </h5>
-                <h5 class="card-title"> Firm Address : @Html.DisplayFor(modelItem =>item.Address,item.City) </h5>
-                <h5 class="card-title"> Firm Contect Number: @Html.DisplayFor(modelItem =>item.MobileNumber) </h5>
-                <a asp-action="Cancle" asp-route-id="@item.AppointmentId" class="btn btn-danger">Canlce Appointment</a>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="card col-md-3 mx-3">
+                <div class="card-body">
+                    <p class="card-title fs-5"> FirmName : @Html.DisplayFor(modelItem =>item.FirmName) </p>
+                    <p class="card-title fs-5"> AppointmentDate : @Html.DisplayFor(modelItem =>item.AppointmentDate)</p>
+                    <p class="card-title fs-5"> TimeSlot :@Html.DisplayFor(modelItem => item.TimeSlot) </p>
+                    <p class="card-title fs-5"> Firm Address : @Html.DisplayFor(modelItem =>item.Address,item.City) </p>
+                    <p class="card-title fs-5"> Firm Contect Number: @Html.DisplayFor(modelItem =>item.MobileNumber) </p>
+                    <a asp-action="Cancle" onclick="confirm()" asp-route-id="@item.AppointmentId" class="btn btn-danger">Canlce Appointment</a>
+                </div>
             </div>
-        </div>
 
-    }
+        }
+    </div>
+    
 </div>
 
+
+@section Script{
+    <script>
+        function confirm(){
+            alert();
+        }
+    </script>
+}

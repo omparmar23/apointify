@@ -5,40 +5,42 @@
     ViewData["Title"] = "Book";
 }
 
-<h1>Book</h1>
+<section style="background-color : #bdd1f1 !important">
 
-<div class="vh-100">
-    <h4>Appointment</h4>
-    <hr />
-    <div class="card w-50 m-auto p-5">
-
-
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AppointmentDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @ViewBag.AppointmentDate
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TimeSlot)
-        </dt>
-        <dd class = "col-sm-10">
-            @ViewBag.Timeslot
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @_contx.HttpContext.Session.GetString("Name")
-        </dd>
-    </dl>
-        <span class="bg-success d-block text-center text-light font-monospace fs-5"> Your Appointment Is Successfully Booked!!</span>
-
-        <a asp-action="Index" class="btn btn-primary col-2 mt-2 m-auto" asp-controller="Home">Back to Home</a>
-    </div>
-
-
-</div>
 <div>
+    @*<h4>Appointment</h4>
+    <hr />*@
+    <div class="row justify-content-center my-5">
+        <div class="col-md-12 col-lg-4 my-5">
+            <div class="card p-5 my-5">
+
+
+                <dl class="row">
+                    <dt class="col-sm-5">
+                        @Html.DisplayNameFor(model => model.AppointmentDate)
+                    </dt>
+                    <dd class="col-sm-7">
+                        @ViewBag.AppointmentDate
+                    </dd>
+                    <dt class="col-sm-5">
+                        @Html.DisplayNameFor(model => model.TimeSlot)
+                    </dt>
+                    <dd class="col-sm-7">
+                        @ViewBag.Timeslot
+                    </dd>
+                    <dt class="col-sm-5">
+                        @Html.DisplayNameFor(model => model.User)
+                    </dt>
+                    <dd class="col-sm-7">
+                        @_contx.HttpContext.Session.GetString("Name")
+                    </dd>
+                </dl>
+                <span class="d-block text-success font-monospace fs-5"> Your Appointment Is Successfully Booked!!</span>
+
+                <a asp-action="Index" class="btn btn-primary mt-3 m-auto" asp-controller="Home">Back to Home</a>
+            </div>
+
+        </div>
+    </div>
 </div>
+</section>

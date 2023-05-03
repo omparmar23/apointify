@@ -83,7 +83,7 @@ namespace apointify.Controllers
         public IActionResult appointment()
         {
 
-            var appointments = DBEntities.Allappointments.Where( m => m.UserId == Convert.ToInt32(HttpContext.Session.GetString("UserId")) && m.IsDeleted == false);
+            var appointments = DBEntities.Allappointments.Where( m => m.UserId == Convert.ToInt32(HttpContext.Session.GetString("UserId")) && m.IsDeleted == false && m.AppointmentDate >= DateTime.Now.Date);
 
             return View(appointments);
         }
