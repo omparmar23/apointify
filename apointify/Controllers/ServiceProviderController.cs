@@ -21,7 +21,7 @@ namespace apointify.Controllers
       
         public IActionResult Index(int  serviceId)
         {
-            List<FirmDetail> sp = DBEntities.FirmDetails.Where(m => m.ServiceId == serviceId).ToList();
+            List<FirmDetail> sp = DBEntities.FirmDetails.Where(m => m.ServiceId == serviceId && m.City == HttpContext.Session.GetString("City")).ToList();
             return View(sp);
         }
         
