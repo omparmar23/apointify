@@ -41,6 +41,7 @@ namespace apointify.Controllers
                 newappointment.UserId = appointment.UserId;
                 newappointment.AppointmentDate = appointment.AppointmentDate;
                 newappointment.TimeSlot = appointment.TimeSlot;
+                newappointment.BookingInstructions = appointment.BookingInstructions;
                 appointment.FirmId = new int();
                 DBEntities.Appointments.Add(newappointment);
                 DBEntities.SaveChanges();
@@ -83,7 +84,7 @@ namespace apointify.Controllers
         public IActionResult appointment()
         {
 
-            var appointments = DBEntities.Allappointments.Where( m => m.UserId == Convert.ToInt32(HttpContext.Session.GetString("UserId")) && m.IsDeleted == false && m.AppointmentDate >= DateTime.Now.Date);
+            var appointments = DBEntities.Allappointments.Where( m => m.UserId == Convert.ToInt32(HttpContext.Session.GetString("UserId")) && m.AppointmentDate >= DateTime.Now.Date);
 
             return View(appointments);
         }

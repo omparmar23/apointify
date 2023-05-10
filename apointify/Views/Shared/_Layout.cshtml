@@ -69,12 +69,18 @@
                         <li class="nav-item">
                             <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link  text-" asp-area="" asp-controller="Apointment" asp-action="appointment">show my Bookings</a>
+                        </li>
 
                     }
                     @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
                     {
                         <li class="nav-item">
                             <a class="nav-link  text-" asp-area="" asp-controller="Service" asp-action="service">Book An Apoitment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  text-" asp-area="" asp-controller="Apointment" asp-action="appointment">show my Bookings</a>
                         </li>
 
                     }
@@ -88,7 +94,8 @@
             }
             @if (Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 1 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 2 || Convert.ToInt32(_contx.HttpContext.Session.GetString("Role")) == 3)
             {
-                <div class="dropdown ">
+
+                    <div class="dropdown ">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-user"></i><span class="ps-2 text-uppercase">@_contx.HttpContext.Session.GetString("Name")</span>
                     </button>
