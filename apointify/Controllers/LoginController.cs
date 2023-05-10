@@ -1,4 +1,4 @@
-﻿using apointify.Models;
+﻿    using apointify.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using apointify.ExtentionMethods;
@@ -6,6 +6,7 @@ using apointify.VirtualModels;
 using System.Collections.Generic;
 using System.Net.Mail;
 using System.Net;
+using System.Text;
 
 namespace apointify.Controllers
 {
@@ -210,34 +211,48 @@ namespace apointify.Controllers
             return View();
         }
 
+
+
+
+        
+
         [HttpPost]
         public ActionResult ForgotPassword(string EmailID)
         {
             /*string resetCode = Guid.NewGuid().ToString();
             var verifyUrl = "/Account/ResetPassword/" + resetCode;
-            var link = "https://localhost:7248/Login/ForgotPassword/" + EmailID;
+            
             Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);*/
             using (var context = new OmParmarContext())
             {
                 var getUser = (from s in context.Users where s.Email == EmailID select s).FirstOrDefault();
                 if (getUser != null)
                 {
-                    
+
                     var password = getUser.Password;
+                    Random otp = new Random();
+                    int otp1 = otp.Next(1000, 9999);
+
 
                     //This line I have added here to avoid confirm password not match issue , as we had added a confirm password property 
 
                     /*context.Configuration.ValidateOnSaveEnabled = false;*/
-
+                    StringBuilder msg = new StringBuilder();
+                    msg.AppendLine($"Hello {getUser.Name}");
+                    msg.AppendLine("You recently requested to reset your password for your account.Your Current password is");
+                    msg.AppendLine($"email : {getUser.Email}");
+                    msg.AppendLine($"OTP : {otp1}");
                     var subject = "Password Reset Request";
-                    var body = "Hi " + getUser.Name + ", <br/> You recently requested to reset your password for your account.Your Current password is " +
+                    //var body = "Hello" + getUser.Name +
+                    //            ",<br/>You recently requested to reset your password for your account.Your Current password is " +
+                    //            password + " <br/><br/>" +"If you did not request a password reset, please ignore this email or reply to let us know.<br/><br/> Thank you";
 
-                          password + " <br/><br/>" +
-                         "If you did not request a password reset, please ignore this email or reply to let us know.<br/><br/> Thank you";
 
-                    SendEmail(getUser.Email, body, subject);
-
-                    ViewBag.Message = " Password has been sent to your email address.";
+                    string bodyWithOtp = msg.ToString();
+                    SendEmail(getUser.Email, bodyWithOtp, subject);
+                    ViewBag.Message = "Password has been sent to your email address.";
+                    ViewBag.msg = otp1;
+                    return View();
                 }
                 else
                 {
@@ -245,10 +260,7 @@ namespace apointify.Controllers
                     return View();
                 }
             }
-
-            return View();
         }
-
         private void SendEmail(string emailAddress, string body, string subject)
         {
             using (MailMessage mm = new System.Net.Mail.MailMessage("youremail@gmail.com", emailAddress))
@@ -271,5 +283,27 @@ namespace apointify.Controllers
             }
 
         }
+
+
+
+        [HttpGet]
+        public ActionResult reset(string email)
+        {
+            
+            
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult reset(string password,string email)
+        {
+            User resetUser = DBEntities.Users.Where(m => m.Email == email).FirstOrDefault();
+            resetUser.Password = password;
+            DBEntities.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
     }
 }
