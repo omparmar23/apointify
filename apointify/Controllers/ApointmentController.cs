@@ -95,5 +95,18 @@ namespace apointify.Controllers
             DBEntities.SaveChanges();
             return RedirectToAction("appointment");
         }
+
+        [HttpGet,Route("api/Allappointment")]
+        public List<Allappointment>  Lsit()
+        {
+            List<Allappointment> user = new List<Allappointment>();
+            using(DBEntities = new OmParmarContext())
+            {
+                var data = DBEntities.Allappointments.ToList();
+                user = data;
+            }
+           
+			return user;
+		}
     }
 }
