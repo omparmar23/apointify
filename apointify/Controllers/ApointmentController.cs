@@ -114,44 +114,28 @@ namespace apointify.Controllers
         }
 
         [HttpGet,Route("api/Allappointment")]
-        public List<Allappointment>  Lsit()
+        public ServiceResponse<List<Allappointment>> Allappointment()
         {
-            List<Allappointment> user = new List<Allappointment>();
-            using(DBEntities = new OmParmarContext())
+            ServiceResponse<List<Allappointment>> serviceReponse = new ServiceResponse<List<Allappointment>>();
+
+            try
             {
-                var data = DBEntities.Allappointments.ToList();
-                user = data;
+                using (DBEntities = new OmParmarContext())
+                {
+                    var data = DBEntities.Allappointments.Where(m=> m.UserId == Convert.ToInt32(HttpContext.Session.GetString("UserId")) || m.FirmId == Convert.ToInt32(HttpContext.Session.GetString("UserId"))).ToList();
+                    serviceReponse.data = data;
+                    serviceReponse.status_code = "200";
+                    serviceReponse.message = "Data Fetched successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                //serviceReponse.data = false;
+                serviceReponse.status_code = "000";
+                serviceReponse.message = "Exception: " + ex.Message.ToString();
             }
            
 			return user;
 		}
-
-
-
-
-
-
-        public void SendEmail(string emailAddress, string body, string subject)
-        {
-            using (MailMessage mm = new System.Net.Mail.MailMessage("youremail@gmail.com", emailAddress))
-            {
-                mm.Subject = subject;
-                mm.Body = body;
-
-                mm.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new System.Net.NetworkCredential("tarwin1272@gmail.com", "fkhblvjiimwjfmmc");
-                /*NetworkCred.Domain = ".com";
-                */
-                /*smtp.UseDefaultCredentials = true;*/
-                smtp.Credentials = NetworkCred;
-                smtp.Port = 587;
-                smtp.Send(mm);
-
-            }
-
-        }
     }
 }
