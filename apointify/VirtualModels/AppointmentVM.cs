@@ -25,6 +25,10 @@ namespace apointify.VirtualModels
 
         public DateTime? UpdatedDate { get; set; }
 
+
+        public string? BookingInstructions { get; set; }
+
+
         public bool? IsDeleted { get; set; }
 
         public virtual FirmDetail? Firm { get; set; }

@@ -13,5 +13,5 @@ public partial class UsersTable
 
     public string Password { get; set; } = null!;
 
-    public virtual ICollection<WatchlistTable> WatchlistTables { get; } = new List<WatchlistTable>();
+    public virtual ICollection<WatchlistTable> WatchlistTables { get; set; } = new List<WatchlistTable>();
 }

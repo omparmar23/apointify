@@ -3,6 +3,8 @@ using apointify.VirtualModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
+
 namespace apointify.Controllers
 {
     public class ApointmentController : Controller
@@ -21,8 +23,8 @@ namespace apointify.Controllers
         }
         public IActionResult bookings()
         {
-
-
+          
+           
             return View();
         }
 
@@ -39,6 +41,7 @@ namespace apointify.Controllers
                 newappointment.UserId = appointment.UserId;
                 newappointment.AppointmentDate = appointment.AppointmentDate;
                 newappointment.TimeSlot = appointment.TimeSlot;
+                newappointment.BookingInstructions = appointment.BookingInstructions;
                 appointment.FirmId = new int();
                 DBEntities.Appointments.Add(newappointment);
                 DBEntities.SaveChanges();
@@ -77,5 +80,34 @@ namespace apointify.Controllers
 
             return serviceReponse;
         }
+
+        public IActionResult appointment()
+        {
+
+            var appointments = DBEntities.Allappointments.Where( m => m.UserId == Convert.ToInt32(HttpContext.Session.GetString("UserId")) && m.AppointmentDate >= DateTime.Now.Date);
+
+            return View(appointments);
+        }
+
+        public IActionResult Cancle(int id)
+        {
+            var dbObject = DBEntities.Appointments.Where(m => m.AppointmentId == id).FirstOrDefault();
+            dbObject.IsDeleted = true;
+            DBEntities.SaveChanges();
+            return RedirectToAction("appointment");
+        }
+
+        [HttpGet,Route("api/Allappointment")]
+        public List<Allappointment>  Lsit()
+        {
+            List<Allappointment> user = new List<Allappointment>();
+            using(DBEntities = new OmParmarContext())
+            {
+                var data = DBEntities.Allappointments.ToList();
+                user = data;
+            }
+           
+			return user;
+		}
     }
 }

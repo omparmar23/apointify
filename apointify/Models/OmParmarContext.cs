@@ -15,6 +15,8 @@ public partial class OmParmarContext : DbContext
     {
     }
 
+    public virtual DbSet<Allappointment> Allappointments { get; set; }
+
     public virtual DbSet<Appointment> Appointments { get; set; }
 
     public virtual DbSet<ApproxNumber> ApproxNumbers { get; set; }
@@ -41,11 +43,17 @@ public partial class OmParmarContext : DbContext
 
     public virtual DbSet<Img> Imgs { get; set; }
 
-    public virtual DbSet<NewAppointment> NewAppointments { get; set; }
+    public virtual DbSet<NewCustomer> NewCustomers { get; set; }
+
+    public virtual DbSet<NewSalesman> NewSalesmen { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
 
+    public virtual DbSet<OrderLog> OrderLogs { get; set; }
+
     public virtual DbSet<Orderdetail> Orderdetails { get; set; }
+
+    public virtual DbSet<OrdersTable> OrdersTables { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
 
@@ -56,6 +64,8 @@ public partial class OmParmarContext : DbContext
     public virtual DbSet<ServiceProvider> ServiceProviders { get; set; }
 
     public virtual DbSet<StocksTable> StocksTables { get; set; }
+
+    public virtual DbSet<TestTran> TestTrans { get; set; }
 
     public virtual DbSet<TotalOrder> TotalOrders { get; set; }
 
@@ -77,6 +87,52 @@ public partial class OmParmarContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Allappointment>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("allappointment");
+
+            entity.Property(e => e.AppointmentDate)
+                .HasColumnType("date")
+                .HasColumnName("Appointment Date");
+            entity.Property(e => e.BookingInstructions)
+                .HasMaxLength(100)
+                .HasColumnName("bookingInstructions");
+            entity.Property(e => e.City)
+                .HasMaxLength(30)
+                .IsUnicode(false);
+            entity.Property(e => e.FirmAddress)
+                .HasMaxLength(40)
+                .IsUnicode(false)
+                .HasColumnName("firmAddress");
+            entity.Property(e => e.FirmEmail)
+                .HasMaxLength(40)
+                .IsUnicode(false)
+                .HasColumnName("firmEmail");
+            entity.Property(e => e.FirmMobile)
+                .HasMaxLength(12)
+                .IsUnicode(false)
+                .HasColumnName("firmMobile");
+            entity.Property(e => e.FirmName)
+                .HasMaxLength(40)
+                .IsUnicode(false)
+                .HasColumnName("firmName");
+            entity.Property(e => e.TimeSlot).HasPrecision(2);
+            entity.Property(e => e.UserEmail)
+                .HasMaxLength(200)
+                .IsUnicode(false)
+                .HasColumnName("userEmail");
+            entity.Property(e => e.UserMobile)
+                .HasMaxLength(12)
+                .IsUnicode(false)
+                .HasColumnName("userMobile");
+            entity.Property(e => e.Usersname)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("usersname");
+        });
+
         modelBuilder.Entity<Appointment>(entity =>
         {
             entity.HasKey(e => e.AppointmentId).HasName("PK__Appointm__8ECDFCC2542E25A3");
@@ -86,6 +142,9 @@ public partial class OmParmarContext : DbContext
             entity.Property(e => e.AppointmentDate)
                 .HasColumnType("date")
                 .HasColumnName("Appointment Date");
+            entity.Property(e => e.BookingInstructions)
+                .HasMaxLength(100)
+                .HasColumnName("bookingInstructions");
             entity.Property(e => e.InsertDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
@@ -378,69 +437,45 @@ public partial class OmParmarContext : DbContext
                 .HasColumnName("imgpath");
         });
 
-        modelBuilder.Entity<NewAppointment>(entity =>
+        modelBuilder.Entity<NewCustomer>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToView("newAppointment");
+            entity.HasKey(e => e.CustomerId).HasName("PK__NewCusto__CD65CB85FC0B308A");
 
-            entity.Property(e => e.Address)
-                .HasMaxLength(30)
-                .IsUnicode(false);
-            entity.Property(e => e.AppointmentDate)
-                .HasColumnType("datetime")
-                .HasColumnName("Appointment Date");
+            entity.Property(e => e.CustomerId)
+                .ValueGeneratedNever()
+                .HasColumnName("customer_id");
             entity.Property(e => e.City)
-                .HasMaxLength(30)
-                .IsUnicode(false);
-            entity.Property(e => e.Email)
-                .HasMaxLength(200)
-                .IsUnicode(false);
-            entity.Property(e => e.FirmName)
-                .HasMaxLength(50)
+                .HasMaxLength(10)
                 .IsUnicode(false)
-                .HasColumnName("Firm Name");
-            entity.Property(e => e.FirmOwnerName)
-                .HasMaxLength(50)
+                .HasColumnName("city");
+            entity.Property(e => e.CustName)
+                .HasMaxLength(14)
                 .IsUnicode(false)
-                .HasColumnName("Firm OwnerName");
-            entity.Property(e => e.InsertDate).HasColumnType("datetime");
-            entity.Property(e => e.MobileNumber)
-                .HasMaxLength(12)
-                .IsUnicode(false);
+                .HasColumnName("cust_name");
+            entity.Property(e => e.Grade).HasColumnName("grade");
+            entity.Property(e => e.SalesmanId).HasColumnName("salesman_id");
+        });
+
+        modelBuilder.Entity<NewSalesman>(entity =>
+        {
+            entity.HasKey(e => e.SalesmanId).HasName("PK__NewSales__A8A8389FB8FC8D14");
+
+            entity.ToTable("NewSalesman");
+
+            entity.Property(e => e.SalesmanId)
+                .ValueGeneratedNever()
+                .HasColumnName("salesman_id");
+            entity.Property(e => e.City)
+                .HasMaxLength(8)
+                .IsUnicode(false)
+                .HasColumnName("city");
+            entity.Property(e => e.Commission)
+                .HasColumnType("numeric(4, 2)")
+                .HasColumnName("commission");
             entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.Password)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.ServiceId).HasColumnName("serviceID");
-            entity.Property(e => e.ServiceName)
-                .HasMaxLength(30)
-                .IsUnicode(false);
-            entity.Property(e => e.ServiceProviderCity)
-                .HasMaxLength(20)
+                .HasMaxLength(10)
                 .IsUnicode(false)
-                .HasColumnName("ServiceProvider_City");
-            entity.Property(e => e.ServiceProviderEmail)
-                .HasMaxLength(200)
-                .IsUnicode(false);
-            entity.Property(e => e.ServiceProviderMobileNumber)
-                .HasMaxLength(12)
-                .IsUnicode(false)
-                .HasColumnName("ServiceProvider_MobileNumber");
-            entity.Property(e => e.ServiceProviderUsername)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("ServiceProvider_Username");
-            entity.Property(e => e.ServiceType)
-                .HasMaxLength(20)
-                .IsUnicode(false)
-                .HasColumnName("serviceType");
-            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
-            entity.Property(e => e.Username)
-                .HasMaxLength(20)
-                .IsUnicode(false);
+                .HasColumnName("name");
         });
 
         modelBuilder.Entity<Order>(entity =>
@@ -462,6 +497,25 @@ public partial class OmParmarContext : DbContext
             entity.HasOne(d => d.Employee).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.EmployeeId)
                 .HasConstraintName("FK__Orders__Employee__74AE54BC");
+        });
+
+        modelBuilder.Entity<OrderLog>(entity =>
+        {
+            entity.HasKey(e => e.LogId).HasName("PK__orderLog__7839F62D1764F68F");
+
+            entity.ToTable("orderLog");
+
+            entity.Property(e => e.LogId).HasColumnName("logID");
+            entity.Property(e => e.Action)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.Amount)
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("amount");
+            entity.Property(e => e.Store)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.UpdatedOn).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<Orderdetail>(entity =>
@@ -486,6 +540,29 @@ public partial class OmParmarContext : DbContext
             entity.HasOne(d => d.Order).WithMany(p => p.Orderdetails)
                 .HasForeignKey(d => d.OrderId)
                 .HasConstraintName("FK__Orderdeta__Order__787EE5A0");
+        });
+
+        modelBuilder.Entity<OrdersTable>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__OrdersTa__3214EC2755911565");
+
+            entity.ToTable("OrdersTable", tb =>
+                {
+                    tb.HasTrigger("trgEmployeeDelete");
+                    tb.HasTrigger("trgEmployeeUpdate");
+                    tb.HasTrigger("trgOrderInsert");
+                });
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Amount)
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("amount");
+            entity.Property(e => e.Date)
+                .HasColumnType("datetime")
+                .HasColumnName("date");
+            entity.Property(e => e.Store)
+                .HasMaxLength(20)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -624,6 +701,18 @@ public partial class OmParmarContext : DbContext
             entity.HasOne(d => d.Company).WithMany(p => p.StocksTables)
                 .HasForeignKey(d => d.CompanyId)
                 .HasConstraintName("FK__Stocks_Ta__compa__0F624AF8");
+        });
+
+        modelBuilder.Entity<TestTran>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Test_Tra__3214EC07B6B4D623");
+
+            entity.ToTable("Test_Tran");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.TestName)
+                .HasMaxLength(20)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<TotalOrder>(entity =>

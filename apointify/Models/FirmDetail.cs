@@ -31,7 +31,7 @@ public partial class FirmDetail
 
     public bool? IsDeleted { get; set; }
 
-    public virtual ICollection<Appointment> Appointments { get; } = new List<Appointment>();
+    public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
     public virtual Service Service { get; set; } = null!;
 

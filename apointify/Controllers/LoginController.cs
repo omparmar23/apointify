@@ -1,10 +1,12 @@
-﻿using apointify.Models;
+﻿    using apointify.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using apointify.ExtentionMethods;
 using apointify.VirtualModels;
 using System.Collections.Generic;
-
+using System.Net.Mail;
+using System.Net;
+using System.Text;
 
 namespace apointify.Controllers
 {
@@ -72,6 +74,7 @@ namespace apointify.Controllers
                         user.UserId = Convert.ToInt32(rdr["UserId"]);
                         user.MobileNumber = rdr["MobileNumber"].ToString();
                         user.Name = rdr["Name"].ToString();
+                        user.City = rdr["City"].ToString();
 
 
                     }
@@ -90,6 +93,7 @@ namespace apointify.Controllers
                     _contx.HttpContext.Session.SetString("Role", Convert.ToString(user.Role));
                     _contx.HttpContext.Session.SetString("UserId", Convert.ToString(user.UserId));
                     _contx.HttpContext.Session.SetString("mobile", user.MobileNumber);
+                    _contx.HttpContext.Session.SetString("City", user.City);
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -136,6 +140,14 @@ namespace apointify.Controllers
                     dbObject.City = user.City;
                     dbObject.UpdatedDate = DateTime.Now;
                     DBEntities.SaveChanges();
+
+                    _contx.HttpContext.Session.SetString("Email", dbObject.Email);
+                    _contx.HttpContext.Session.SetString("Password", dbObject.Password);
+                    _contx.HttpContext.Session.SetString("Name", dbObject.Name);
+                    _contx.HttpContext.Session.SetString("Role", Convert.ToString(dbObject.Role));
+                    _contx.HttpContext.Session.SetString("UserId", Convert.ToString(dbObject.UserId));
+                    _contx.HttpContext.Session.SetString("mobile", dbObject.MobileNumber);
+                    _contx.HttpContext.Session.SetString("City", dbObject.City);
                     return RedirectToAction("UserProfile", new { Id = user.UserId });
                 }
 
@@ -166,7 +178,15 @@ namespace apointify.Controllers
                     dbObject.City = user.City;
                     dbObject.UpdatedDate = DateTime.Now;
                     DBEntities.SaveChanges();
-                    return RedirectToAction("UserProfile", "Apointment");
+
+                    _contx.HttpContext.Session.SetString("Email", dbObject.Email);
+                    _contx.HttpContext.Session.SetString("Password", dbObject.Password);
+                    _contx.HttpContext.Session.SetString("Name", dbObject.Name);
+                    _contx.HttpContext.Session.SetString("Role", Convert.ToString(dbObject.Role));
+                    _contx.HttpContext.Session.SetString("UserId", Convert.ToString(dbObject.UserId));
+                    _contx.HttpContext.Session.SetString("mobile", dbObject.MobileNumber);
+                    _contx.HttpContext.Session.SetString("City", dbObject.City);
+                    return RedirectToAction("UserProfile", new { Id = user.UserId });
                 }
 
             }
@@ -183,6 +203,106 @@ namespace apointify.Controllers
 
             return View(dbObject);
 
+        }
+
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+
+
+
+        
+
+        [HttpPost]
+        public ActionResult ForgotPassword(string EmailID)
+        {
+            /*string resetCode = Guid.NewGuid().ToString();
+            var verifyUrl = "/Account/ResetPassword/" + resetCode;
+            
+            Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);*/
+            using (var context = new OmParmarContext())
+            {
+                var getUser = (from s in context.Users where s.Email == EmailID select s).FirstOrDefault();
+                if (getUser != null)
+                {
+
+                    var password = getUser.Password;
+                    Random otp = new Random();
+                    int otp1 = otp.Next(1000, 9999);
+
+
+                    //This line I have added here to avoid confirm password not match issue , as we had added a confirm password property 
+
+                    /*context.Configuration.ValidateOnSaveEnabled = false;*/
+                    StringBuilder msg = new StringBuilder();
+                    msg.AppendLine($"Hello {getUser.Name}");
+                    msg.AppendLine("You recently requested to reset your password for your account.Your Current password is");
+                    msg.AppendLine($"email : {getUser.Email}");
+                    msg.AppendLine($"OTP : {otp1}");
+                    var subject = "Password Reset Request";
+                    //var body = "Hello" + getUser.Name +
+                    //            ",<br/>You recently requested to reset your password for your account.Your Current password is " +
+                    //            password + " <br/><br/>" +"If you did not request a password reset, please ignore this email or reply to let us know.<br/><br/> Thank you";
+
+
+                    string bodyWithOtp = msg.ToString();
+                    SendEmail(getUser.Email, bodyWithOtp, subject);
+                    ViewBag.Message = "Password has been sent to your email address.";
+                    ViewBag.msg = otp1;
+                    return View();
+                }
+                else
+                {
+                    ViewBag.Message = "User doesn't exists.";
+                    return View();
+                }
+            }
+        }
+        private void SendEmail(string emailAddress, string body, string subject)
+        {
+            using (MailMessage mm = new System.Net.Mail.MailMessage("youremail@gmail.com", emailAddress))
+            {
+                mm.Subject = subject;
+                mm.Body = body;
+
+                mm.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                NetworkCredential NetworkCred = new System.Net.NetworkCredential("tarwin1272@gmail.com", "fkhblvjiimwjfmmc");
+                /*NetworkCred.Domain = ".com";
+                */
+                /*smtp.UseDefaultCredentials = true;*/
+                smtp.Credentials = NetworkCred;
+                smtp.Port = 587;
+                smtp.Send(mm);
+
+            }
+
+        }
+
+
+
+        [HttpGet]
+        public ActionResult reset(string email)
+        {
+            
+            
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult reset(string password,string email)
+        {
+            User resetUser = DBEntities.Users.Where(m => m.Email == email).FirstOrDefault();
+            resetUser.Password = password;
+            DBEntities.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
     }

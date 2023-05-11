@@ -13,5 +13,5 @@ public partial class StocksTable
 
     public virtual CompanyTable? Company { get; set; }
 
-    public virtual ICollection<TransactionsTable> TransactionsTables { get; } = new List<TransactionsTable>();
+    public virtual ICollection<TransactionsTable> TransactionsTables { get; set; } = new List<TransactionsTable>();
 }

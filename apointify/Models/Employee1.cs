@@ -31,5 +31,5 @@ public partial class Employee1
 
     public DateTime? InsertedDate { get; set; }
 
-    public virtual ICollection<Order> Orders { get; } = new List<Order>();
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }
