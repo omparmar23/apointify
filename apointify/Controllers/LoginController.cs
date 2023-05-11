@@ -29,6 +29,9 @@ namespace apointify.Controllers
             _configuration = configuration;
             Constr = _configuration.GetConnectionString("Default");
         }
+
+      
+
         public IActionResult Index()
         {
 
@@ -261,7 +264,7 @@ namespace apointify.Controllers
                 }
             }
         }
-        private void SendEmail(string emailAddress, string body, string subject)
+        public void SendEmail(string emailAddress, string body, string subject)
         {
             using (MailMessage mm = new System.Net.Mail.MailMessage("youremail@gmail.com", emailAddress))
             {
@@ -289,9 +292,6 @@ namespace apointify.Controllers
         [HttpGet]
         public ActionResult reset(string email)
         {
-            
-            
-
             return View();
         }
 
