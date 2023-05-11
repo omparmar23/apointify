@@ -98,16 +98,29 @@ namespace apointify.Controllers
         }
 
         [HttpGet,Route("api/Allappointment")]
-        public List<Allappointment>  Lsit()
+        public ServiceResponse<List<Allappointment>> Allappointment()
         {
-            List<Allappointment> user = new List<Allappointment>();
-            using(DBEntities = new OmParmarContext())
+            ServiceResponse<List<Allappointment>> serviceReponse = new ServiceResponse<List<Allappointment>>();
+
+            try
             {
-                var data = DBEntities.Allappointments.ToList();
-                user = data;
+                using (DBEntities = new OmParmarContext())
+                {
+                    var data = DBEntities.Allappointments.Where(m=> m.UserId == Convert.ToInt32(HttpContext.Session.GetString("UserId")) || m.FirmId == Convert.ToInt32(HttpContext.Session.GetString("UserId"))).ToList();
+                    serviceReponse.data = data;
+                    serviceReponse.status_code = "200";
+                    serviceReponse.message = "Data Fetched successfully";
+                }
             }
-           
-			return user;
-		}
+            catch (Exception ex)
+            {
+                //serviceReponse.data = false;
+                serviceReponse.status_code = "000";
+                serviceReponse.message = "Exception: " + ex.Message.ToString();
+            }
+
+
+            return serviceReponse;
+        }
     }
 }
