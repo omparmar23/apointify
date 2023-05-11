@@ -1,9 +1,11 @@
 ﻿@using apointify.Models
 @model IEnumerable<apointify.Models.Appointment>
 @{
+
     ViewData["Title"] = "today's Appointment";
 }
 
+@*
 @section Css{
     <style>
 		.codyhouse {
@@ -11,7 +13,7 @@
   margin: 40px 0;
 }
 /* reset css */
-/* https://meyerweb.com/eric/tools/css/reset/ 
+/* https://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -25,8 +27,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -37,7 +39,7 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, main {
 	display: block;
 }
@@ -61,7 +63,7 @@ table {
 }
 
 /* style css */
-/* -------------------------------- 
+/* --------------------------------
 
 Primary style
 
@@ -86,9 +88,9 @@ a {
   text-decoration: none;
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
-Main Components 
+Main Components
 
 -------------------------------- */
 .cd-schedule {
@@ -673,7 +675,7 @@ Main Components
 
 
 <section class="vh-100">
-   
+
 	<div class="cd-schedule loading">
 		<div class="timeline">
 			<ul>
@@ -913,15 +915,15 @@ Main Components
 
 
 @section Script{
-  
+
 <script>
                     $(document).ready(function($){
 	var transitionEnd = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
 	var transitionsSupported = ( $('.csstransitions').length > 0 );
 	//if browser does not support transitions - use a different event to trigger them
 	if( !transitionsSupported ) transitionEnd = 'noTransition';
-	
-	//should add a loding while the events are organized 
+
+	//should add a loding while the events are organized
 
 	function SchedulePlan( element ) {
 		this.element = element;
@@ -940,8 +942,8 @@ Main Components
 		this.modal = this.element.find('.event-modal');
 		this.modalHeader = this.modal.find('.header');
 		this.modalHeaderBg = this.modal.find('.header-bg');
-		this.modalBody = this.modal.find('.body'); 
-		this.modalBodyBg = this.modal.find('.body-bg'); 
+		this.modalBody = this.modal.find('.body');
+		this.modalBodyBg = this.modal.find('.body-bg');
 		this.modalMaxWidth = 800;
 		this.modalMaxHeight = 480;
 
@@ -1012,7 +1014,7 @@ Main Components
 
 			var eventTop = self.eventSlotHeight*(start - self.timelineStart)/self.timelineUnitDuration,
 				eventHeight = self.eventSlotHeight*duration/self.timelineUnitDuration;
-			
+
 			$(this).css({
 				top: (eventTop -1) +'px',
 				height: (eventHeight+1)+'px'
@@ -1064,7 +1066,7 @@ Main Components
 
 			var modalTranslateX = parseInt((windowWidth - modalWidth)/2 - eventLeft),
 				modalTranslateY = parseInt((windowHeight - modalHeight)/2 - eventTop);
-			
+
 			var HeaderBgScaleY = modalHeight/eventHeight,
 				BodyBgScaleX = (modalWidth - eventWidth);
 
@@ -1099,7 +1101,7 @@ Main Components
 				width: eventWidth+'px',
 			});
 			transformElement(self.modalHeaderBg, 'scaleY('+HeaderBgScaleY+')');
-			
+
 			self.modalHeaderBg.one(transitionEnd, function(){
 				//wait for the  end of the modalHeaderBg transformation and show the modal content
 				self.modalHeaderBg.off(transitionEnd);
@@ -1146,7 +1148,7 @@ Main Components
 				height: eventHeight+'px'
 			});
 			transformElement(self.modal, 'translateX('+modalTranslateX+'px) translateY('+modalTranslateY+'px)');
-			
+
 			//scale down modalBodyBg element
 			transformElement(self.modalBodyBg, 'scaleX(0) scaleY(1)');
 			//scale down modalHeaderBg element
@@ -1174,7 +1176,7 @@ Main Components
 	}
 
 	SchedulePlan.prototype.mq = function(){
-		//get MQ value ('desktop' or 'mobile') 
+		//get MQ value ('desktop' or 'mobile')
 		var self = this;
 		return window.getComputedStyle(this.element.get(0), '::before').getPropertyValue('content').replace(/["']/g, '');
 	};
@@ -1187,8 +1189,8 @@ Main Components
 		if( mq == 'mobile' ) {
 			//reset modal style on mobile
 			self.modal.add(self.modalHeader).add(self.modalHeaderBg).add(self.modalBody).add(self.modalBodyBg).attr('style', '');
-			self.modal.removeClass('no-transition');	
-			self.animating = false;	
+			self.modal.removeClass('no-transition');
+			self.animating = false;
 		} else if( mq == 'desktop' && self.element.hasClass('modal-is-open') ) {
 			self.modal.addClass('no-transition');
 			self.element.addClass('animation-completed');
@@ -1240,7 +1242,7 @@ Main Components
 
 			setTimeout(function(){
 				self.modal.removeClass('no-transition');
-				self.animating = false;	
+				self.animating = false;
 			}, 20);
 		}
 	};
@@ -1248,7 +1250,7 @@ Main Components
 	var schedules = $('.cd-schedule');
 	var objSchedulesPlan = [],
 		windowResize = false;
-	
+
 	if( schedules.length > 0 ) {
 		schedules.each(function(){
 			//create SchedulePlan objects
@@ -1297,6 +1299,78 @@ Main Components
 	}
 });
                 </script>
+
+
+			}*@
+
+<div id="calendar" class="container my-5"></div>
+
+@section Script{
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#calendar").fullCalendar({
+                height: 500,
+                header: {
+                    left: 'prev next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
+                },
+                buttonText: {
+                    today: 'Today',
+                    month: 'Month',
+                    basicWeek: 'Week',
+                    basicDay: 'Day'
+                },
+                selectable: true,
+                weekends: false,
+
+				events:[
+					{
+						title:"helo",
+						start: '2023-05-23T14: 30: 00',
+
+					}
+				],
 				
-			
-			}
+
+                defaultView: "month",
+       //         events: function () {
+       //             $.ajax({
+       //                 type: "GET",
+       //                 contentType: "application/json",
+       //                 dataType: "JSON",
+       //                 url: '@Url.Action("List","Apointment")',
+       //                 success: function (data) {
+							//var events = [];
+       //                     $.each(data, function (i, data) {
+       //                         for (j of data) {
+
+       //                             events.push(
+       //                                 {
+							//				title: j.appointmentId,
+							//				description: j.firmId, 
+							//				//start: moment(j.appointmentDate).format("YYYY-MM-d") +"T"+ (j.timeSlot),
+							//				start: '2023-05-23T14: 30: 00',
+							//				backgroundcolor: '#d05985',
+       //                                     bordercolor: 'black',
+       //                                     id: j.userId
+       //                                 });
+       //                         }
+       //                     });
+                            
+       //                     console.log(data);
+       //                 }
+       //             })
+
+       //         }
+
+
+            });
+        });
+    </script>
+}
