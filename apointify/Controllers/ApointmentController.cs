@@ -135,7 +135,34 @@ namespace apointify.Controllers
                 serviceReponse.message = "Exception: " + ex.Message.ToString();
             }
            
-			return user;
+			return serviceReponse;
 		}
+
+
+
+
+
+        public void SendEmail(string emailAddress, string body, string subject)
+        {
+            using (MailMessage mm = new System.Net.Mail.MailMessage("youremail@gmail.com", emailAddress))
+            {
+                mm.Subject = subject;
+                mm.Body = body;
+
+                mm.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                NetworkCredential NetworkCred = new System.Net.NetworkCredential("tarwin1272@gmail.com", "fkhblvjiimwjfmmc");
+                /*NetworkCred.Domain = ".com";
+                */
+                /*smtp.UseDefaultCredentials = true;*/
+                smtp.Credentials = NetworkCred;
+                smtp.Port = 587;
+                smtp.Send(mm);
+
+            }
+
+        }
     }
 }
