@@ -26,7 +26,7 @@
                             start: moment(value.appointmentDate).format("YYYY-MM-D") + "T" + (value.timeSlot),
                             backgroundColor: 'green',
 
-                            allDay:true,
+                            allDay: true,
 
                         });
                     })
@@ -38,8 +38,8 @@
             });
 
             function GenerateCalender(events) {
-                $("#calendar").fullCalendar('destroy');
-                $("#calendar").fullCalendar({
+                $("#calendar").fullcalendar('destroy');
+                $("#calendar").fullCalendar({   
                     contentHeight: 544,
                     editable: false,
                     header: {
@@ -48,8 +48,8 @@
                         right: 'month,basicWeek,basicDay'
                     },
                     eventLimit: true,
-                   
-                    eventBorderColor:"black",
+
+                    eventBorderColor: "black",
                     buttonText: {
                         today: 'Today',
                         month: 'Month',
@@ -60,9 +60,9 @@
                     weekends: false,
                     events: events,
                     defaultView: "month",
-                    eventClick: function (info) {
-                        alert('Event: ' + info.description);
-                    },
+                    //eventClick: function (info) {
+                    //    alert('Event: ' + info.description);
+                    //},
                     eventRender: function (eventObj, $el) {
                         $el.popover({
                             title: eventObj.title,

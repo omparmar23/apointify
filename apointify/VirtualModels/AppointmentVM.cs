@@ -25,7 +25,8 @@ namespace apointify.VirtualModels
 
         public DateTime? UpdatedDate { get; set; }
 
-
+        [Display(Name = "Description*")]
+        [Required(ErrorMessage = "Description is Required.")]
         public string? BookingInstructions { get; set; }
 
 
