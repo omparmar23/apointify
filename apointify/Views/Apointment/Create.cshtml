@@ -77,6 +77,18 @@
 
         $('#AppointmentDate').on("change", function () {
 
+             var appointmentdate = $("#AppointmentDate").val() + "T00:00:00";
+
+            var date = new Date(appointmentdate);
+            var dayOfWeek = date.getDay();
+
+            if ((dayOfWeek === 6) || (dayOfWeek === 0))// 6 = Saturday, 0 = Sunday
+            {
+                alert("Please Choose Other Day For Appointment.");
+                $("#AppointmentDate").val(' ');
+            }
+            else{}
+
             function remove(data) {
                 for (i of Object.values(data)) {
                     for (j of i) {
@@ -85,7 +97,7 @@
                     }
                 }
             }
-            var appointmentdate = $("#AppointmentDate").val() + "T00:00:00";
+           
             var TimeSlot = $("#TimeSlot").val();
             var FirmId = @ViewBag.Id;
 
