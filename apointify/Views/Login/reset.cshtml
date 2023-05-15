@@ -1,4 +1,6 @@
-﻿@{
+﻿@model apointify.VirtualModels.resetVM
+
+@{
     ViewBag.Title = "Reset Password";
 }
 
@@ -8,95 +10,78 @@
         <h2>Forgot Password</h2>
         <div class="form-horizontal">
             <hr />
-            <div class="text-success">
-                @ViewBag.Message
-            </div>
-            <div class="form-group py-2 px-3">
-                <label class="control-label col-md-12 my-2">Enter New password</label>
-                @Html.TextBox("password", "" , new { @class="form-control" , @id = "password"})
-                <span class="validation text-danger">Passwords must:<br>Be over 8 characters<br>Contain at least 1 Uppercase character<br>Contain lowercase character<br>Include a number <br>Include a special character</span>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
 
+                @Html.LabelFor(model => model.Password)
+            <div class="form-group py-2 px-3 d-flex">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } } )
+                    <span class="input-group-text border-0 rounded-9" >
+                    <i class="fa fa-eye-slash icon" id="show_password"></i>
+                </span>
             </div>
-            <div class="form-group py-2 px-3">
-                <label class="control-label col-md-12 my-2">Confirm Password</label>
-                <input type="text" id="confirm_password" class="form-control" />
-                <span class="validation text-danger">Please confirm your password</span>
+                @Html.ValidationMessageFor(model =>model.Password ,"",new { @class = "text-danger" })
             </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConfirmPassword)
+            <div class="form-group py-2 px-3 d-flex">
+                    @Html.EditorFor(model => model.ConfirmPassword , new { htmlAttributes = new { @class = "form-control" } })
+                    <span class="input-group-text border-0 rounded-9" >
+                    <i class="fa fa-eye-slash iconc" id="show_Confirmpassword"></i>
+                </span>
+            </div>
+                @Html.ValidationMessageFor(model => model.ConfirmPassword,"" ,new { @class = "text-danger" })
+        </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Submit" onclick="test_str" class="btn btn-success" />
-
-
+                    <input type="submit" value="Submit" onclick="test_str" class="btn btn-success"/>
                 </div>
             </div>
         </div>
     </div>
 
 }
+
+@section Css{
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+}
+
 @section Script{
-    <script type="text/javascript">
-        var $password = $("#password");
-        var $confirmPassword = $("#confirm_password");
-        //Uppercase and number check variables
-        var upperCase = new RegExp('[A-Z]');
-        var numbers = new RegExp('[0-9]');
-        var special = new RegExp("^(?=.[!#$%^&])");
-        var lowercase = new RegExp("^(?=.*[a-z])");
 
-        $('.validation').hide();
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 
-        //Password rules
-        function isPasswordValid() {
-            //Check length and then check that password has an uppercase
-            return $password.val().length > 8 &&
-                $password.val().match(upperCase) &&
-                $password.val().match(numbers) &&
-                $password.val().match(special) &&
-                $password.val().match(lowercase);
-        }
+    <script>
+        $('#show_password').hover(function show() {
+            //Change the attribute to text
+            $('#Password').attr('type', 'text');
+            $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        },
+            function () {
+                //Change the attribute back to password
+                $('#Password').attr('type', 'password');
+                $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+            });
 
-        function arePasswordsMatching() {
-            return $password.val() === $confirmPassword.val();
-        }
-
-        //Can submit
-        function canSubmit() {
-            return isPasswordValid() && arePasswordsMatching();
-        }
-
-        //Check password is over 8 characters
-        function passwordEvent() {
-
-            if (isPasswordValid()) {
-                $password.next().hide();
-            } else {
-                $password.next().show();
-            }
-        }
-
-        //Check Passwords match
-        function confirmPasswordEvent() {
-
-            if (arePasswordsMatching()) {
-                $confirmPassword.next().hide();
-            } else {
-                $confirmPassword.next().show();
-            }
-        }
-        //Enable or disablethe submit button
-        function enableSubmitEvent() {
-            $('input[type=submit]').prop("disabled", !canSubmit());
-        }
-
-        //Run passwords length check
-        $password.focus(passwordEvent).keyup(passwordEvent).keyup(confirmPasswordEvent).keyup(enableSubmitEvent);
-
-        //Run passwords match check
-        $confirmPassword.focus(confirmPasswordEvent).keyup(confirmPasswordEvent).keyup(enableSubmitEvent);
-
-        //Run submit button function code
-        enableSubmitEvent();
-
+        $('#show_Confirmpassword').hover(function show() {
+            //Change the attribute to text
+            $('#ConfirmPassword').attr('type', 'text');
+            $('.iconc').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        },
+            function () {
+                //Change the attribute back to password
+                $('#ConfirmPassword').attr('type', 'password');
+                $('.iconc').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+            });
     </script>
 }
