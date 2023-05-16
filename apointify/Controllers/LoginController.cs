@@ -1,4 +1,4 @@
-﻿    using apointify.Models;
+﻿using apointify.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using apointify.ExtentionMethods;
@@ -30,7 +30,7 @@ namespace apointify.Controllers
             Constr = _configuration.GetConnectionString("Default");
         }
 
-      
+
 
         public IActionResult Index()
         {
@@ -211,13 +211,18 @@ namespace apointify.Controllers
         [HttpGet]
         public ActionResult ForgotPassword()
         {
+            if (TempData["shortMessage"] != null)
+            {
+                ViewBag.alartMessage = TempData["Message"].ToString();
+                return View();
+            }
             return View();
         }
 
 
 
 
-        
+
 
         [HttpPost]
         public ActionResult ForgotPassword(string EmailID)
@@ -231,7 +236,7 @@ namespace apointify.Controllers
                 var getUser = (from s in context.Users where s.Email == EmailID select s).FirstOrDefault();
                 if (getUser != null)
                 {
-
+                        
                     var password = getUser.Password;
                     Random otp = new Random();
                     int otp1 = otp.Next(1000, 9999);
@@ -253,15 +258,16 @@ namespace apointify.Controllers
 
                     string bodyWithOtp = msg.ToString();
                     SendEmail(getUser.Email, bodyWithOtp, subject);
-                    ViewBag.Message = "Password has been sent to your email address.";
+                    ViewBag.Message = "OTP has been sent to your email address.";
                     ViewBag.msg = otp1;
                     return View();
                 }
                 else
                 {
-                    ViewBag.Message = "User doesn't exists.";
+                    ViewBag.alartMessage = "User doesn't exists.";
                     return View();
                 }
+
             }
         }
         public void SendEmail(string emailAddress, string body, string subject)
@@ -292,11 +298,20 @@ namespace apointify.Controllers
         [HttpGet]
         public ActionResult reset(string email)
         {
-            return View();
+
+            if (email == null)
+            {
+                TempData["Message"] = "Please Enter The Email address.";
+                return RedirectToAction("ForgotPassword");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
-        public ActionResult reset(string password,string email)
+        public ActionResult reset(string password, string email)
         {
             User resetUser = DBEntities.Users.Where(m => m.Email == email).FirstOrDefault();
             resetUser.Password = password;
