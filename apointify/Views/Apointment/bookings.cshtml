@@ -38,7 +38,7 @@
             });
 
             function GenerateCalender(events) {
-                $("#calendar").fullcalendar('destroy');
+                $("#calendar").fullCalendar('destroy');
                 $("#calendar").fullCalendar({   
                     contentHeight: 544,
                     editable: false,
@@ -54,7 +54,7 @@
                         today: 'Today',
                         month: 'Month',
                         basicWeek: 'Week',
-                        basicDay: 'Day'
+                        basicDay: 'Day' 
                     },
                     selectable: true,
                     weekends: false,
