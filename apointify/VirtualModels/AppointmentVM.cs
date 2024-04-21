@@ -13,12 +13,18 @@ namespace apointify.VirtualModels
 
         [Display(Name = "Appointment Date*")]
         [DataType(DataType.Date)]
+        
         public DateTime AppointmentDate { get; set; }
 
         /*[EnumDataType(typeof(TimeSlot))]*/
 
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:HH-mm-ss}", ApplyFormatInEditMode = true)]
+
+        [Display(Name = "Description*")]
+        [Required(ErrorMessage = "Description is Required.")]
+        public string? BookingInstructions { get; set; }
+
         public TimeSpan TimeSlot { get; set; }
 
         public DateTime? InsertDate { get; set; }

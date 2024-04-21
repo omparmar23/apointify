@@ -51,7 +51,7 @@
                     
                         <div class="form-group">
                             <label asp-for="ServiceId" class="control-label"></label>
-                            <select asp-for="ServiceId" onclick="test()" class="form-control">
+                            <select asp-for="ServiceId" class="form-control">
                                 <option value="0" selected disabled>Selected</option>
                                 <option value="1">Health And Care</option>
                                 <option value="2">Hair Salon</option>
@@ -114,12 +114,12 @@
 <script type="text/javascript">
 
 
-    function test() {
+    $("#ServiceId").change(function () {
 
         var x = ($('#ServiceId :selected').val());
         console.log(x);
         if (x == "1") {
-            ($('#ServiceType')).html(`<option value = '' Selected disabled> Select </option><option value ='Doctor'>Doctor</option><option value ='Chemist'>Chemist</option>`);
+            ($('#ServiceType')).html(`<option value = '' Selected disabled> Select </option><option value    ='Doctor'>Doctor</option><option value ='Chemist'>Chemist</option>`);
 
         }
         else if (x == "2") {
@@ -127,7 +127,7 @@
             ($('#ServiceType')).html(`<option value = '' Selected disabled> Select </option> <option value =  'Hair'>Hair </option><option value ='Beauty Salon'>beauty salon </option>`);
         }
         else if (x == "3") {
-            ($('#ServiceType')).html(`<option value = 'Restaurants' Selected disabled>Restaurants</option>`);
+            ($('#ServiceType')).html(`<option value = '' Selected disabled>select</option> <option value = 'Restaurants' >Restaurants</option>`);
 
         }
         else if (x == "4") {
@@ -138,7 +138,8 @@
         else if (x = "5") {
             ($('#ServiceType')).html(`<option value = '' Selected disabled > Select </option> <option value ='Care Taker'> Care Taker </option><option value =  'Pet Doctor'>Pet Doctor</option>`);
         }
-    }
+    });
+
 </script>
 
 

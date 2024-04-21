@@ -5,31 +5,30 @@ using System.Net;
 
 namespace apointify.Controllers
 {
-    
+
     public class UserController : ControllerBase
     {
 
         OmParmarContext DBEntities = new OmParmarContext();
-        [HttpGet, Route("api/GetUserDetails")]
-        public ServiceResponse<List<UsersTable>> Get()
+        [HttpGet, Route("api/User")]
+        public List<User> Get()
         {
-            ServiceResponse<List<UsersTable>> serviceReponse = new ServiceResponse<List<UsersTable>>();
+            List<User> serviceReponse = new List<User>();
             try
             {
-                using (DBEntities = new OmParmarContext())
-                {
-                    var user = DBEntities.UsersTables.ToList();
-                    serviceReponse.data = user;
-                    serviceReponse.status_code = "200";
-                    serviceReponse.message = "Data Fetched successfully";
-                }
-            }
-            catch (Exception ex)
+            using (DBEntities = new OmParmarContext())
             {
-                //serviceReponse.data = false;
-                serviceReponse.status_code = "000";
-                serviceReponse.message = "Exception: " + ex.Message.ToString();
+                var data = DBEntities.Users.ToList();
+                serviceReponse = data;
             }
+
+            }
+
+            catch (Exception ex)
+             {
+                 //serviceReponse.data = false;
+                 Console.WriteLine(ex.Message);
+             }
             return serviceReponse;
         }
     }

@@ -7,11 +7,7 @@ public partial class Service
 {
     public int ServiceId { get; set; }
 
-    public string? ServiceName { get; set; }
+    public string ServiceName { get; set; } = null!;
 
     public string? Img { get; set; }
-
-    public virtual ICollection<FirmDetail> FirmDetails { get; } = new List<FirmDetail>();
-
-    public virtual ICollection<ServiceProvider> ServiceProviders { get; } = new List<ServiceProvider>();
 }

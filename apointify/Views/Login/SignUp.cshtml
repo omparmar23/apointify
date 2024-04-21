@@ -26,77 +26,82 @@
 
 </head>
 <body class="img js-fullheight min-vh-100" style="background-image: url(https://img.freepik.com/free-photo/flat-lay-clean-office-desk_23-2148219267.jpg?w=1480&t=st=1681797799~exp=1681798399~hmac=88db34d536f31dd4cdae9c9e094e1fc0474e5246940a2046a9a536ea13332b48);">
-  
-        <div class="container-fluid ">
 
-            <div class="row justify-content-end">
-                <div class="col-md-12 col-lg-5">
+    <div class="container-fluid ">
+
+        <div class="row justify-content-end">
+            <div class="col-md-12 col-lg-5">
                 <div class="  create my-5 card px-5 rounded-3" style="background-color:#ffffff26 ; margin-right:150px;">
 
-                        <div class="login-wrap p-0">
-                            <h2 class=" mt-4 text-white text-center">Enter details</h2>
-                            <form asp-action="Upload" asp-controller="Upload" method="post" enctype="multipart/form-data">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="form-group">
-                                    <label asp-for="Role" class="control-label"></label>
-                                    <select asp-for="Role" class="form-control text-dark">
-                                        <option value="0" selected disabled>Register As</option>
-                                        <option value="1">Service-Provider</option>
-                                        <option value="2">User</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Name" class="control-label"></label>
-                                    <input asp-for="Name" class="form-control" placeholder="Enter Your Name" />
-                                    <span asp-validation-for="Name" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Username" class="control-label"></label>
-                                    <input asp-for="Username" class="form-control" placeholder="Enter Your UserName" />
-                                    <span asp-validation-for="Name" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Email" class="control-label"></label>
-                                    <input asp-for="Email" class="form-control" placeholder="Enter Your Email" />
-                                    <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="MobileNumber" class="control-label"></label>
-                                    <input asp-for="MobileNumber" class="form-control" placeholder="Enter Your Mobile Number" />
-                                    <span asp-validation-for="MobileNumber" class="text-danger"></span>
-                                </div>
+                    <div class="login-wrap p-0">
+                        <h2 class=" mt-4 text-white text-center">Enter details</h2>
+                        <form asp-action="Upload" asp-controller="Upload" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group">
-
-                                    <label asp-for="Password" class="control-label"></label>
+                                <label asp-for="Role" class="control-label"></label>
+                                <select asp-for="Role" class="form-control text-dark">
+                                    <option value="0" selected disabled>Register As</option>
+                                    <option value="1">Service-Provider</option>
+                                    <option value="2">User</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" class="form-control" placeholder="Enter Your Name" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Username" class="control-label"></label>
+                                <input asp-for="Username" class="form-control" placeholder="Enter Your UserName" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label"></label>
+                                <input asp-for="Email" class="form-control" onfocusout="CheckEmail()" placeholder="Enter Your Email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                                <span class="text-danger" id="sameEmail"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="MobileNumber" class="control-label"></label>
+                                <input asp-for="MobileNumber" class="form-control" placeholder="Enter Your Mobile Number" />
+                                <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="City" class="control-label"></label>
+                                <input asp-for="City" class="form-control" placeholder="Enter Your City" />
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password" class="control-label"></label>
                                 <div class="input-group">
-                                <input asp-for="Password" class=" after form-control" placeholder="Password" /> <span></span>
+                                    <input asp-for="Password" class=" after form-control" placeholder="Password"/>
                                     <span class="input-group-text border-0 rounded-9" style=" background: rgba(255, 255, 255, 0.08);border-top-right-radius: 50px;border-bottom-right-radius: 50px">
-                                    <i class="fa fa-eye-slash icon" id="show_password"></i>
-                                </span>
+                                        <i class="fa fa-eye-slash icon" id="show_password"></i>
+                                    </span>
                                 </div>
-                                    <span asp-validation-for="Password" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Confirm Password</label>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Confirm Password</label>
                                 <div class="input-group">
                                     <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
-                                <span class="input-group-text border-0 rounded-9" style=" background: rgba(255, 255, 255, 0.08);border-top-right-radius: 50px;border-bottom-right-radius: 50px">
-                                    <i class="fa fa-eye-slash iconc" id="show_Confirmpassword"></i>
-                                  </span>
+                                    <span class="input-group-text border-0 rounded-9" style=" background: rgba(255, 255, 255, 0.08);border-top-right-radius: 50px;border-bottom-right-radius: 50px">
+                                        <i class="fa fa-eye-slash iconc" id="show_Confirmpassword"></i>
+                                    </span>
                                 </div>
-                                    <span asp-validation-for=" ConfirmPassword" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Sign up" asp-controller="Login" asp-action="createUser" class="btn btn-primary mb-3" />
-                                </div>
-                            </form>
-                        </div>
+                                <span asp-validation-for=" ConfirmPassword" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" id="submit" value="Sign up" asp-controller="Login" asp-action="createUser" class="btn btn-primary mb-3" />
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-    
+
 
     <script>
         $('#show_password').hover(function show() {
@@ -121,6 +126,33 @@
                 $('.iconc').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
             });
 
+            
+
+        function CheckEmail() {
+
+            var conunt = 0;
+            var email = $("#Email").val();
+            $.ajax({
+                url: '@Url.Action("Get","User")',
+                type: 'GET',
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    
+                    for (i of data) {
+                        if (i.email == email) {
+                            $("#sameEmail").html("This Email is Already Registered.");
+                            $("#submit").attr("disabled", true);
+                            conunt = conunt + 1;
+                        }
+                    }
+                    if (conunt == 0) {
+                        $("#sameEmail").html(" ");
+                        $("#submit").attr("disabled", false);
+                    }
+                }
+            });
+        }
     </script>
 
 
@@ -128,7 +160,5 @@
 </body>
 </html>
 @{
-
-
     await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }

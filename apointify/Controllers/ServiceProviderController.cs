@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
-using ServiceProvider = apointify.Models.ServiceProvider;
 
 namespace apointify.Controllers
 {
@@ -21,7 +20,7 @@ namespace apointify.Controllers
       
         public IActionResult Index(int  serviceId)
         {
-            List<FirmDetail> sp = DBEntities.FirmDetails.Where(m => m.ServiceId == serviceId).ToList();
+            List<FirmDetail> sp = DBEntities.FirmDetails.Where(m => m.ServiceId == serviceId && m.City == HttpContext.Session.GetString("City")).ToList();
             return View(sp);
         }
         

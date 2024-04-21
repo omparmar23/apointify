@@ -1,0 +1,79 @@
+﻿@model apointify.VirtualModels.resetVM
+@{
+    ViewBag.Title = "Reset Password";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="container w-25 form-control my-5 p-5">
+        <h2>Forgot Password</h2>
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.Password)
+                <div class="form-group py-2 px-3 d-flex">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } } )
+                    <span class="input-group-text border-0 rounded-9">
+                        <i class="fa fa-eye-slash icon" id="show_password"></i>
+                    </span>
+                </div>
+                @Html.ValidationMessageFor(model =>model.Password ,"",new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConfirmPassword)
+                <div class="form-group py-2 px-3 d-flex">
+                    @Html.EditorFor(model => model.ConfirmPassword , new { htmlAttributes = new { @class = "form-control" } })
+                    <span class="input-group-text border-0 rounded-9">
+                        <i class="fa fa-eye-slash iconc" id="show_Confirmpassword"></i>
+                    </span>
+                </div>
+                @Html.ValidationMessageFor(model => model.ConfirmPassword,"" ,new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Submit" onclick="test_str" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section Css{
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+}
+
+@section Script{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $('#show_password').hover(function show() {
+            //Change the attribute to text
+            $('#Password').attr('type', 'text');
+            $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        },
+            function () {
+                //Change the attribute back to password
+                $('#Password').attr('type', 'password');
+                $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+            });
+        $('#show_Confirmpassword').hover(function show() {
+            //Change the attribute to text
+            $('#ConfirmPassword').attr('type', 'text');
+            $('.iconc').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        },
+            function () {
+                //Change the attribute back to password
+                $('#ConfirmPassword').attr('type', 'password');
+                $('.iconc').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+            });
+    </script>
+}

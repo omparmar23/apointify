@@ -1,0 +1,157 @@
+﻿@model IEnumerable<apointify.Models.Service>;
+
+@{
+    ViewData["Title"] = "Service";
+}
+
+
+
+
+<div class="card bg-dark text-danger m-auto w-25">
+    <h1 class="text-danger text-center">Our Services</h1>
+</div>
+
+<div class="container m-auto">
+    @foreach (var item in Model)
+    {
+
+
+        <div class="card">
+            <div class="card-image">
+                <img src="@Html.DisplayFor(modelItem => item.Img)" class="img-thumbnail">
+            </div>
+            <div class="card-text">
+                <h2 class="card-title">@Html.DisplayFor(modelItem => item.ServiceName)</h2>
+                <p class="card-body fs-6 p-0" id="name_@Html.DisplayFor(modelItem => item.ServiceId)"></p>
+            </div>
+            <div class="card-price">
+                <a asp-controller="Firm" class="text-dark" asp-action="Index" asp-route-id="@item.ServiceId">Show</a>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+@section Css{
+
+    <style>
+
+
+        @@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,900;1,400;1,900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', serif;
+        }
+
+        body {
+            background: url(https://images.unsplash.com/22/brick-wall.JPG?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODZ8fGJhY2tncm91bmR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60) 100% 100% !important;
+            background-size: initial !important;
+            background-position: right;
+            background-attachment: fixed;
+        }
+
+
+
+
+        #innerheader {
+            margin: 20px;
+        }
+
+            #innerHeader > h1 {
+                text-align: center;
+                font-size: 3rem;
+            }
+
+            #innerHeader > p {
+                text-align: center;
+                font-size: 1.5rem;
+                font-style: italic;
+            }
+
+        .container {
+            width: 100vw;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 40px 20px;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+            margin-bottom: 60px;
+        }
+
+            .card > div {
+                box-shadow: 0 15px 20px 0 rgba(0,0,0,0.5);
+            }
+
+        .card-image {
+            width: 400px;
+            height: 250px;
+        }
+
+            .card-image > img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: bottom;
+            }
+
+        .card-text {
+            margin: -30px auto;
+            margin-bottom: -50px;
+            height: 300px;
+            width: 300px;
+            background-color: #1D1C20;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .card-meal-type {
+            font-style: italic;
+        }
+
+        .card-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            margin-top: 5px;
+        }
+
+        .card-body {
+            font-size: 1.25rem;
+        }
+
+        .card-price {
+            width: 100px;
+            height: 100px;
+            background-color: #970C0A;
+            color: #fff;
+            margin-left: auto;
+            font-size: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    </style>
+}
+
+@section Script{
+    <script>
+
+
+        $("#name_1").html("Consult with the Best Heart Surgeons at Hospitals Near You, providing best Assistance to Patients. 24/7 Ambulance · Best Healthcare Service · Multispeciality Hospital · Get Assured Price cost");
+        $("#name_2").html("We have India's best unisex salons with 10+ years of excellence in beauty services and entrepreneurship opportunities. We have curated hair care, skincare, makeup and spa services for the modern man");
+        $("#name_3").html("any business that allows customers to enter the premises, order food, and eat that food on the premises can be considered part of the restaurant industry,");
+        $("#name_4").html("Be fit with the Best fitness trainer at gym Near You. We Have a Dedicated trainers and they gives best training. Be fit and Be active. Anytime Gym.");
+        $("#name_5").html("Best pet care if you are looking for veterinary doctors, online vet consultation, online pet stores & other pet care services. Find best veterinary and pet service near you. we serve pets of every type, age, and phase of life because we truly love animals.");
+
+
+    </script>
+}

@@ -40,8 +40,8 @@ namespace apointify.Controllers
         OmParmarContext _dbcontext = new OmParmarContext();
 
         HttpClient hc = new HttpClient();
-        private static List<UsersTable> userdetail = new List<UsersTable>();
-        private static List<Employee> EmployeeDetailList = new List<Employee>();
+        //private static List<UsersTable> userdetail = new List<UsersTable>();
+        //private static List<Employee> EmployeeDetailList = new List<Employee>();
         RestClient restClient;
 
         private string apiBaseUrl = "https://localhost:7248/api";

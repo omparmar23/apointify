@@ -4,12 +4,16 @@ using Microsoft.Data.SqlClient;
 using apointify.ExtentionMethods;
 using apointify.VirtualModels;
 using System.Collections.Generic;
-
+using System.Net.Mail;
+using System.Net;
+using System.Text;
 
 namespace apointify.Controllers
 {
     public class LoginController : Controller
     {
+        OmParmarContext DBEntities = new OmParmarContext();
+
         private readonly IHttpContextAccessor _contx;
         public interface ILoginValidation
         {
@@ -28,7 +32,7 @@ namespace apointify.Controllers
         }
         public IActionResult Index()
         {
-           
+
             return View();
         }
         public IActionResult SignUp()
@@ -63,7 +67,7 @@ namespace apointify.Controllers
 
                     while (rdr.Read())
                     {
-                        
+
                         //user.UserId = Convert.ToInt32(rdr["userId"]);
                         user.Email = rdr["Email"].ToString();
                         user.Password = rdr["Password"].ToString();
@@ -71,25 +75,28 @@ namespace apointify.Controllers
                         user.UserId = Convert.ToInt32(rdr["UserId"]);
                         user.MobileNumber = rdr["MobileNumber"].ToString();
                         user.Name = rdr["Name"].ToString();
+                        user.City = rdr["City"].ToString();
+                        user.IsDeleted = Convert.ToBoolean(rdr["IsDeleted"]);
 
-                        
+
                     }
                 }
                 //_contx.HttpContext.Session.;
-              if (user.UserId == 0)
+                if (user.UserId == 0 || user.IsDeleted == true)
                 {
                     ViewBag.message = "Please Enter Valid Email and Password.";
                     return View("Index");
                 }
                 else
                 {
-					_contx.HttpContext.Session.SetString("Email", user.Email);
-					_contx.HttpContext.Session.SetString("Password", user.Password);
-					_contx.HttpContext.Session.SetString("Name", user.Name);
-					_contx.HttpContext.Session.SetString("Role", Convert.ToString(user.Role));
-					_contx.HttpContext.Session.SetString("UserId", Convert.ToString(user.UserId));
-					_contx.HttpContext.Session.SetString("mobile", user.MobileNumber);
-					return RedirectToAction("Index", "Home");
+                    _contx.HttpContext.Session.SetString("Email", user.Email);
+                    _contx.HttpContext.Session.SetString("Password", user.Password);
+                    _contx.HttpContext.Session.SetString("Name", user.Name);
+                    _contx.HttpContext.Session.SetString("Role", Convert.ToString(user.Role));
+                    _contx.HttpContext.Session.SetString("UserId", Convert.ToString(user.UserId));
+                    _contx.HttpContext.Session.SetString("mobile", user.MobileNumber);
+                    _contx.HttpContext.Session.SetString("City", user.City);
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch (Exception)
@@ -98,16 +105,9 @@ namespace apointify.Controllers
             }
         }
 
-        public IActionResult newa()
-        {
-            return RedirectToAction("Index", "Login");
-        }
-
-
 
         public IActionResult createUser(UserVM user)
         {
-            OmParmarContext DBEntities = new OmParmarContext();
             if (user.Role == 1)
             {
                 User users = DBEntities.Users.Where(m => m.UserId == user.UserId).FirstOrDefault();
@@ -125,18 +125,27 @@ namespace apointify.Controllers
                 }
                 else
                 {
-                    User dbObject = new User();
-                    //dbObject.Role = user.Role;
+                    var dbObject = DBEntities.Users.Where(m => m.UserId == user.UserId).FirstOrDefault();
+                    dbObject.Role = user.Role;
                     dbObject.Username = user.Username;
                     dbObject.Name = user.Name;
                     dbObject.Email = user.Email;
                     dbObject.Password = user.Password;
                     dbObject.MobileNumber = user.MobileNumber;
                     dbObject.City = user.City;
+                    dbObject.UpdatedDate = DateTime.Now;
                     DBEntities.SaveChanges();
-                    return RedirectToAction("CreateFirm", "ServiceProvider");
+
+                    _contx.HttpContext.Session.SetString("Email", dbObject.Email);
+                    _contx.HttpContext.Session.SetString("Password", dbObject.Password);
+                    _contx.HttpContext.Session.SetString("Name", dbObject.Name);
+                    _contx.HttpContext.Session.SetString("Role", Convert.ToString(dbObject.Role));
+                    _contx.HttpContext.Session.SetString("UserId", Convert.ToString(dbObject.UserId));
+                    _contx.HttpContext.Session.SetString("mobile", dbObject.MobileNumber);
+                    _contx.HttpContext.Session.SetString("City", dbObject.City);
+                    return RedirectToAction("UserProfile", new { Id = user.UserId });
                 }
-                
+
             }
             else
             {
@@ -154,7 +163,7 @@ namespace apointify.Controllers
                 }
                 else
                 {
-                    User dbObject = new User();
+                    var dbObject = DBEntities.Users.Where(m => m.UserId == user.UserId).FirstOrDefault();
                     dbObject.Role = user.Role;
                     dbObject.Username = user.Username;
                     dbObject.Name = user.Name;
@@ -162,10 +171,20 @@ namespace apointify.Controllers
                     dbObject.Password = user.Password;
                     dbObject.MobileNumber = user.MobileNumber;
                     dbObject.City = user.City;
+                    dbObject.UpdatedDate = DateTime.Now;
                     DBEntities.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+
+                    _contx.HttpContext.Session.SetString("Email", dbObject.Email);
+                    _contx.HttpContext.Session.SetString("Password", dbObject.Password);
+                    _contx.HttpContext.Session.SetString("Name", dbObject.Name);
+                    _contx.HttpContext.Session.SetString("Role", Convert.ToString(dbObject.Role));
+                    _contx.HttpContext.Session.SetString("UserId", Convert.ToString(dbObject.UserId));
+                    _contx.HttpContext.Session.SetString("mobile", dbObject.MobileNumber);
+                    _contx.HttpContext.Session.SetString("City", dbObject.City);
+
+                    return RedirectToAction("UserProfile", new { Id = user.UserId });
                 }
-                
+
             }
 
 
@@ -173,7 +192,114 @@ namespace apointify.Controllers
 
         }
 
+        public IActionResult UserProfile(int Id)
+        {
+            var dbObject = DBEntities.Users.Where(m => m.UserId == Id).FirstOrDefault();
 
+            return View(dbObject);
+
+        }
+
+        public IActionResult Delete(int Id)
+        {
+            var dbObject = DBEntities.Users.Where(m => m.UserId == Id).FirstOrDefault();
+            dbObject.IsDeleted = true;
+            DBEntities.SaveChanges();
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
+
+        }
+
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            if (TempData["Message"] != null)
+            {
+                ViewBag.alartMessage = TempData["Message"].ToString();
+                return View();
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(string EmailID)
+        {
+            using (var context = new OmParmarContext())
+            {
+                var getUser = (from s in context.Users where s.Email == EmailID select s).FirstOrDefault();
+                if (getUser != null)
+                {
+
+
+                    Random otp = new Random();
+
+                    int otp1 = otp.Next(1000, 9999);
+
+
+                    StringBuilder msg = new StringBuilder();
+                    msg.AppendLine($"Hello {getUser.Name}");
+                    msg.AppendLine("You recently requested to reset your password for your account.<br><br>");
+                    msg.AppendLine($"Here is Your Email Id : <b>{getUser.Email}</b><br>");
+                    msg.AppendLine($"And OTP Is : <b>{otp1}</b><br>");
+                    var subject = "Password Reset Request";
+
+                    string bodyWithOtp = msg.ToString();
+                    SendEmail(getUser.Email, bodyWithOtp, subject);
+                    ViewBag.Message = "OTP has been sent to your email address.";
+                    ViewBag.msg = otp1;
+                    return View();
+                }
+                else
+                {
+                    ViewBag.alartMessage = "User doesn't exists.";
+                    return View();
+                }
+            }
+        }
+
+        private void SendEmail(string emailAddress, string body, string subject)
+        {
+            using (MailMessage mm = new System.Net.Mail.MailMessage("youremail@gmail.com", emailAddress))
+            {
+                mm.Subject = subject;
+                mm.Body = body;
+
+                mm.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                NetworkCredential NetworkCred = new System.Net.NetworkCredential("tarwin1272@gmail.com", "fkhblvjiimwjfmmc");
+                smtp.Credentials = NetworkCred;
+                smtp.Port = 587;
+                smtp.Send(mm);
+
+            }
+
+        }
+
+        [HttpGet]
+        public ActionResult reset(string email)
+        {
+            if (email == null)
+            {
+                TempData["Message"] = "Please Enter The Email address.";
+                return RedirectToAction("ForgotPassword");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult reset(string password, string email)
+        {
+            User resetUser = DBEntities.Users.Where(m => m.Email == email).FirstOrDefault();
+            resetUser.Password = password;
+            DBEntities.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
 
     }
 }
