@@ -14,22 +14,24 @@ namespace apointify.Controllers
         public List<User> Get()
         {
             List<User> serviceReponse = new List<User>();
-            try
+            
+                using (DBEntities = new OmParmarContext())
+                {
+                    var data = DBEntities.Users.ToList();
+                    serviceReponse = data ;
+                    /*serviceReponse.status_code = "200";
+                    serviceReponse.message = "Data Fetched successfully";*/
+                }
+            
+           /* catch (Exception ex)
             {
-            using (DBEntities = new OmParmarContext())
-            {
-                var data = DBEntities.Users.ToList();
-                serviceReponse = data;
-            }
-
-            }
-
-            catch (Exception ex)
-             {
-                 //serviceReponse.data = false;
-                 Console.WriteLine(ex.Message);
-             }
+                //serviceReponse.data = false;
+                serviceReponse.status_code = "000";
+                serviceReponse.message = "Exception: " + ex.Message.ToString();
+            }*/
             return serviceReponse;
         }
+
+        
     }
 }

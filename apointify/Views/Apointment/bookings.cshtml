@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
     <script>
         $(document).ready(function () {
+
             var events = [];
             $.ajax({
                 type: "GET",
@@ -24,7 +25,9 @@
                             description: "Name:<b>" + value.usersname + "</b><br>Moblie Number:<b>" + value.userMobile + "</b><br>TimeSlot :<b>" + value.timeSlot + "</b><br>",
                             start: moment(value.appointmentDate).format("YYYY-MM-D") + "T" + (value.timeSlot),
                             backgroundColor: 'green',
-                            allDay:true,
+
+                            allDay: true,
+
                         });
                     })
                     GenerateCalender(events);
@@ -33,9 +36,10 @@
                     alert('failed');
                 }
             });
+
             function GenerateCalender(events) {
                 $("#calendar").fullCalendar('destroy');
-                $("#calendar").fullCalendar({
+                $("#calendar").fullCalendar({   
                     contentHeight: 544,
                     editable: false,
                     header: {
@@ -44,13 +48,13 @@
                         right: 'month,basicWeek,basicDay'
                     },
                     eventLimit: true,
-                   
-                    eventBorderColor:"black",
+
+                    eventBorderColor: "black",
                     buttonText: {
                         today: 'Today',
                         month: 'Month',
                         basicWeek: 'Week',
-                        basicDay: 'Day'
+                        basicDay: 'Day' 
                     },
                     selectable: true,
                     weekends: false,
@@ -69,8 +73,10 @@
                             container: 'body'
                         });
                     },
+
                 });
             }
         });
     </script>
-}}
+}
+

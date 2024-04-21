@@ -43,13 +43,18 @@
                         <span asp-validation-for="TimeSlot" class="text-danger"></span>
                         <p id="details"></p>
                     </div>
+
                     <div class="form-group mt-4 mb-2">
                         <label asp-for="BookingInstructions" class="control-label mb-2"></label>
-                        <textarea asp-for="BookingInstructions" class="form-control" /></textarea>
+                        <input asp-for="BookingInstructions" class="form-control" />
                         <span asp-validation-for="BookingInstructions" class="text-danger"></span>
                     </div>
+
+
+
+
                     <div class="row">
-                        <input type="submit" id="book" value="Book" asp-action="Book" class="btn btn-primary mb-5 mt-4 py-2" />
+                        <input type="submit" value="Book" asp-action="Book" class="btn btn-primary mb-5 mt-4 py-2" />
                     </div>
                 </form>
             </div>
@@ -68,79 +73,65 @@
     }
 
     <script type="text/javascript">
+
+
         $('#AppointmentDate').on("change", function () {
 
-            var appointmentdate = $("#AppointmentDate").val() + "T00:00:00";
-            var choosedate = new Date(appointmentdate);
-            var dayOfWeek = choosedate.getDay();
+             var appointmentdate = $("#AppointmentDate").val() + "T00:00:00";
+
+            var date = new Date(appointmentdate);
+            var dayOfWeek = date.getDay();
+
             if ((dayOfWeek === 6) || (dayOfWeek === 0))// 6 = Saturday, 0 = Sunday
             {
                 alert("Please Choose Other Day For Appointment.");
                 $("#AppointmentDate").val(' ');
             }
+            else{}
+
+            function remove(data) {
+                for (i of Object.values(data)) {
+                    for (j of i) {
+                        $("#TimeSlot option[value = '" + j.timeSlot + "']").attr('disabled', false);
+                        $("#TimeSlot option[value ='" + j.timeSlot + "']").removeClass("bg-success text-white");
+                    }
+                }
+            }
+           
             var TimeSlot = $("#TimeSlot").val();
             var FirmId = @ViewBag.Id;
-            const currentdate = new Date();
 
-            let currentDay = String(currentdate.getDate()).padStart(2, '0');
+            $.ajax({
+                url: '@Url.Action("List","Apointment")',
+                type: 'GET',
+                dataType: "json",
+                success: function (data) {
+                    //console.log(data);
 
-            let currentMonth = String(currentdate.getMonth() + 1).padStart(2, "0");
 
-            let currentYear = currentdate.getFullYear();
+                    remove(data);
+                    add(data);
 
-            let date = `${currentYear}-${currentMonth}-${currentDay}` + "T00:00:00";
 
-            if (appointmentdate >= date) {
-                function remove(data) {
 
-                    for (i of Object.values(data)) {
-                        for (j of i) {
-                            $("select option[value = '" + j.timeSlot + "']").attr('disabled', false);
-                            $("#TimeSlot option[value ='" + j.timeSlot + "']").removeClass("bg-success text-white");
+                }
+            });
+
+            function add(data) {
+                for (i of Object.values(data)) {
+                    for (j of i) {
+
+                        if (j.appointmentDate == appointmentdate && j.firmId == @ViewBag.Id) {
+
+
+                            $("select option[value = '" + j.timeSlot + "']").attr("disabled", true);
+                            $("#TimeSlot option[value ='" + j.timeSlot + "']").addClass("bg-success text-white");
+
                         }
                     }
                 }
-                $.ajax({
-                    url: '@Url.Action("List","Apointment")',
-                    type: 'GET',
-                    dataType: "json",
-                    success: function (data) {
-                        remove(data);
-                        add(data);
-                    }
-                });
-                function add(data) {
-                    for (i of Object.values(data)) {
-                        for (j of i) {
-                            if (j.appointmentDate == appointmentdate && j.firmId == @ViewBag.Id && j.isDeleted == false) {
-                                $("select option[value = '" + j.timeSlot + "']").attr("disabled", true);
-                                $("#TimeSlot option[value ='" + j.timeSlot + "']").addClass("bg-success text-white");
-                            }
-                        }
-                    }
-                }
-                $("#details").html(`<ul class=" text-success mt-2 m-0"><li>Green Slots are already Booked.</li></ul>`);
-                $("#book").attr("disabled", false);
-
-                $('#TimeSlot').on("change", function () {
-
-                    var time = $("#TimeSlot").val();
-                    var currtime = currentdate.getHours() + ":"
-                        + currentdate.getMinutes() + ":"
-                        + currentdate.getSeconds();
-
-                    if (time >= currtime) {
-                        $("#book").attr("disabled", true);
-                    }
-                });
             }
-            else {
-                $("#details").html("Please Select Valid Date.");
-                $("#details").addClass("text-danger");
-                $("#book").attr("disabled", true);
-            }
-
-
+            $("#details").html(`<ul class=" text-success mt-2 m-0"><li>Green Slots are already Booked.</li></ul>`);
         });
 
     </script>

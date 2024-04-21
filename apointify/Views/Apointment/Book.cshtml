@@ -7,37 +7,40 @@
 
 <section style="background-color : #bdd1f1 !important">
 
-    <div>
-        <div class="row justify-content-center my-5">
-            <div class="col-md-12 col-lg-4 my-5">
-                <div class="card p-5 my-5">
-                    <dl class="row">
-                        <dt class="col-sm-6">
-                            @Html.DisplayNameFor(model => model.AppointmentDate) :
-                        </dt>
-                        <dd class="col-sm-6">
-                            @ViewBag.AppointmentDate
-                        </dd>
-                        <dt class="col-sm-6">
-                            @Html.DisplayNameFor(model => model.TimeSlot) :
-                        </dt>
-                        <dd class="col-sm-6">
-                            @ViewBag.Timeslot
-                        </dd>
-                        
-                        <dt class="col-sm-6">
-                            @Html.DisplayNameFor(model => model.User) :
-                        </dt>
-                        <dd class="col-sm-6">
-                            @_contx.HttpContext.Session.GetString("Name")
-                        </dd>
-                    </dl>
-                    <span class="d-block text-success font-monospace fs-5"> Your Appointment Is Successfully Booked!!</span>
+<div>
+    @*<h4>Appointment</h4>
+    <hr />*@
+    <div class="row justify-content-center my-5">
+        <div class="col-md-12 col-lg-4 my-5">
+            <div class="card p-5 my-5">
 
-                    <a asp-action="Index" class="btn btn-primary col-3x mt-2 m-auto" asp-controller="Home">Back to Home</a>
-                </div>
+
+                <dl class="row">
+                    <dt class="col-sm-5">
+                        @Html.DisplayNameFor(model => model.AppointmentDate)
+                    </dt>
+                    <dd class="col-sm-7">
+                        @ViewBag.AppointmentDate
+                    </dd>
+                    <dt class="col-sm-5">
+                        @Html.DisplayNameFor(model => model.TimeSlot)
+                    </dt>
+                    <dd class="col-sm-7">
+                        @ViewBag.Timeslot
+                    </dd>
+                    <dt class="col-sm-5">
+                        @Html.DisplayNameFor(model => model.User)
+                    </dt>
+                    <dd class="col-sm-7">
+                        @_contx.HttpContext.Session.GetString("Name")
+                    </dd>
+                </dl>
+                <span class="d-block text-success font-monospace fs-5"> Your Appointment Is Successfully Booked!!</span>
+
+                <a asp-action="Index" class="btn btn-primary mt-3 m-auto" asp-controller="Home">Back to Home</a>
             </div>
-        </div>
 
+        </div>
     </div>
+</div>
 </section>

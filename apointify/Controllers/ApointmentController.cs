@@ -1,7 +1,9 @@
 ﻿using apointify.Models;
 using apointify.VirtualModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Net.Mail;
 using System.Net;
 using System.Text;
@@ -24,7 +26,7 @@ namespace apointify.Controllers
             ViewBag.Id = Id;
             return View();
         }
-        
+
         public IActionResult bookings()
         {
 
@@ -56,10 +58,10 @@ namespace apointify.Controllers
 
                 var subject = "Your Appointment Is Confirmed";
                 StringBuilder userEmail_template = new StringBuilder();
-                userEmail_template.AppendLine($"<h2>Hello {userEmail.Name}</h2>")   ;
-                userEmail_template.AppendLine($"<p>This email confirms your appointments for {service.ServiceName} with <b>{firmEmail.FirmName}</b> at <b>{firmEmail.Address}</b> on <b>{appointment.AppointmentDate.ToString("MM/dd/yyyy")}</b> on <b>{appointment.TimeSlot}</b></p> <br>");
+                userEmail_template.AppendLine($"<h1>Hello {userEmail.Name}</h1>");
+                userEmail_template.AppendLine($"<p>This email confirms your appointments for{service.ServiceName}) with{firmEmail.FirmName} at {firmEmail.Address} on{appointment.AppointmentDate} on{appointment.TimeSlot}<p> <br>");
                 userEmail_template.AppendLine($"<br><b>You will get an individual reminder email before each scheduled appointment. If you have questions before your appointment, use the contact details below to get in touch with us.</b>");
-                userEmail_template.AppendLine($"<br><br><br><b>Thanks for scheduling with Business Name!</b>");
+                userEmail_template.AppendLine($"<b>Thanks for scheduling with Business Name!</b>");
 
                 SendEmail(userEmail.Email, Convert.ToString(userEmail_template), subject);
 
@@ -67,12 +69,12 @@ namespace apointify.Controllers
 
 
             }
+      
 
-
-            ViewBag.Timeslot = appointment.TimeSlot;
-            ViewBag.FrimId = appointment.FirmId;
-            ViewBag.AppointmentDate = appointment.AppointmentDate.ToString("dd-MMM-yyyy");
-
+                ViewBag.Timeslot = appointment.TimeSlot;
+                ViewBag.FrimId = appointment.FirmId;
+                ViewBag.AppointmentDate = appointment.AppointmentDate.ToString("dd-MMM-yyyy");
+            
             return View();
         }
 
@@ -163,5 +165,5 @@ namespace apointify.Controllers
             }
 
         }
+        }
     }
-}

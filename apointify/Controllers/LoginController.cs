@@ -47,7 +47,7 @@ namespace apointify.Controllers
 
 
         [HttpPost]
-        public IActionResult ValidateCustomerLogin(UserVM users)
+        public IActionResult ValidateCustomerLogin(User users)
         {
             User user = new User();
             try
